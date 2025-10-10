@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Environment variables
+.env
+.env.local
+.envrc
+
+# Video files (large, generated)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+
+# But keep finals in output/ (use Git LFS)
+!output/**/*.mp4
+
+# Audio files (large)
+*.wav
+*.aiff
+# But keep small assets
+!assets/**/*.mp3
+!assets/**/*.ogg
+
+# Image files (keep assets, ignore large renders)
+episodes/**/renders/**/*.png
+episodes/**/renders/**/*.jpg
+episodes/**/renders/**/*.jpeg
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# API keys and secrets
+secrets.json
+credentials.json
+*.pem
+*.key
+
+# Sora API cache
+.sora_cache/
+
+# Draft renders (keep only finals)
+**/renders/drafts/*.mp4
+**/renders/drafts/*.mov
+
+# Node modules (if using any JS tooling)
+node_modules/
