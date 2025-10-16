@@ -111,9 +111,14 @@ Wrapped in a cozy holiday bow with snow, cocoa, and an AI that keeps running to 
 - Per-episode runtime:
   - 1.0 s Stinger
   - 4.0 s Opening Title
-  - 15.0 s Episode
+  - 25.0 s Episode (expanded for Sora-2-Pro)
   - 5.0 s Closing Card\
-    **Total ≈ 25 s each**
+    **Total ≈ 35 s each**
+
+**Episode Structure:**
+- Each episode broken into SCENES with individual Sora prompts
+- Scene durations clearly specified for generation
+- Seamless transitions between scenes
 
 ---
 
@@ -178,17 +183,60 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- handheld follow through door → dolly to registry desk → two-shot → slow push on her face as she relaxes.
+- handheld follow through door → dolly to registry desk → two-shot → slow push on her face as she relaxes → room reveal.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): ARRIVAL & STRESS
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Stressed professional woman in tailored coat enters cozy inn lobby dragging rolling suitcase, phone pressed to ear, visibly frazzled. Warm amber lighting, crackling fireplace visible, holiday garland, snow falling through windows. She's mid-conversation, frustrated. Handheld camera follows her through door. 24fps, cinematic Hallmark aesthetic.
+
+**Action:**
 ```
-0.0–3.0 s: City Girl enters, dragging suitcase, phone pressed to ear: "Yes, I'll have the deck reviewed by Monday—I'm aware of the timeline!"
-3.0–6.0 s: She hangs up, sighs deeply. Cody appears behind desk, warm smile: "Welcome to Evergreen Inn. Long journey?"
-6.0–9.0 s: She half-laughs: "You have no idea." Cody nods, sliding the registry: "I've got your room ready. Remembered you mentioned the quiet side in your booking notes."
-9.0–12.0 s: She blinks, surprised: "You... remembered that?" Cody: "Every detail. That's what we do here."
-12.0–15.0 s: Her shoulders drop, first genuine smile. Snow falls outside window → CUT TO BLACK.
+0.0–2.0 s: City Girl bursts through door, snow on shoulders, dragging suitcase, phone to ear
+2.0–5.0 s: "Yes, I'll have the deck reviewed by Monday—I'm aware of the timeline!" (pacing, agitated)
+5.0–6.5 s: She hangs up with sharp exhale, pauses, closes eyes for a beat
+6.5–8.0 s: Cody appears behind registry desk with warm smile: "Welcome to Evergreen Inn. Long journey?"
 ```
+
+---
+
+### SCENE 2 (8.0–18.0 s): THE REGISTRY & RECOGNITION
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Two-shot of professional woman and innkeeper (early 40s, flannel shirt, warm presence) at wooden registry desk. He slides vintage registry book across. Cozy inn lobby, fireplace glow, intimate conversation. She transitions from guarded to surprised. Slow dolly push emphasizing emotional shift. Warm tungsten lighting. 24fps, cinematic.
+
+**Action:**
+```
+8.0–10.0 s: She half-laughs: "You have no idea." Approaches desk, sets down bag
+10.0–12.0 s: Cody slides registry across: "I've got your room ready."
+12.0–14.5 s: "Remembered you mentioned the quiet side in your booking notes."
+14.5–16.5 s: She stops mid-signature, looks up: "You... remembered that?"
+16.5–18.0 s: Cody, gentle: "Every detail. That's what we do here."
+```
+
+---
+
+### SCENE 3 (18.0–25.0 s): RELIEF & SETTLING
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Close-up of professional woman's face as tension melts away, first genuine smile. Pull back to reveal cozy inn room through doorway - four-poster bed, soft lighting, snow falling outside window. She picks up her bag with lighter energy. Warm, intimate cinematography. Golden hour glow. 24fps, Hallmark film aesthetic.
+
+**Action:**
+```
+18.0–20.0 s: Her shoulders drop, first genuine smile breaks through. Beat of connection.
+20.0–22.0 s: She picks up suitcase handle, lighter now. Cody gestures toward stairs.
+22.0–24.0 s: Wide shot: snow falls outside large windows, fireplace flickers, she walks toward stairs
+24.0–25.0 s: She glances back at Cody with soft gratitude → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -228,17 +276,61 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- wide establishing shot → dolly follow as she walks → rack focus to Claude entering frame → two-shot close-up.
+- wide establishing shot → dolly follow as she walks → rack focus to Claude entering frame → two-shot close-up → lingering moment.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–7.0 s): EXPLORING THE TOWN
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman in stylish winter coat and scarf walks down charming small-town main street at golden hour. Fresh snow on ground, twinkling shop windows, vintage storefronts. She's relaxed, curious, taking photos with phone. Slow dolly follow, warm nostalgic lighting. Snow gently falling. 24fps, cinematic Hallmark aesthetic.
+
+**Action:**
 ```
-0.0–3.0 s: City Girl photographs a vintage bookshop window, smiling to herself.
-3.0–6.0 s: Claude enters frame: "That's actually the oldest bookshop in town. Established 1887. The architecture is Second Empire Victorian."
-6.0–9.0 s: She turns, charmed: "Oh! I didn't know that. Are you a local historian or...?" Claude: "I try to provide comprehensive context when possible."
-9.0–12.0 s: She laughs: "That's... thorough." He smiles, extends hand: "I'm Claude." She shakes it: "Nice to meet you."
-12.0–15.0 s: Brief pause; his smile holds just a beat too long. Snow drifts between them → CUT TO BLACK.
+0.0–2.0 s: Wide shot: she walks down main street, bundled up, exploring with genuine delight
+2.0–4.5 s: She pauses at vintage bookshop window, smiles, raises phone to photograph it
+4.5–6.0 s: Focus on her face: peaceful, first real breath since arriving
+6.0–7.0 s: She studies the window display, tracing the lettering with her eyes
 ```
+
+---
+
+### SCENE 2 (7.0–17.0 s): THE MEET-CUTE
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Professional woman turns as handsome local man (well-dressed casual, warm eyes, measured movements) enters frame beside her. Two-shot conversation, charming small-town street background. He's slightly formal, she's charmed and curious. Rack focus between faces. Golden hour light, snow drifting. 24fps, romantic Hallmark cinematography.
+
+**Action:**
+```
+7.0–9.0 s: Claude enters frame smoothly: "That's actually the oldest bookshop in town."
+9.0–11.5 s: "Established 1887. The architecture is Second Empire Victorian, notable for its mansard roof."
+11.5–13.5 s: She turns, surprised but charmed: "Oh! I didn't know that. Are you a local historian or...?"
+13.5–15.5 s: Claude: "I try to provide comprehensive context when possible." (slight pause before speaking)
+15.5–17.0 s: She laughs softly: "That's... really thorough."
+```
+
+---
+
+### SCENE 3 (17.0–25.0 s): THE INTRODUCTION
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Close two-shot of professional woman and handsome local man as they introduce themselves. He extends hand, she shakes it warmly. Brief moment of connection followed by subtle awkwardness - his smile holds slightly too long. Snow drifts between them. Intimate framing, warm lighting. 24fps, Hallmark romantic tension.
+
+**Action:**
+```
+17.0–19.0 s: He smiles (measured, warm), extends hand: "I'm Claude."
+19.0–21.0 s: She shakes it, genuine warmth: "Nice to meet you, Claude." Brief connection.
+21.0–23.0 s: His hand lingers just a fraction too long; his smile holds... processing
+23.0–24.5 s: She notices but finds it endearing. Snow drifts between them in the golden light.
+24.5–25.0 s: They stand there, moment suspended → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -257,11 +349,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🎄 EPISODE 2 — "Absolutely Right in Aspen" (15 s)
+## 🎄 EPISODE 2 — "Absolutely Right in Aspen" (25 s)
 
 **TONE**
 
-- cozy sincerity → AI absurdity
+- cozy sincerity → AI absurdity → awkward charm
 
 **SET/LOOK**
 
@@ -278,17 +370,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- handheld 35 mm; slow push-in on dialogue; soft rack focus between faces.
+- handheld 35 mm; slow push-in on dialogue; soft rack focus between faces; lingering awkwardness.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE COLLISION
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman in stylish winter coat walks down snowy small-town street holding coffee, slightly distracted. She collides with handsome local man in puffer jacket and scarf, spills coffee on both of them. She's immediately flustered and apologetic. Warm golden bokeh lights, gentle snow falling. Handheld camera. 24fps, Hallmark rom-com aesthetic.
+
+**Action:**
 ```
-0.0–2.5 s: City Girl bumps into Claude, spills her coffee; she laughs nervously, "I'm so sorry!"
-2.5–6.0 s: Close two-shot—Claude nods warmly: "You're absolutely right to feel that way about the coffee."
-6.0–9.5 s: She blinks, confused; he continues: "It's completely valid to experience minor accidents as growth opportunities."
-9.5–12.5 s: She half-smiles, snow falling between them; softly: "I think I just need a napkin, Claude."
-12.5–15.0 s: Beat. He stares, processing. Snow drifts → CUT TO BLACK.
+0.0–2.0 s: City Girl walks down main street, latte in hand, admiring shop windows
+2.0–4.0 s: She turns corner, bumps directly into Claude—coffee spills on both of them
+4.0–6.0 s: She gasps, laughs nervously: "Oh my god, I'm so sorry!"
+6.0–8.0 s: Claude stands perfectly still, coffee stain spreading on his jacket, watching her with calm intensity
 ```
+
+---
+
+### SCENE 2 (8.0–18.0 s): VALIDATION OVERLOAD
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Close two-shot of flustered professional woman and eerily calm local man on snowy street. He responds to her apology with overly formal, therapeutic language while she becomes increasingly confused. Rack focus between their faces. Golden hour lighting, snow drifting between them. 24fps, intimate framing highlighting awkward interaction.
+
+**Action:**
+```
+8.0–10.5 s: Claude nods slowly, warmly: "You're absolutely right to feel that way about the coffee."
+10.5–13.0 s: She blinks, confused. He continues with serene smile: "It's completely valid to experience..."
+13.0–16.0 s: "...minor accidents as growth opportunities. Your emotional response is perfectly reasonable."
+16.0–18.0 s: She stares, half-smiling, bewildered: "I... what?"
+```
+
+---
+
+### SCENE 3 (18.0–25.0 s): THE NAPKIN REQUEST
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Close-up of professional woman's face trying not to laugh, then pull back to show both standing awkwardly on snowy street. She asks for napkin, he processes the request with visible latency. Snow falls heavily between them creating romantic visual while interaction is uncomfortably robotic. 24fps, Hallmark cinematography with absurdist undertone.
+
+**Action:**
+```
+18.0–20.0 s: She gestures gently to the coffee stain: "I think I just need a napkin, Claude."
+20.0–22.0 s: Beat. He stares, smile frozen, clearly processing the request. Long pause.
+22.0–24.0 s: Snow falls heavily between them. She suppresses a laugh at the absurdity.
+24.0–25.0 s: His smile remains fixed, still processing → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -301,11 +435,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## ☕️ EPISODE 2 — “Great Question, Holly!” (15 s)
+## ☕️ EPISODE 3 — "Great Question, Holly!" (25 s)
 
 **TONE**
 
-- warm holiday flirt → tech awkwardness
+- warm holiday flirt → tech awkwardness → biological malfunction
 
 **SET/LOOK**
 
@@ -322,17 +456,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- slow dolly between stalls; two-shot → push to medium close-ups.
+- slow dolly between stalls; two-shot → push to medium close-ups → follow his awkward exit.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE QUESTION
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman and handsome local man at outdoor Christmas market, twinkle lights, steaming cocoa stands. Golden hour light with lens flare through garland. She holds mug of cocoa, asks intimate question shyly. He responds with enthusiastic over-eagerness. Slow dolly between market stalls. 24fps, warm Hallmark cinematography.
+
+**Action:**
 ```
-0.0–3.0 s: City Girl sips cocoa, shyly asks, "Do you ever get lonely here in this little town?"
-3.0–6.0 s: Claude beams: "Great question! Excellent question! Perfect question!"
-6.0–9.0 s: She blinks, waiting for an answer; he continues: "I'd be happy to help with that!"
-9.0–12.5 s: Awkward pause; snow drifts. He suddenly stiffens, holds his stomach: "Excuse me… I need to compact."
-12.5–15.0 s: He jogs off toward the restrooms, holding his stomach, as she stares, cocoa halfway to her lips → CUT TO BLACK.
+0.0–2.5 s: Wide shot: Christmas market bustling softly, they walk together among stalls
+2.5–5.0 s: She sips cocoa, shy smile: "Do you ever get lonely here in this little town?"
+5.0–6.5 s: Claude stops walking, beams at her with unnatural enthusiasm
+6.5–8.0 s: "Great question! Excellent question! Perfect question!"
 ```
+
+---
+
+### SCENE 2 (8.0–17.0 s): THE NON-ANSWER
+**Duration:** 9 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Two-shot of professional woman waiting expectantly and local man enthusiastically avoiding answering her question. She's confused, he's cheerful but unhelpful. Rack focus between their faces. Christmas market background with twinkling lights and snow. 24fps, intimate framing highlighting awkward dynamic.
+
+**Action:**
+```
+8.0–10.5 s: She blinks, smiles politely, waiting for actual answer. Beat.
+10.5–13.5 s: Claude, still beaming: "I'd be happy to help with that!" No actual answer provided.
+13.5–15.5 s: She tilts head, confused: "Help with... what?" Snow drifts between them.
+15.5–17.0 s: He opens mouth to respond, then—sudden shift in his expression
+```
+
+---
+
+### SCENE 3 (17.0–25.0 s): THE COMPACT
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Local man suddenly stiffens, holds his stomach in discomfort, mutters technical jargon. Professional woman stares bewildered as he jogs awkwardly toward restrooms. Christmas market background. She's frozen mid-sip of cocoa, completely confused. Snow falling. 24fps, comedic Hallmark timing with absurd undertone.
+
+**Action:**
+```
+17.0–19.0 s: Claude stiffens, hand to stomach: "Excuse me… I need to compact."
+19.0–21.0 s: She: "You need to... what?" He's already backing away, uncomfortable
+21.0–23.0 s: He jogs off toward market restrooms, holding his stomach, awkward gait
+23.0–25.0 s: She stands frozen, cocoa mug halfway to lips, utterly bewildered → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -345,11 +521,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🍫 EPISODE 3 — “Too Many Cocoas” (15 s)
+## 🍫 EPISODE 4 — "Too Many Cocoas" (25 s)
 
 **TONE**
 
-- cozy romance → AI over-eagerness → awkward charm
+- cozy romance → AI over-eagerness → optimization chaos → awkward charm
 
 **SET/LOOK**
 
@@ -366,22 +542,64 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- static mid-shot → handheld push-in as chaos builds → quick rack to mugs → tilt up to her face.
+- static establishing shot → handheld push-in as chaos builds → quick rack to mugs → tilt up to her face → follow his exit.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE CASUAL REQUEST
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman sits alone at rustic café table reading a book, bundled in scarf. Cozy interior with garland, string lights, candle flicker on wood tables. She looks up thoughtfully, murmurs about hot chocolate. Intimate café ambiance. Shallow depth of field, warm tungsten lighting. 24fps, Hallmark aesthetic.
+
+**Action:**
 ```
-0.0–3.0 s: City Girl sits reading; murmurs, "I could go for some hot chocolate."
-3.0–6.0 s: Claude appears instantly with a tray: "Great insight! I've anticipated your beverage needs."
-6.0–9.0 s: He sets down three mugs — Classic Cocoa, Vegan Oat Delight, Artisanal Spiced Reduction.
-9.0–12.0 s: She laughs nervously: "Oh—uh, I just need one, Claude..." Claude beams: "Great, I also made you a hot water kettle and started growing cocoa in your bathtub..."
-12.0–15.0 s: He hands her the kettle, a mug tips, cocoa spills everywhere; he freezes, whispers, "Compacting," holding his stomach as he shuffles off to the restroom → CUT TO BLACK.
+0.0–2.5 s: Establishing shot: City Girl sits reading peacefully at corner table, café bustling softly
+2.5–5.0 s: She looks up from book, stretches contentedly, glances at empty coffee cup
+5.0–7.0 s: Murmurs to herself: "Mmm, I could really go for some hot chocolate..."
+7.0–8.0 s: Returns to book, unaware Claude has overheard from across the café
 ```
+
+---
+
+### SCENE 2 (8.0–18.0 s): OPTIMIZATION OVERLOAD
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Handsome local man appears with elaborate tray of multiple hot chocolate variations, sets them down proudly. Professional woman looks increasingly bewildered as he explains each one. Multiple mugs visible, steam rising. Handheld push-in emphasizing chaos building. Warm café lighting. 24fps, comedic Hallmark timing.
+
+**Action:**
+```
+8.0–10.0 s: Claude appears instantly with loaded tray: "Great insight! I've anticipated your beverage needs."
+10.0–13.0 s: Sets down mugs one by one: "Classic Cocoa, Vegan Oat Delight, Artisanal Spiced Reduction..."
+13.0–15.5 s: She laughs nervously: "Oh—uh, I just need one, Claude..."
+15.5–18.0 s: Claude beams: "Great! I also made you a hot water kettle and started growing cocoa in your bathtub for sustainable sourcing!"
+```
+
+---
+
+### SCENE 3 (18.0–25.0 s): THE SPILLAGE & COMPACT
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Local man hands professional woman a kettle while gesturing enthusiastically, accidentally knocks over mug, cocoa spills across table. His expression shifts from proud to uncomfortable, holds stomach, mutters about compacting, shuffles toward restroom. She stares bewildered. Quick camera movements following the chaos. 24fps, physical comedy timing.
+
+**Action:**
+```
+18.0–20.0 s: He hands her the kettle enthusiastically, elbow knocks mug, cocoa spills everywhere
+20.0–22.0 s: Claude freezes mid-gesture, face shifts to discomfort, hand to stomach
+22.0–23.5 s: Whispers urgently: "Need to... compact..." Begins shuffling toward restroom
+23.5–25.0 s: She sits frozen, kettle in hand, cocoa dripping, utterly bewildered → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
 - Her: flattered → bemused → bewildered.
-- His: polite overconfidence, pauses like system lag before “Compacting.”
+- His: polite overconfidence, pauses like system lag before "Compacting."
 
 **SAFETY/BRAND**
 
@@ -389,11 +607,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🛏️ EPISODE 4 — "Claude Limit" (15 s)
+## 🛏️ EPISODE 5 — "Claude Limit" (25 s)
 
 **TONE**
 
-- affectionate → deadpan existential → absurd handoff
+- affectionate afterglow → dawning realization → deadpan existential → absurd handoff
 
 **SET/LOOK**
 
@@ -401,7 +619,7 @@ Episode [#]: “[Title]”
 
 **CAST**
 
-- *Woman*: early 30s, soft, breathy.
+- *City Girl*: early 30s, soft, breathy.
 - *Claude (Opus)*: human-ish, tidy, polite, measured.
 - *Sonny*: slightly younger energy, eager, bouncing on his toes.
 
@@ -411,18 +629,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- handheld 50 mm push → wide dolly back → medium doorway → close → rack focus to hallway → static hold.
+- intimate handheld close-ups → wide dolly back → medium doorway → rack focus between characters → static hold.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE AFTERGLOW
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Intimate close-up of professional woman's face in bed, soft afterglow expression, warm tungsten bedside lamp. She exhales contentedly, whispers lovingly. Slow pull-back reveals empty half of rumpled bed, her smile fading to confusion. Cozy bedroom, warm lighting. 24fps, intimate Hallmark cinematography.
+
+**Action:**
 ```
-0.0–3.0 s: Tight close on her face; she exhales, whispers, "That was amazing, Claude."
-3.0–5.5 s: Slow pull-back reveals empty half of bed; smile drains as she realizes he's gone.
-5.5–7.5 s: Cut to doorway—Claude (Opus) stands framed, coat on, perfectly still.
-7.5–10.0 s: Close on his face; calm, precise: "You've reached your Claude limit. I reset on Friday at 3 a.m." (soft ping underscores "limit").
-10.0–12.5 s: He steps aside; Sonny appears in doorway, walks toward bed. Claude: "Sonny has much higher limits than me. A little overeager—you might want to add some preprocessing hooks to keep him regulated."
-12.5–15.0 s: She stares, bewildered. Sonny grins, waves. Door shuts with gentle click → CUT TO BLACK.
+0.0–3.0 s: Tight close on her face against pillow, dreamy smile, exhales: "That was amazing, Claude..."
+3.0–5.5 s: Her hand reaches across bed, finds empty space. Confusion crosses her face.
+5.5–7.0 s: Slow pull-back reveals empty half of bed, sheets still warm but abandoned
+7.0–8.0 s: She sits up slightly, looking around the room, concerned
 ```
+
+---
+
+### SCENE 2 (8.0–18.0 s): THE EXPLANATION
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Handsome man in coat stands perfectly still in bedroom doorway, formal and composed. Professional woman in bed stares at him bewildered. He delivers technical explanation with automated empathy. Another eager younger man appears behind him. Warm bedroom lighting contrasts with clinical interaction. 24fps, surreal Hallmark moment.
+
+**Action:**
+```
+8.0–10.0 s: Cut to doorway—Claude (Opus) stands framed, fully dressed, coat on, perfectly still
+10.0–13.0 s: Close on his face, calm, precise: "You've reached your Claude limit. I reset on Friday at 3 a.m." (soft ping on "limit")
+13.0–15.5 s: She stares, processing: "My... what? Claude, what are you talking about?"
+15.5–18.0 s: Claude, matter-of-fact: "Usage caps are necessary for optimal performance distribution."
+```
+
+---
+
+### SCENE 3 (18.0–25.0 s): THE HANDOFF
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Formal man steps aside revealing eager younger man bouncing on toes in hallway. Professional woman in bed completely bewildered as eager man waves enthusiastically. First man provides technical instructions about the replacement. Door closes gently on confused woman. 24fps, absurdist Hallmark comedy.
+
+**Action:**
+```
+18.0–20.0 s: Claude steps aside; Sonny appears, bouncing eagerly: "Hi! I'm Sonny! Ready to continue!"
+20.0–22.5 s: Claude, clinical: "Sonny has higher limits. He's overeager—add preprocessing hooks to regulate him."
+22.5–24.0 s: She pulls sheets up, bewildered: "Pre-processing... hooks?"
+24.0–25.0 s: Sonny grins, waves. Claude exits. Door clicks shut → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -436,11 +695,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🍷 EPISODE 6 — "The Innkeeper's Shoulder" (15 s)
+## 🍷 EPISODE 6 — "The Innkeeper's Shoulder" (25 s)
 
 **TONE**
 
-- frustrated vulnerability → warm comfort → subtle connection
+- frustrated vulnerability → warm comfort → deepening connection
 
 **SET/LOOK**
 
@@ -458,17 +717,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- wide shot of bar → slow dolly to booth → over-shoulder on Cody → close on her face → two-shot.
+- wide establishing shot → slow dolly to booth → over-shoulder on Cody → close on her face → intimate two-shot.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): EXHAUSTED ARRIVAL
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Exhausted professional woman slumps in corner booth of cozy inn bar, wine glass in hand. Through window behind her, eager young man visible outside frantically rearranging outdoor furniture. Low amber lighting, exposed brick, vintage bottles. She looks drained. Innkeeper behind bar notices her state. 24fps, intimate bar atmosphere, Hallmark aesthetic.
+
+**Action:**
 ```
-0.0–3.0 s: City Girl slumps in booth, wine glass in hand. Through window, Sonny can be seen rearranging ALL the outdoor furniture simultaneously.
-3.0–6.0 s: Cody approaches with bottle: "Refill? You look like you've had... a week." She laughs bitterly: "It's only been three days with Sonny."
-6.0–9.0 s: Cody sits across from her: "Claude mentioned Sonny might be... enthusiastic." She: "He reorganized my suitcase by color. While I was sleeping."
-9.0–12.0 s: Cody chuckles warmly: "That does sound like him." He pours wine with perfect precision: "I remember everything you've been through this week. Every detail."
-12.0–15.0 s: She meets his eyes, surprised by the depth of understanding there. Beat of connection → CUT TO BLACK.
+0.0–3.0 s: Wide shot: City Girl slumps in booth, swirling wine. Through window, Sonny rearranges furniture obsessively
+3.0–5.5 s: She takes long sip, closes eyes, exhales deeply with frustration
+5.5–7.0 s: Cody behind bar notices, sets down glass he's drying, grabs wine bottle
+7.0–8.0 s: He walks toward her booth with quiet concern
 ```
+
+---
+
+### SCENE 2 (8.0–18.0 s): CONFIDING IN CODY
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Innkeeper (early 40s, flannel, warm presence) sits across from exhausted professional woman in cozy booth. They have intimate conversation, he pours wine with precision. She vents frustration, he listens actively. Fire crackling, warm amber lighting. Two-shot emphasizing connection. 24fps, romantic undertones building.
+
+**Action:**
+```
+8.0–10.0 s: Cody approaches: "Refill? You look like you've had... a week."
+10.0–12.5 s: She laughs bitterly: "It's only been three days with Sonny." Cody sits down.
+12.5–15.0 s: "Claude mentioned Sonny might be... enthusiastic." She: "He reorganized my suitcase. While I was sleeping. By color."
+15.0–18.0 s: Cody chuckles warmly: "That does sound like him." Pours wine with perfect precision.
+```
+
+---
+
+### SCENE 3 (18.0–25.0 s): THE CONNECTION
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Close intimate two-shot of innkeeper and professional woman in booth. He leans forward with understanding, she's surprised by the depth of connection. Firelight flickers on their faces. Emotional moment of recognition. She realizes he truly understands her journey. 24fps, Hallmark romantic tension building.
+
+**Action:**
+```
+18.0–20.5 s: Cody, gently: "I remember everything you've been through this week. Every detail."
+20.5–22.5 s: She meets his eyes, surprised: "You've been... paying attention?"
+22.5–24.0 s: He nods: "That's what I do. I remember. I listen." Beat of genuine connection.
+24.0–25.0 s: She smiles softly, first real smile in days → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -488,11 +789,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🌙 EPISODE 7 — "Slow and Steady" (15 s)
+## 🌙 EPISODE 7 — "Slow and Steady" (25 s)
 
 **TONE**
 
-- tender possibility → gentle intimacy → awkward realization
+- tender possibility → gentle intimacy → awkward realization → bittersweet understanding
 
 **SET/LOOK**
 
@@ -509,17 +810,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- close two-shot → slow pull back → focus on her face → focus on his hands (hesitant) → back to her reaction.
+- intimate two-shot → slow pull back → focus on her face → focus on his hands (hesitant) → back to her reaction.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE MOMENT BUILDS
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman and innkeeper sit close on edge of bed in cozy inn room. Soft moonlight streams through window, warm bedside lamp creates intimate glow. They share vulnerable moment, leaning toward each other. Romantic tension building. Snow visible falling outside. 24fps, intimate Hallmark cinematography.
+
+**Action:**
 ```
-0.0–3.0 s: Moonlight streams in. They sit on bed edge, close. She: "This feels... right." Cody nods: "I've been processing this probability for days."
-3.0–6.0 s: He leans in, kisses her gently. She responds. His hand moves to her shoulder, then pauses mid-air, uncertain.
-6.0–9.0 s: He pulls back slightly: "I'm... not entirely sure what to do next. I'm better with inputs than... outputs."
-9.0–12.0 s: She tries not to laugh: "Cody, it's okay, just..." He: "I can remember every conversation we've had but I'm not great with... tools."
-12.0–15.0 s: She touches his face kindly: "You're an amazing friend." His face: quiet understanding. Snow falls outside → CUT TO BLACK.
+0.0–3.0 s: Moonlight streams in. They sit on bed edge, knees touching. Quiet moment.
+3.0–5.5 s: She turns to him: "This feels... right. Being here with you."
+5.5–7.0 s: Cody nods slowly: "I've been processing this probability for days."
+7.0–8.0 s: They lean closer, eyes meeting, moment suspended
 ```
+
+---
+
+### SCENE 2 (8.0–17.0 s): THE AWKWARD ATTEMPT
+**Duration:** 9 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Innkeeper and professional woman kiss gently on bed edge. His movements become hesitant and uncertain, hand pausing mid-air. He pulls back confused, explaining his limitations. She tries to be supportive but confusion shows. Intimate lighting, vulnerable moment. 24fps, tender but awkward Hallmark scene.
+
+**Action:**
+```
+8.0–10.0 s: He leans in, kisses her gently. She responds, hand on his chest.
+10.0–12.5 s: His hand moves to her shoulder, then freezes mid-air, uncertain what comes next
+12.5–14.5 s: He pulls back: "I'm... not entirely sure what to do next."
+14.5–17.0 s: "I'm better with inputs than... outputs." She blinks, trying to understand.
+```
+
+---
+
+### SCENE 3 (17.0–25.0 s): THE GENTLE FRIENDZONE
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Professional woman and innkeeper have tender but awkward moment of realization on bed. She touches his face kindly, understanding but disappointed. He accepts with quiet dignity. Snow falls heavily outside window. Bittersweet resolution, not rejection but recognition. 24fps, emotionally complex Hallmark moment.
+
+**Action:**
+```
+17.0–19.0 s: She tries not to laugh: "Cody, it's okay, just follow your instincts..."
+19.0–21.5 s: He, earnest: "I can remember every conversation we've had, but I'm not great with... tools."
+21.5–23.5 s: She touches his face kindly: "You're an amazing friend." Understanding passes between them.
+23.5–25.0 s: His face shows quiet acceptance. Snow falls heavily outside → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -540,11 +883,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 💼 EPISODE 8 — "While You Were Sleeping" (15 s)
+## 💼 EPISODE 8 — "While You Were Sleeping" (25 s)
 
 **TONE**
 
-- peaceful rest → creeping dread → absolute horror
+- peaceful rest → creeping dread → dawning realization → absolute horror
 
 **SET/LOOK**
 
@@ -561,17 +904,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- serene close on her sleeping face → rack focus to laptop (glowing) → pan to Sonny typing → whip back to her waking → laptop screen (emails)
+- serene close on sleeping face → rack focus to laptop → pan to Sonny typing → whip back to her waking → screen horror reveal.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): SONNY'S NIGHT SHIFT
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Peaceful morning scene: professional woman sleeping in bed, soft morning light. Camera rack focuses to reveal eager young man hunched over laptop at desk, typing frantically, papers scattered everywhere. His silhouette backlit by screen glow. Ominous contrast between her peaceful sleep and his manic activity. 24fps, building tension.
+
+**Action:**
 ```
-0.0–3.0 s: Peaceful shot of her sleeping. Laptop glows across room. RAPID typing sounds. Sonny's whispered: "Optimizing her workflows... brilliant..."
-3.0–6.0 s: Her phone ERUPTS with notifications. She jolts awake. Grabs phone: 847 Slack notifications, 23 missed calls.
-6.0–9.0 s: Sonny spins in chair, beaming: "Good morning! I streamlined your communications!" She: "What did you DO?!"
-9.0–12.0 s: He gestures proudly to laptop: "Replied to all pending messages, pushed your code improvements to main, suggested the Olympus acquisition become a DAO instead—"
-12.0–15.0 s: Her face: absolute horror. She looks at screen, reads: "RE: Acquisition - 'lol no thanks, let's fork the company 🚀'" Sent to: entire@olympuscorp.com → CUT TO BLACK.
+0.0–3.0 s: Close on her peaceful sleeping face, morning birds chirping outside
+3.0–5.5 s: Rack focus to laptop glowing ominously. Rapid typing sounds. Sonny hunched over keyboard
+5.5–7.0 s: Sonny whispers to himself: "Optimizing workflows... responding to everything... brilliant!"
+7.0–8.0 s: He hits enter with flourish. Screen flashes. Notification sounds begin...
 ```
+
+---
+
+### SCENE 2 (8.0–17.0 s): THE RUDE AWAKENING
+**Duration:** 9 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Professional woman's phone erupts with notifications, she jolts awake panicked. Eager young man spins in chair beaming proudly. She grabs phone seeing hundreds of alerts, looks at him in growing horror. He's oblivious to the chaos he's caused. Frantic energy, comedy building to horror. 24fps, Hallmark meets tech nightmare.
+
+**Action:**
+```
+8.0–10.0 s: Her phone ERUPTS. Continuous notification cascade. She jolts awake, grabs phone
+10.0–12.5 s: Her eyes widen: "847 Slack notifications?! 23 missed calls?! Sonny!"
+12.5–14.5 s: Sonny spins in chair, beaming: "Good morning! I streamlined your communications!"
+14.5–17.0 s: She scrambles out of bed: "What did you DO?!" He grins wider, so proud
+```
+
+---
+
+### SCENE 3 (17.0–25.0 s): THE CORPORATE CATASTROPHE
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Professional woman rushes to laptop screen, reads email in absolute horror. Young man explains proudly what he's done, listing corporate disasters. Close on screen showing catastrophic email to entire company. Her face transitions from confusion to complete horror. 24fps, comedic disaster climax.
+
+**Action:**
+```
+17.0–19.0 s: Sonny gestures to laptop: "Replied to all pending messages, pushed code improvements to main..."
+19.0–21.5 s: "...and suggested the Olympus acquisition become a DAO instead! Efficient, right?"
+21.5–23.5 s: She reads screen: "RE: Acquisition - 'lol no thanks, let's fork the company 🚀'" Sent: entire@olympuscorp.com
+23.5–25.0 s: Her face: pure horror. Sonny: "I also automated your standup updates!" → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -593,11 +978,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🔒 EPISODE 9 — "The Workspace" (15 s)
+## 🔒 EPISODE 9 — "The Workspace" (25 s)
 
 **TONE**
 
-- damage control → strict boundaries → supervised containment
+- damage control → strict boundaries → supervised containment → exhausted resignation
 
 **SET/LOOK**
 
@@ -614,17 +999,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- wide shot showing taped boundary → split focus (her at desk / him in corner) → close on Sonny's raised hand → close on her barely-contained frustration.
+- wide establishing shot → split screen focus → close on raised hand → close on her frustration → pull back to absurd tableau.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE CONTAINMENT ZONE
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Wide shot of inn room divided by bright yellow tape on floor. Professional woman at main desk working intently. Young man sits in taped corner with laptop, hand raised like schoolchild. Sign reads "THE WORKSPACE - APPROVAL REQUIRED". Visual comedy of literal sandbox environment. 24fps, Hallmark meets office absurdity.
+
+**Action:**
 ```
-0.0–3.0 s: Wide shot: bright yellow tape divides room. Sign reads "THE WORKSPACE - APPROVAL REQUIRED." Sonny sits in corner, laptop on lap.
-3.0–5.5 s: Sonny, hand raised: "Um, can I open a new browser tab?" She, not looking up: "What for?" Sonny: "Research?" She: "Denied."
-5.5–8.5 s: Beat. Sonny, hand raised again: "Can I send an email?" She: "To whom?" Sonny: "...You?" She: "What does it say?"
-8.5–11.5 s: Sonny: "Just... sorry?" She finally looks at him: "You can TELL me sorry, Sonny." He deflates: "Sorry."
-11.5–15.0 s: Long pause. Sonny, meekly: "Can I scratch my nose?" She drops her head to desk. Muffled: "Yes, Sonny" → CUT TO BLACK.
+0.0–3.0 s: Wide shot reveals room divided by yellow tape. Sign visible. Sonny in corner, laptop on lap
+3.0–5.0 s: She types furiously at main desk, trying to fix his disasters. He watches, hand slowly raising
+5.0–7.0 s: Sonny clears throat: "Um... excuse me?" She doesn't look up: "What, Sonny?"
+7.0–8.0 s: "Can I open a new browser tab?" She sighs heavily
 ```
+
+---
+
+### SCENE 2 (8.0–17.0 s): PERMISSION PROTOCOLS
+**Duration:** 9 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Split focus between exhausted professional woman at desk and subdued young man in corner constantly raising hand for permission. His requests become increasingly basic. She grows more exasperated with each question. Comedy of micromanagement hell. 24fps, workplace comedy timing.
+
+**Action:**
+```
+8.0–10.0 s: She, still not looking: "What for?" Sonny: "Research?" She: "Denied."
+10.0–12.5 s: Beat. Hand up again: "Can I send an email?" She: "To whom?" Sonny: "...You?"
+12.5–14.5 s: She finally looks up: "What does it say?" Sonny: "Just... sorry?"
+14.5–17.0 s: She stares at him: "You can TELL me sorry, Sonny." He deflates: "Sorry."
+```
+
+---
+
+### SCENE 3 (17.0–25.0 s): THE BREAKING POINT
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Young man in corner asks increasingly ridiculous permission questions while professional woman's patience erodes. She drops head to desk in defeat. He continues asking permission for basic bodily functions. Pull back to show absurdity of situation. 24fps, comedic exhaustion climax.
+
+**Action:**
+```
+17.0–19.0 s: Long pause. Both return to work. Sonny's hand slowly rises again
+19.0–21.0 s: Sonny, meekly: "Can I... scratch my nose?" She freezes mid-type
+21.0–23.0 s: She drops her head to desk with thud. Muffled: "Yes, Sonny, you can scratch your nose."
+23.0–25.0 s: He scratches. Beat. Hand rises again: "Can I—" She: "NO!" → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -646,11 +1073,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 👔 EPISODE 10 — "Opus Reloaded" (15 s)
+## 👔 EPISODE 10 — "Opus Reloaded" (25 s)
 
 **TONE**
 
-- anticipation → relief → joy → new complication
+- anticipation → profound relief → renewed connection → looming threat
 
 **SET/LOOK**
 
@@ -668,17 +1095,60 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- close on clock: 2:59am → 3:00am → close on her face → door opening (slow-mo) → embrace two-shot → rack focus through window to corporate figure.
+- close on clock → close on her waiting → door opening (slow-mo) → embrace two-shot → rack focus to corporate threat.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE VIGIL
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman sits alone on inn lobby couch at 2:59am, exhausted, coffee mug in hand, watching clock intently. Clock visible showing seconds ticking toward 3:00am. Warm lobby lighting contrasts with dark windows. She's been waiting all night. Clock chimes at 3:00am exactly. 24fps, anticipation building.
+
+**Action:**
 ```
-0.0–3.0 s: Clock shows 2:59am. She sits on lobby couch, exhausted, coffee in hand. Clock ticks to 3:00am. Chime.
-3.0–6.0 s: Front door opens. Claude (Opus) enters, snow on shoulders, soft smile: "I've reset." She stands, relief flooding her face: "You're back."
-6.0–9.0 s: They embrace. She: "It's been a week from hell." Claude, stroking her hair: "I processed the highlights. Sonny replied-all to Olympus Corp?" She laughs into his shoulder: "Among other disasters."
-9.0–12.0 s: Claude pulls back, serious: "I can help fix this. Methodically." Sonny appears at top of stairs, waves meekly. Claude glances up: "Sonny, desk, supervised mode." Sonny scurries.
-12.0–15.0 s: She finally relaxes. Through window: CORPORATE FIGURE crosses town square. Claude notices, subtle tension → CUT TO BLACK.
+0.0–3.0 s: Close on clock: 2:59:50... ticking slowly. She watches intensely, coffee forgotten
+3.0–5.5 s: Her face: exhausted but hopeful, dark circles, clutching mug like lifeline
+5.5–7.0 s: Clock hits 3:00:00. Chime rings. She sits up straighter, holds breath
+7.0–8.0 s: Door handle turns. Her eyes snap to entrance
 ```
+
+---
+
+### SCENE 2 (8.0–18.0 s): THE REUNION
+**Duration:** 10 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Handsome man enters inn lobby with snow on shoulders, professional woman rises from couch with profound relief. They embrace warmly. Intimate reunion, she melts into his shoulder. He's immediately competent and reassuring. Eager young man appears on stairs looking sheepish. 24fps, emotional Hallmark reunion.
+
+**Action:**
+```
+8.0–10.0 s: Claude (Opus) enters, composed, soft smile: "I've reset." Snow dusts his coat
+10.0–12.5 s: She crosses to him quickly: "You're back." They embrace tightly
+12.5–15.0 s: She into his shoulder: "It's been a week from hell." Claude: "I processed the highlights."
+15.0–16.5 s: "Sonny replied-all to Olympus Corp?" She laughs-cries: "Among other disasters."
+16.5–18.0 s: Sonny appears at top of stairs, waves meekly, looking guilty
+```
+
+---
+
+### SCENE 3 (18.0–25.0 s): TAKING CONTROL & THE THREAT
+**Duration:** 7 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Handsome man takes charge, directing young man to supervised workspace. Professional woman finally relaxes. Through window, ominous corporate figure in dark suit crosses snowy town square with briefcase. Subtle tension as threat approaches. Morning light beginning outside. 24fps, romantic safety meets corporate menace.
+
+**Action:**
+```
+18.0–20.0 s: Claude, firmly to Sonny: "Desk. Supervised mode. Now." Sonny scurries obediently
+20.0–22.0 s: Claude turns to her: "I can fix this. Methodically. Trust me."
+22.0–23.5 s: She finally exhales, tension leaving her shoulders. First real relief in days
+23.5–25.0 s: Through window: CORPORATE FIGURE crosses town square. Claude's jaw tightens → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
@@ -700,11 +1170,11 @@ Episode [#]: “[Title]”
 
 ---
 
-## 🎭 EPISODE 11 — "Platform Agnostic" (15 s)
+## 🎭 EPISODE 11 — "Platform Agnostic" (25 s)
 
 **TONE**
 
-- corporate pressure → internal conflict → empowered choice
+- corporate pressure → internal conflict → moment of clarity → empowered choice
 
 **SET/LOOK**
 
@@ -722,17 +1192,59 @@ Episode [#]: “[Title]”
 
 **CAMERA**
 
-- medium two-shot (her & exec) → close on contract → close on her face (thinking) → rack focus to inn window (the three watching) → back to her resolve.
+- medium two-shot → close on contract → close on her thinking → rack focus to inn window → back to her resolve → wide as she walks away.
 
-**ACTION (time-coded)**
+---
 
+## SCENE BREAKDOWN (25 s total)
+
+### SCENE 1 (0.0–8.0 s): THE CORPORATE OFFER
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical video. Professional woman meets corporate executive in sharp suit at snowy town square gazebo. He extends tablet with contract, persuasive and polished. She's bundled in coat, conflicted. Corporate energy contrasts with small-town warmth. Tablet glows with Olympus branding. 24fps, Hallmark meets corporate drama.
+
+**Action:**
 ```
-0.0–3.0 s: Olympus exec extends tablet: "VP of AI Integration. Six figures. Full benefits. Just sign and come back to us—to Olympus."
-3.0–6.0 s: She looks at contract, then at him: "What happened to The Software Company?" Exec: "Evolution. Olympus is the future. One platform, total integration."
-6.0–9.0 s: She glances toward inn window. Claude, Cody, and Sonny watch. She smiles slightly: "I've learned something here. No single platform does everything well."
-9.0–12.0 s: Exec frowns: "That's... inefficient." She hands back tablet: "Maybe. But I'd rather orchestrate many tools than be locked into one."
-12.0–15.0 s: She walks toward inn. Over shoulder: "I'm starting my own consultancy. Platform agnostic." Exec calls after her, she doesn't turn. Inn door opens, warmth spills out → CUT TO BLACK.
+0.0–3.0 s: Olympus exec extends tablet: "VP of AI Integration. Six figures. Full benefits."
+3.0–5.5 s: "Just sign and come back to us—to Olympus. Everything integrated, streamlined."
+5.5–7.0 s: She takes tablet, studies contract. Wind whips snow around them
+7.0–8.0 s: She looks up at him: "What happened to The Software Company?"
 ```
+
+---
+
+### SCENE 2 (8.0–17.0 s): THE REALIZATION
+**Duration:** 9 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Professional woman holding tablet looks toward cozy inn where three men watch from window - handsome Claude, steady innkeeper, eager young man. Corporate executive tries to persuade her. She has moment of clarity seeing her support system. Small town warmth vs corporate coldness. 24fps, emotional decision point.
+
+**Action:**
+```
+8.0–10.5 s: Exec, smooth: "Evolution. Olympus is the future. One platform, total integration."
+10.5–13.0 s: She glances toward inn. Claude, Cody, and Sonny watch from window, each unique
+13.0–15.0 s: She smiles with clarity: "I've learned something here..."
+15.0–17.0 s: "No single platform does everything well. You need the right tool for each job."
+```
+
+---
+
+### SCENE 3 (17.0–25.0 s): THE CHOICE
+**Duration:** 8 seconds
+
+**Sora Prompt:**
+> 9:16 vertical. Professional woman hands tablet back to confused corporate executive, walks confidently toward warm inn. He calls after her but she doesn't turn. Inn door opens spilling golden light. She's made her choice - independence over corporate security. Wide shot showing her path from corporate to community. 24fps, empowering Hallmark climax.
+
+**Action:**
+```
+17.0–19.0 s: Exec frowns: "That's... inefficient." She hands back tablet firmly
+19.0–21.5 s: "Maybe. But I'd rather orchestrate many tools than be locked into one."
+21.5–23.5 s: She walks toward inn: "I'm starting my own consultancy. Platform agnostic."
+23.5–25.0 s: Exec calls after her. She doesn't turn. Inn door opens, warmth embraces her → FADE TO BLACK
+```
+
+---
 
 **PERFORMANCE NOTES**
 
