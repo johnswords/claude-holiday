@@ -175,3 +175,50 @@ This is a personal creative project, but if you're inspired to create your own A
 **Next Steps**: Episode 0 prompt writing → Draft render → Iterate
 
 *Let's build something that makes people laugh while making them think.*
+
+---
+
+### 🎥 Candidate Review Flow (generate → review → stitch)
+
+You can generate multiple candidates per scene, review them, choose winners, and then stitch the episode.
+
+1) Generate candidates only (no stitching yet)
+```bash
+python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml --candidates-only
+# Note manifest path printed; keep the cut_id handy
+```
+
+2) Create selections YAMLs (one per episode) from the candidates
+```bash
+python scripts/select_winners.py --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
+# Edit episodes/<ep>/renders/selections/<cut_id>.yaml to set winner_index per scene
+```
+
+3) Compile using your selections (just run compile again; it picks up selections automatically)
+```bash
+python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml
+```
+
+Tips:
+- Set `provider.options.num_candidates` in your recipe to control how many candidates are generated per scene.
+- Prebaked provider will reuse any existing footage and duplicate into candidate slots if needed.
+- Overlays are applied only to selected winners so your review clips stay clean.
+
+---
+
+## 🧭 Timelines
+
+We call each distinct cut a "timeline."
+
+- Prime timeline: the default cut from this repo
+- Community timelines: your fork + recipe = your timeline
+
+How to label your timeline:
+- Add `timeline: "Prime 2025"` (or your own label) at the root of your RCFC recipe.
+- Your manifest and YouTube metadata will include the timeline label.
+
+How to register a community timeline:
+- Open a PR adding an entry to `docs/timelines.md` with:
+  - Timeline name (e.g., `alice/dev-glossary-extended`)
+  - Cut URI from your manifest
+  - Link to your fork and/or YouTube playlist

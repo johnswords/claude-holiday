@@ -1,0 +1,10 @@
+{
+  "name": "rbac_toast",
+  "type": "text",
+  "text": "RBAC: request approved",
+  "position": "bottom_right",
+  "font_size": 28,
+  "font_color": "white",
+  "bg_color": "0x224422AA",
+  "padding": 12
+}

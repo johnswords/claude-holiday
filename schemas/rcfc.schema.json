@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RCFC Recipe Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "metadata",
+    "project",
+    "source",
+    "audience_profile",
+    "scope",
+    "overlays",
+    "ending",
+    "captions",
+    "render",
+    "provider"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "0.1.0" },
+    "metadata": {
+      "type": "object",
+      "required": ["title", "created"],
+      "properties": {
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "created": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "timeline": { "type": "string" },
+    "project": {
+      "type": "object",
+      "required": ["name", "repo_url"],
+      "properties": {
+        "name": { "type": "string" },
+        "repo_url": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": ["commit_sha"],
+      "properties": {
+        "commit_sha": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "audience_profile": {
+      "type": "string",
+      "enum": ["general", "dev", "custom"]
+    },
+    "scope": {
+      "type": "object",
+      "required": ["include_episodes"],
+      "properties": {
+        "include_episodes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "include_bonus": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "overlays": {
+      "type": "object",
+      "required": ["enabled", "density", "theme"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "density": { "type": "string", "enum": ["low", "medium", "high"] },
+        "theme": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "ending": { "type": "string", "enum": ["agnostic", "meta"] },
+    "captions": {
+      "type": "object",
+      "required": ["track", "language"],
+      "properties": {
+        "track": { "type": "string", "enum": ["general", "dev_glossary"] },
+        "language": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "render": {
+      "type": "object",
+      "required": ["fps", "aspect", "resolution"],
+      "properties": {
+        "fps": { "type": "integer", "minimum": 1, "maximum": 120 },
+        "aspect": { "type": "string" },
+        "resolution": {
+          "type": "string",
+          "pattern": "^[0-9]+x[0-9]+$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "audio": {
+      "type": "object",
+      "properties": {
+        "ambiences": { "type": "array", "items": { "type": "string" } },
+        "stingers": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "provider": {
+      "type": "object",
+      "required": ["name", "options"],
+      "properties": {
+        "name": { "type": "string", "enum": ["prebaked", "dummy", "sora"] },
+        "options": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "social": {
+      "type": "object",
+      "properties": {
+        "platforms": { "type": "array", "items": { "type": "string" } },
+        "trims": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

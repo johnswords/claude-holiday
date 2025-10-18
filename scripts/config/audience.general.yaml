@@ -1,0 +1,7 @@
+overlays:
+  enabled: false
+  density: low
+  theme: "brass"
+captions:
+  track: "general"
+  language: "en-US"

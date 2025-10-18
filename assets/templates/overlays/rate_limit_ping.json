@@ -1,0 +1,10 @@
+{
+  "name": "rate_limit_ping",
+  "type": "text",
+  "text": "HTTP 429: Too Many Requests",
+  "position": "top_right",
+  "font_size": 28,
+  "font_color": "white",
+  "bg_color": "0x333333AA",
+  "padding": 12
+}

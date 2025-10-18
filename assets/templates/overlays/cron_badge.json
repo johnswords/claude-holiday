@@ -1,0 +1,10 @@
+{
+  "name": "cron_badge",
+  "type": "text",
+  "text": "Cron: 0 3 * * FRI",
+  "position": "top_left",
+  "font_size": 28,
+  "font_color": "white",
+  "bg_color": "0x222244AA",
+  "padding": 12
+}

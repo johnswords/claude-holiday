@@ -1,0 +1,25 @@
+episode_id: "ep00_checking_in"
+title: "Episode 00 — Checking In"
+scenes:
+  - id: "s1"
+    title: "Arrival & Stress"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Stressed professional woman in tailored coat enters cozy inn lobby dragging rolling suitcase, phone pressed to ear, visibly frazzled. Warm amber lighting, crackling fireplace visible, holiday garland, snow falling through windows. She's mid-conversation, frustrated. Handheld camera follows her through door. 24fps, cinematic Hallmark aesthetic.
+    overlays: []
+  - id: "s2"
+    title: "The Registry & Recognition"
+    duration_sec: 10
+    sora_prompt: >
+      9:16 vertical. Two-shot of professional woman and innkeeper (early 40s, flannel shirt, warm presence) at wooden registry desk. He slides vintage registry book across. Cozy inn lobby, fireplace glow, intimate conversation. She transitions from guarded to surprised. Slow dolly push emphasizing emotional shift. Warm tungsten lighting. 24fps, cinematic.
+    overlays: []
+  - id: "s3"
+    title: "Relief & Settling"
+    duration_sec: 7
+    sora_prompt: >
+      9:16 vertical. Close-up of professional woman's face as tension melts away, first genuine smile. Pull back to reveal cozy inn room through doorway - four-poster bed, soft lighting, snow falling outside window. She picks up her bag with lighter energy. Warm, intimate cinematography. Golden hour glow. 24fps, Hallmark film aesthetic.
+    overlays: []
+audio:
+  ambience: "inn_fire_crackle"
+  stingers: []
+captions_cues: []

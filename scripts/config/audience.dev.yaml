@@ -1,0 +1,7 @@
+overlays:
+  enabled: true
+  density: medium
+  theme: "brass"
+captions:
+  track: "dev_glossary"
+  language: "en-US"
