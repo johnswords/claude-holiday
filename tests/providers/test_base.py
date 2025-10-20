@@ -7,11 +7,7 @@ class TestRenderConfig:
 
     def test_from_strings_valid_resolution(self):
         """Test parsing a valid resolution string"""
-        cfg = RenderConfig.from_strings(
-            resolution="1080x1920",
-            fps=30,
-            aspect="9:16"
-        )
+        cfg = RenderConfig.from_strings(resolution="1080x1920", fps=30, aspect="9:16")
 
         assert cfg.width == 1080
         assert cfg.height == 1920
@@ -21,11 +17,7 @@ class TestRenderConfig:
 
     def test_from_strings_different_resolution(self):
         """Test parsing different valid resolution formats"""
-        cfg = RenderConfig.from_strings(
-            resolution="1920x1080",
-            fps=60,
-            aspect="16:9"
-        )
+        cfg = RenderConfig.from_strings(resolution="1920x1080", fps=60, aspect="16:9")
 
         assert cfg.width == 1920
         assert cfg.height == 1080
@@ -35,11 +27,7 @@ class TestRenderConfig:
 
     def test_from_strings_small_resolution(self):
         """Test parsing small resolution values"""
-        cfg = RenderConfig.from_strings(
-            resolution="640x480",
-            fps=24,
-            aspect="4:3"
-        )
+        cfg = RenderConfig.from_strings(resolution="640x480", fps=24, aspect="4:3")
 
         assert cfg.width == 640
         assert cfg.height == 480
@@ -48,11 +36,7 @@ class TestRenderConfig:
 
     def test_from_strings_large_resolution(self):
         """Test parsing large resolution values (4K)"""
-        cfg = RenderConfig.from_strings(
-            resolution="3840x2160",
-            fps=60,
-            aspect="16:9"
-        )
+        cfg = RenderConfig.from_strings(resolution="3840x2160", fps=60, aspect="16:9")
 
         assert cfg.width == 3840
         assert cfg.height == 2160
@@ -60,75 +44,41 @@ class TestRenderConfig:
     def test_from_strings_invalid_format_no_x(self):
         """Test that resolution without 'x' separator raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="1080-1920",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="1080-1920", fps=30, aspect="9:16")
 
     def test_from_strings_invalid_format_missing_height(self):
         """Test that resolution missing height raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="1080x",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="1080x", fps=30, aspect="9:16")
 
     def test_from_strings_invalid_format_missing_width(self):
         """Test that resolution missing width raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="x1920",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="x1920", fps=30, aspect="9:16")
 
     def test_from_strings_invalid_format_letters(self):
         """Test that resolution with letters raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="1080xABC",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="1080xABC", fps=30, aspect="9:16")
 
     def test_from_strings_invalid_format_empty(self):
         """Test that empty resolution string raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="", fps=30, aspect="9:16")
 
     def test_from_strings_invalid_format_only_x(self):
         """Test that resolution with only 'x' raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="x",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="x", fps=30, aspect="9:16")
 
     def test_from_strings_invalid_format_extra_characters(self):
         """Test that resolution with extra characters raises ValueError"""
         with pytest.raises(ValueError, match="Invalid resolution.*Expected WIDTHxHEIGHT"):
-            RenderConfig.from_strings(
-                resolution="1080x1920px",
-                fps=30,
-                aspect="9:16"
-            )
+            RenderConfig.from_strings(resolution="1080x1920px", fps=30, aspect="9:16")
 
     def test_direct_instantiation(self):
         """Test creating RenderConfig directly via constructor"""
-        cfg = RenderConfig(
-            width=1920,
-            height=1080,
-            fps=30,
-            aspect="16:9",
-            resolution="1920x1080"
-        )
+        cfg = RenderConfig(width=1920, height=1080, fps=30, aspect="16:9", resolution="1920x1080")
 
         assert cfg.width == 1920
         assert cfg.height == 1080
