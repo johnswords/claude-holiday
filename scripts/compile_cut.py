@@ -100,7 +100,23 @@ def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, heigh
         "128k",
         str(out_path),
     ]
-    subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        result = subprocess.run(
+            cmd,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        # Log ffmpeg stderr (contains progress and warnings even on success)
+        if result.stderr:
+            print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
+    except subprocess.CalledProcessError as e:
+        error_msg = f"FFmpeg concat failed for {out_path}\n"
+        error_msg += f"Command: {' '.join(cmd)}\n"
+        if e.stderr:
+            error_msg += f"Error output:\n{e.stderr}"
+        raise RuntimeError(error_msg) from e
 
 
 def compile_episode(
