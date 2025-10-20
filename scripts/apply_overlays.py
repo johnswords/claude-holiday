@@ -55,6 +55,38 @@ def _apply_density_timing(start: float, duration: float, density: str) -> tuple[
         return start, duration
 
 
+def _has_audio_stream(path: Path) -> bool:
+    audio_probe = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-select_streams",
+        "a",
+        "-show_entries",
+        "stream=index",
+        "-of",
+        "csv=p=0",
+        str(path),
+    ]
+
+    try:
+        probe_result = subprocess.run(
+            audio_probe,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        error_msg = f"ffprobe audio detection failed for {path}\n"
+        error_msg += f"Command: {' '.join(audio_probe)}\n"
+        if e.stderr:
+            error_msg += f"Error output:\n{e.stderr}"
+        raise RuntimeError(error_msg) from e
+
+    return bool(probe_result.stdout.strip())
+
+
 def parse_overlay_spec(spec_path: Path) -> dict[str, Any]:
     with open(spec_path, encoding="utf-8") as f:
         return json.load(f)
@@ -129,23 +161,32 @@ def apply_overlays(
     fps: int = 24,
 ) -> Path:
     if not overlays:
-        # Pass-through copy to avoid re-encode
-        # But to ensure consistent output, we re-encode lightly
         cmd = [
             "ffmpeg",
             "-y",
             "-i",
             str(in_path),
-            "-c",
-            "copy",
-            str(out_path),
+            "-r",
+            str(fps),
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
         ]
+
+        if _has_audio_stream(in_path):
+            cmd.extend(["-c:a", "aac", "-b:a", "128k"])
+        else:
+            cmd.append("-an")
+
+        cmd.append(str(out_path))
+
         try:
             result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:
-            error_msg = f"FFmpeg copy failed: {in_path} -> {out_path}\n"
+            error_msg = f"FFmpeg normalization failed: {in_path} -> {out_path}\n"
             error_msg += f"Command: {' '.join(cmd)}\n"
             if e.stderr:
                 error_msg += f"Error output:\n{e.stderr}"
@@ -166,12 +207,14 @@ def apply_overlays(
         "libx264",
         "-pix_fmt",
         "yuv420p",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "128k",
-        str(out_path),
     ]
+
+    if _has_audio_stream(in_path):
+        cmd.extend(["-c:a", "aac", "-b:a", "128k"])
+    else:
+        cmd.append("-an")
+
+    cmd.append(str(out_path))
     try:
         result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         if result.stderr:
