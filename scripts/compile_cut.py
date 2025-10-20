@@ -17,6 +17,7 @@ from scripts.providers.base import RenderConfig, Provider
 from scripts.providers.prebaked import PrebakedProvider
 from scripts.providers.dummy import DummyProvider
 from scripts.apply_overlays import apply_overlays
+from scripts.utils.ffmpeg import preflight_check
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -70,6 +71,8 @@ def load_episode_manifest(episode_id: str) -> Dict[str, Any]:
 
 
 def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, height: int) -> None:
+    preflight_check()
+
     # Re-encode to ensure consistent stream parameters
     concat_file = out_path.parent / "concat.txt"
     concat_file.parent.mkdir(parents=True, exist_ok=True)
@@ -234,6 +237,7 @@ def compile_episode(
                 width=render_cfg.width,
                 height=render_cfg.height,
                 font_path=font_path,
+                fps=render_cfg.fps,
             )
             scene_outputs.append(overlaid)
         else:
