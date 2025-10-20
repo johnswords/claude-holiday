@@ -17,7 +17,7 @@ scope:
 overlays:
   enabled: true
   density: medium
-  theme: brass
+  theme: default
 ending: "agnostic"
 captions:
   track: "dev_glossary"

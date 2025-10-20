@@ -1,7 +1,7 @@
 fps: 24
 aspect: "9:16"
 resolution: "1080x1920"
-default_overlay_theme: "brass"
+default_overlay_theme: "default"
 default_ending: "agnostic"
 audio:
   ambience_dir: "assets/audio/ambience"

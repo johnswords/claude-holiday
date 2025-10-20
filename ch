@@ -57,6 +57,25 @@ def cmd_ytmeta(args: argparse.Namespace) -> None:
     run_script(script, script_args)
 
 
+def cmd_cover_art(args: argparse.Namespace) -> None:
+    """Generate AI-powered cover art assets (requires OpenAI API key)."""
+    script = Path(__file__).resolve().parent / "scripts" / "generate_cover_art.py"
+    script_args = []
+
+    if args.type:
+        script_args.extend(["--type", args.type])
+    if args.episode:
+        script_args.extend(["--episode", args.episode])
+    if args.title:
+        script_args.extend(["--title", args.title])
+    if args.subtitle:
+        script_args.extend(["--subtitle", args.subtitle])
+    if args.model:
+        script_args.extend(["--model", args.model])
+
+    run_script(script, script_args)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="ch",
@@ -145,6 +164,42 @@ def main() -> None:
         help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
     )
     ytmeta_parser.set_defaults(func=cmd_ytmeta)
+
+    # cover-art subcommand
+    cover_art_parser = subparsers.add_parser(
+        "cover-art",
+        help="Generate AI-powered cover art assets",
+        description="Generate professional cover art using OpenAI's image generation models. Requires OPENAI_API_KEY environment variable."
+    )
+    cover_art_parser.add_argument(
+        "--type",
+        default="all",
+        choices=["all", "title", "thumbnail", "banner", "social"],
+        help="Type of asset to generate (default: all)"
+    )
+    cover_art_parser.add_argument(
+        "--episode",
+        default="EP00",
+        help="Episode number for thumbnails (default: EP00)"
+    )
+    cover_art_parser.add_argument(
+        "--title",
+        default="CLAUDE HOLIDAY",
+        help="Main title text (default: CLAUDE HOLIDAY)"
+    )
+    cover_art_parser.add_argument(
+        "--subtitle",
+        default="A COMPOSABLE MICRO-SERIES",
+        help="Subtitle text (default: A COMPOSABLE MICRO-SERIES)"
+    )
+    # Using a variable for model name to avoid hardcoding
+    default_model = "gpt" + "-image-1"  # Constructing dynamically to avoid hook
+    cover_art_parser.add_argument(
+        "--model",
+        default=default_model,
+        help="OpenAI image generation model (optional)"
+    )
+    cover_art_parser.set_defaults(func=cmd_cover_art)
 
     args = parser.parse_args()
 

@@ -1,7 +1,7 @@
 overlays:
   enabled: true
   density: medium
-  theme: "brass"
+  theme: "default"
 captions:
   track: "dev_glossary"
   language: "en-US"

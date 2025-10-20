@@ -276,9 +276,14 @@ cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 
 # 4. Watch your cut
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
+
+# 5. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
+export OPENAI_API_KEY="your-key-here"
+./ch cover-art --type all
 ```
 
 **Your Cut URI** is in the manifest — share it to make your timeline referenceable.
+**Your Cover Art** is in `output/cover_art/` — use for YouTube, social media.
 
 ### Path B: Generate New Footage
 
@@ -309,6 +314,7 @@ ch candidates   # Generate candidate renders (no stitching)
 ch select       # Create selection templates from candidates
 ch bundle       # Pack cut into release bundle
 ch ytmeta       # Generate YouTube metadata JSON
+ch cover-art    # Generate cover art assets (thumbnails, banners, title cards)
 ```
 
 ### Usage Examples
@@ -342,6 +348,15 @@ ch ytmeta       # Generate YouTube metadata JSON
 # Creates output/cuts/<cut_id>/manifest/youtube.metadata.json
 ```
 
+**Generate cover art (requires OPENAI_API_KEY):**
+```bash
+export OPENAI_API_KEY="your-key-here"
+./ch cover-art --type all
+# Creates thumbnails, banners, title cards in output/cover_art/
+
+# Generate specific asset:
+./ch cover-art --type thumbnail --episode EP05
+
 ### Command Details
 
 **`ch compile --recipe <path>`**
@@ -371,6 +386,22 @@ ch ytmeta       # Generate YouTube metadata JSON
 - Title, description, tags, category
 - Based on recipe metadata and cut URI
 
+**`ch cover-art [options]`**
+- Generates AI-powered cover art using OpenAI's image models
+- Requires: `OPENAI_API_KEY` environment variable
+- Options:
+  - `--type [all|title|thumbnail|banner|social]` (default: all)
+  - `--episode <EP##>` (for thumbnails, default: EP00)
+  - `--title <text>` (main title, default: CLAUDE HOLIDAY)
+  - `--subtitle <text>` (subtitle, default: A COMPOSABLE MICRO-SERIES)
+  - `--model <model>` (OpenAI image generation model, optional)
+- Outputs to `output/cover_art/`
+- Assets include:
+  - YouTube thumbnails (1280x720)
+  - YouTube channel banner (2560x1440)
+  - Title cards for videos (1080x1920)
+  - Social media squares (1080x1080)
+
 ---
 
 ## 📜 License
@@ -389,7 +420,8 @@ Claude Holiday is designed for community participation. Here's how:
 - Fork the repo
 - Copy an example recipe from `recipes/examples/`
 - Edit the YAML to choose episodes, overlays, audience, ending, provider
-- Run `python scripts/compile_cut.py --recipe your_recipe.yaml`
+- Run `./ch compile --recipe your_recipe.yaml`
+- Generate cover art: `export OPENAI_API_KEY="your-key-here" && ./ch cover-art --type all`
 - Share your Cut URI and publish your videos
 
 ### 🎥 Contribute Footage
