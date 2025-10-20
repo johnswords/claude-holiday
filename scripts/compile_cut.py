@@ -136,7 +136,10 @@ def compile_episode(
 
     ov_enabled = bool((recipe.get("overlays") or {}).get("enabled", False))
     # Determine number of candidates to generate per scene (default 1)
-    num_candidates = int(((recipe.get("provider") or {}).get("options") or {}).get("num_candidates", 1))
+    provider_options = (recipe.get("provider") or {}).get("options") or {}
+    num_candidates = int(provider_options.get("num_candidates", 1))
+    # Extract seed_base for reproducible runs (optional)
+    seed_base = provider_options.get("seed_base", None)
     # Selections file (optional): episodes/{episode_id}/renders/selections/{cut_id}.yaml
     selections_path = PROJECT_ROOT / "episodes" / episode_id / "renders" / "selections" / f"{cut_id}.yaml"
     selections_map: Dict[str, Any] = {}
@@ -159,6 +162,8 @@ def compile_episode(
         for idx in range(1, max(1, num_candidates) + 1):
             cand_dir = scene_dir / f"cand{idx}"
             cand_dir.mkdir(parents=True, exist_ok=True)
+            # Calculate seed: seed_base + index for reproducibility
+            candidate_seed = (seed_base + idx) if seed_base is not None else idx
             # Provider writes to cand_dir / f"{scene_id}.mp4"
             clip_path = Path(
                 provider.generate_scene(
@@ -166,7 +171,7 @@ def compile_episode(
                     scene,
                     str(cand_dir),
                     render_cfg,
-                    seed=idx,  # varying seed by candidate index
+                    seed=candidate_seed,
                 )
             )
             # Normalize to relative path for manifests
@@ -174,6 +179,7 @@ def compile_episode(
             candidates.append(
                 {
                     "index": idx,
+                    "seed": candidate_seed,
                     "path": str(rel_clip.relative_to(PROJECT_ROOT)),
                     "duration_sec": int(scene.get("duration_sec") or 1),
                 }
