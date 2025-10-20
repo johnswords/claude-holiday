@@ -4,19 +4,18 @@ import argparse
 import json
 import zipfile
 from pathlib import Path
-from typing import Dict, Any, List
-
+from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def load_json(path: Path) -> Dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as f:
+def load_json(path: Path) -> dict[str, Any]:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
-def collect_assets(cut_manifest: Dict[str, Any], include: List[str]) -> List[Path]:
-    assets: List[Path] = []
+def collect_assets(cut_manifest: dict[str, Any], include: list[str]) -> list[Path]:
+    assets: list[Path] = []
     # Always include manifest
     manifest_path = Path("output") / "cuts" / cut_manifest["cut_id"] / "manifest" / "cut.manifest.json"
     assets.append(manifest_path)
@@ -55,7 +54,7 @@ def collect_assets(cut_manifest: Dict[str, Any], include: List[str]) -> List[Pat
     return [PROJECT_ROOT / a for a in assets]
 
 
-def build_release_bundle(cut_manifest_path: Path, include: List[str], out_dir: Path) -> Path:
+def build_release_bundle(cut_manifest_path: Path, include: list[str], out_dir: Path) -> Path:
     cut_manifest = load_json(cut_manifest_path)
     cut_id = cut_manifest["cut_id"]
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -74,7 +73,9 @@ def build_release_bundle(cut_manifest_path: Path, include: List[str], out_dir: P
 def main() -> None:
     parser = argparse.ArgumentParser(description="Pack a compiled cut into a release bundle.")
     parser.add_argument("--cut-manifest", required=True, help="Path to output/cuts/<id>/manifest/cut.manifest.json")
-    parser.add_argument("--include", nargs="+", default=["episodes"], help="Assets to include: episodes series captions")
+    parser.add_argument(
+        "--include", nargs="+", default=["episodes"], help="Assets to include: episodes series captions"
+    )
     parser.add_argument("--out", default="output/releases", help="Output directory for bundles")
     args = parser.parse_args()
 
