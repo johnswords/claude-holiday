@@ -57,6 +57,25 @@ def cmd_ytmeta(args: argparse.Namespace) -> None:
     run_script(script, script_args)
 
 
+def cmd_cover_art(args: argparse.Namespace) -> None:
+    """Generate cover art assets (thumbnails, banners, title cards)."""
+    script = Path(__file__).resolve().parent / "scripts" / "generate_cover_art.py"
+    script_args = []
+
+    if args.theme:
+        script_args.extend(["--theme", args.theme])
+    if args.type:
+        script_args.extend(["--type", args.type])
+    if args.episode:
+        script_args.extend(["--episode", args.episode])
+    if args.title:
+        script_args.extend(["--title", args.title])
+    if args.subtitle:
+        script_args.extend(["--subtitle", args.subtitle])
+
+    run_script(script, script_args)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="ch",
@@ -145,6 +164,41 @@ def main() -> None:
         help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
     )
     ytmeta_parser.set_defaults(func=cmd_ytmeta)
+
+    # cover-art subcommand
+    cover_art_parser = subparsers.add_parser(
+        "cover-art",
+        help="Generate cover art assets",
+        description="Generate YouTube thumbnails, banners, title cards, and social media images."
+    )
+    cover_art_parser.add_argument(
+        "--theme",
+        default="brass",
+        choices=["brass", "dev", "corporate"],
+        help="Style guide theme to use (default: brass)"
+    )
+    cover_art_parser.add_argument(
+        "--type",
+        default="all",
+        choices=["all", "title", "thumbnail", "banner", "social"],
+        help="Type of asset to generate (default: all)"
+    )
+    cover_art_parser.add_argument(
+        "--episode",
+        default="EP00",
+        help="Episode number for thumbnails (default: EP00)"
+    )
+    cover_art_parser.add_argument(
+        "--title",
+        default="CLAUDE HOLIDAY",
+        help="Main title text (default: CLAUDE HOLIDAY)"
+    )
+    cover_art_parser.add_argument(
+        "--subtitle",
+        default="A COMPOSABLE MICRO-SERIES",
+        help="Subtitle text (default: A COMPOSABLE MICRO-SERIES)"
+    )
+    cover_art_parser.set_defaults(func=cmd_cover_art)
 
     args = parser.parse_args()
 

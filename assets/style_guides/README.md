@@ -13,7 +13,7 @@ This directory contains theme-specific style guides for generating consistent co
 
 1. **Base Extension**: Theme guides extend from `base.json`, inheriting shared properties
 2. **RCFC Integration**: Recipe files reference themes via `overlays.theme` field
-3. **Cover Art Generation**: The `generate_cover_art.py` script uses these guides to create:
+3. **Cover Art Generation**: The `ch cover-art` command (via `generate_cover_art.py`) uses these guides to create:
    - YouTube thumbnails (1280x720)
    - YouTube channel banners (2560x1440)
    - Title cards (1080x1920)
@@ -24,7 +24,7 @@ This directory contains theme-specific style guides for generating consistent co
 1. Copy an existing theme file
 2. Set `"extends": "base"` to inherit fundamentals
 3. Override palette, typography, and mood as needed
-4. Run: `python3 scripts/generate_cover_art.py --theme your-theme`
+4. Run: `./ch cover-art --theme your-theme`
 
 ## Theme Selection in Recipes
 
@@ -40,12 +40,29 @@ Since Claude Holiday is community-composable media, different timelines can have
 
 ## Usage
 
-Generate cover art for a specific theme:
+### Using the ch command (recommended):
+
+Generate all cover art for a theme:
 ```bash
-python3 scripts/generate_cover_art.py --theme brass --type all
+./ch cover-art --theme brass --type all
 ```
 
 Generate specific asset:
 ```bash
+./ch cover-art --theme dev --type thumbnail --episode EP05
+```
+
+Custom text for title cards:
+```bash
+./ch cover-art --theme corporate \
+  --type title \
+  --title "MY TIMELINE" \
+  --subtitle "A CUSTOM VERSION"
+```
+
+### Using the script directly:
+
+```bash
+python3 scripts/generate_cover_art.py --theme brass --type all
 python3 scripts/generate_cover_art.py --theme dev --type thumbnail --episode EP05
 ```
