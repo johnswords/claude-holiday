@@ -1,80 +1,58 @@
 # Style Guides for Claude Holiday
 
-This directory contains theme-specific style guides for generating consistent cover art and visual assets across the Claude Holiday project.
+This directory contains the style guide for generating consistent cover art and visual assets across the Claude Holiday project.
 
-## Available Themes
+## Available Style Files
 
 - **base.json** - Shared fundamentals (dimensions, typography, spacing)
-- **brass.json** - Warm, cozy Hallmark holiday aesthetic (default)
-- **dev.json** - Developer terminal aesthetic with monospace fonts
-- **corporate.json** - Sterile corporate aesthetic (Olympus/Atlassian parody)
+- **default.json** - Claude Holiday visual style based on master script's Hallmark aesthetic
 
 ## How It Works
 
-1. **Base Extension**: Theme guides extend from `base.json`, inheriting shared properties
-2. **RCFC Integration**: Recipe files reference themes via `overlays.theme` field
-3. **Cover Art Generation**: Two approaches available:
-   - **Basic** (`generate_cover_art.py`): Simple colored backgrounds with text, used by `ch cover-art`
-   - **AI-Powered** (`generate_cover_art_ai.py`): Professional artwork using OpenAI's image models
+1. **Base Extension**: The default style guide extends from `base.json`, inheriting shared properties
+2. **Cover Art Generation**: AI-powered generation using OpenAI's image models (dall-e-3, gpt-image-1)
 
-   Both generate:
+   Generates:
    - YouTube thumbnails (1280x720)
    - YouTube channel banners (2560x1440)
    - Title cards (1080x1920)
    - Social media squares (1080x1080)
 
-## Creating a New Theme
-
-1. Copy an existing theme file
-2. Set `"extends": "base"` to inherit fundamentals
-3. Override palette, typography, and mood as needed
-4. Run: `./ch cover-art --theme your-theme`
-
-## Theme Selection in Recipes
-
-```yaml
-overlays:
-  enabled: true
-  theme: brass  # or dev, corporate, your-custom-theme
-```
-
-## Composability
-
-Since Claude Holiday is community-composable media, different timelines can have different visual identities. Your fork can introduce new themes that match your interpretation's aesthetic.
-
 ## Usage
 
-### Using the ch command (recommended):
+### Using the ch command (requires OPENAI_API_KEY):
 
-Generate all cover art for a theme:
+Generate all cover art:
 ```bash
-./ch cover-art --theme brass --type all
+export OPENAI_API_KEY="your-key-here"
+./ch cover-art --type all
 ```
 
 Generate specific asset:
 ```bash
-./ch cover-art --theme dev --type thumbnail --episode EP05
+./ch cover-art --type thumbnail --episode EP05
 ```
 
 Custom text for title cards:
 ```bash
-./ch cover-art --theme corporate \
+./ch cover-art \
   --type title \
   --title "MY TIMELINE" \
   --subtitle "A CUSTOM VERSION"
 ```
 
-### Using the scripts directly:
-
-**Basic FFmpeg version** (simple colored backgrounds):
+Choose OpenAI model (dall-e-3 or gpt-image-1):
 ```bash
-python3 scripts/generate_cover_art.py --theme brass --type all
+./ch cover-art --type all --model gpt-image-1
 ```
 
-**AI-powered version** (professional artwork, requires OpenAI API key):
+### Using the script directly:
+
 ```bash
 export OPENAI_API_KEY="your-key-here"
-python3 scripts/generate_cover_art_ai.py --theme brass --type all --model gpt-image-1
+python3 scripts/generate_cover_art.py --type all --model dall-e-3
 ```
 
-See `docs/cover-art-generation.md` for detailed comparison and usage.
+## Composability
+
+Since Claude Holiday is community-composable media, different timelines can customize the visual prompts and style. Forks can modify the prompts in `generate_cover_art.py` to match their interpretation's aesthetic.

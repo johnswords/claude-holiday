@@ -277,12 +277,13 @@ cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 # 4. Watch your cut
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
 
-# 5. (Optional) Generate cover art for your timeline
-./ch cover-art --theme brass --type all
+# 5. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
+export OPENAI_API_KEY="your-key-here"
+./ch cover-art --type all
 ```
 
 **Your Cut URI** is in the manifest — share it to make your timeline referenceable.
-**Your Cover Art** is in `output/cover_art/[theme]/` — use for YouTube, social media.
+**Your Cover Art** is in `output/cover_art/` — use for YouTube, social media.
 
 ### Path B: Generate New Footage
 
@@ -347,14 +348,14 @@ ch cover-art    # Generate cover art assets (thumbnails, banners, title cards)
 # Creates output/cuts/<cut_id>/manifest/youtube.metadata.json
 ```
 
-**Generate cover art:**
+**Generate cover art (requires OPENAI_API_KEY):**
 ```bash
-./ch cover-art --theme brass --type all
-# Creates thumbnails, banners, title cards in output/cover_art/brass/
+export OPENAI_API_KEY="your-key-here"
+./ch cover-art --type all
+# Creates thumbnails, banners, title cards in output/cover_art/
 
 # Generate specific asset:
-./ch cover-art --theme dev --type thumbnail --episode EP05
-```
+./ch cover-art --type thumbnail --episode EP05
 
 ### Command Details
 
@@ -386,14 +387,15 @@ ch cover-art    # Generate cover art assets (thumbnails, banners, title cards)
 - Based on recipe metadata and cut URI
 
 **`ch cover-art [options]`**
-- Generates cover art assets using style guides
+- Generates AI-powered cover art using OpenAI's image models
+- Requires: `OPENAI_API_KEY` environment variable
 - Options:
-  - `--theme [brass|dev|corporate]` (default: brass)
   - `--type [all|title|thumbnail|banner|social]` (default: all)
   - `--episode <EP##>` (for thumbnails, default: EP00)
   - `--title <text>` (main title, default: CLAUDE HOLIDAY)
   - `--subtitle <text>` (subtitle, default: A COMPOSABLE MICRO-SERIES)
-- Outputs to `output/cover_art/<theme>/`
+  - `--model <model>` (OpenAI model: dall-e-3, gpt-image-1, default: dall-e-3)
+- Outputs to `output/cover_art/`
 - Assets include:
   - YouTube thumbnails (1280x720)
   - YouTube channel banner (2560x1440)
@@ -419,7 +421,7 @@ Claude Holiday is designed for community participation. Here's how:
 - Copy an example recipe from `recipes/examples/`
 - Edit the YAML to choose episodes, overlays, audience, ending, provider
 - Run `./ch compile --recipe your_recipe.yaml`
-- Generate cover art: `./ch cover-art --theme [brass|dev|corporate]`
+- Generate cover art: `export OPENAI_API_KEY="your-key-here" && ./ch cover-art --type all`
 - Share your Cut URI and publish your videos
 
 ### 🎥 Contribute Footage

@@ -20,7 +20,7 @@ scope:
 overlays:
   enabled: false
   density: low
-  theme: brass
+  theme: default
 ending: "agnostic"
 captions:
   track: "general"

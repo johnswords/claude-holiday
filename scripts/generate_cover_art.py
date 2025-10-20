@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Generate cover art assets for Claude Holiday using style guides.
+Generate AI-powered cover art assets for Claude Holiday.
+
+Creates professional artwork using OpenAI's image generation models,
+based on visual descriptions from the master script.
 
 Creates:
 - YouTube thumbnails (1280x720)
@@ -13,312 +16,252 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Optional
+import requests
+from openai import OpenAI
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-STYLE_GUIDES_DIR = PROJECT_ROOT / "assets" / "style_guides"
 OUTPUT_DIR = PROJECT_ROOT / "output" / "cover_art"
 
 
-def load_style_guide(theme: str) -> Dict[str, Any]:
-    """Load and merge style guide with base if needed."""
-    guide_path = STYLE_GUIDES_DIR / f"{theme}.json"
-    if not guide_path.exists():
-        print(f"[ERROR] Style guide not found: {guide_path}")
-        sys.exit(1)
+def build_image_prompt(asset_type: str, title: str, subtitle: str, episode: str = None) -> str:
+    """Build a detailed prompt based on master script visuals.
 
-    with open(guide_path, "r", encoding="utf-8") as f:
-        guide = json.load(f)
+    Uses the visual language from docs/master_script.md to ensure consistency
+    with the actual video content - warm Hallmark holiday aesthetic.
+    """
 
-    # If guide extends base, merge them
-    if guide.get("extends") == "base":
-        base_path = STYLE_GUIDES_DIR / "base.json"
-        with open(base_path, "r", encoding="utf-8") as f:
-            base = json.load(f)
-        # Simple merge - guide overrides base
-        merged = {**base, **guide}
-        # Deep merge some nested dicts
-        for key in ["dimensions", "typography", "spacing"]:
-            if key in base and key in guide:
-                merged[key] = {**base[key], **guide.get(key, {})}
-        return merged
+    # From master script: warm Hallmark domestic drama palette
+    base_prompt = (
+        "Cinematic still from a Hallmark holiday romance film. "
+        "Cozy inn lobby with crackling fireplace, vintage registry book, warm amber lighting. "
+        "Snow visible through windows, rustic wood beams and holiday garland. "
+        "Color palette: amber, cream, mahogany, forest green with brass accents. "
+        "Style: warm domestic drama, 3200K fireplace key light, cool exterior rim light. "
+    )
 
-    return guide
+    if asset_type == "thumbnail":
+        specific = (
+            f"YouTube thumbnail design featuring professional woman in charcoal coat "
+            f"and innkeeper in red flannel shirt at cozy inn registry desk. "
+            f"Title text '{title}' in elegant Playfair Display serif, '{episode or 'EP00'}' in corner. "
+            f"Warm fireplace glow, snow through windows, 16:9 aspect ratio."
+        )
+    elif asset_type == "title":
+        specific = (
+            f"Vertical title card with deep crimson to golden bloom gradient. "
+            f"Slow snow fall, soft bokeh drift in background. "
+            f"'{title}' in elegant Playfair Display serif centered. "
+            f"'{subtitle}' below in smaller text. 9:16 vertical format."
+        )
+    elif asset_type == "banner":
+        specific = (
+            f"Wide panoramic view of Evergreen Inn exterior during golden hour. "
+            f"Snow-covered small town, warm windows glowing, holiday decorations. "
+            f"'{title}' text overlay, '{subtitle}' as tagline. "
+            f"YouTube channel banner dimensions."
+        )
+    else:  # social
+        specific = (
+            f"Square format cozy inn fireplace scene with 'CH' monogram. "
+            f"Warm amber glow, holiday garland, vintage feel. "
+            f"Instagram-ready 1:1 aspect ratio."
+        )
+
+    # Add quality modifiers
+    quality = (
+        "High quality digital art, professional design, sharp details, "
+        "perfect for social media, no text artifacts, clean composition."
+    )
+
+    return f"{base_prompt}{specific} {quality}"
 
 
-def generate_title_card(style: Dict[str, Any], output_path: Path, title: str = "CLAUDE HOLIDAY", subtitle: str = "A COMPOSABLE MICRO-SERIES") -> None:
-    """Generate a title card (1080x1920) using FFmpeg."""
+def generate_with_openai(prompt: str, size: str, output_path: Path, api_key: str, model_name: str = "dall-e-3") -> bool:
+    """Generate an image using OpenAI image generation models and save it."""
 
-    dimensions = style["dimensions"]["cover_art"]["title_card"]
-    width = dimensions["width"]
-    height = dimensions["height"]
+    try:
+        client = OpenAI(api_key=api_key)
 
-    cover_config = style.get("cover_art", {}).get("title_card", {})
-    palette = style.get("palette", {})
+        print(f"[GENERATING] {output_path.name} using {model_name}")
+        print(f"[PROMPT] {prompt[:150]}...")
 
-    # Get background
-    bg = cover_config.get("background", {})
-    if bg.get("type") == "gradient":
-        # Parse gradient - simplified for FFmpeg
-        bg_value = bg.get("value", "linear-gradient(135deg, #B87333 0%, #CD7F32 100%)")
-        # Extract colors from gradient string (simplified)
-        if "#B87333" in bg_value and "#CD7F32" in bg_value:
-            color1 = "0xB87333"
-            color2 = "0xCD7F32"
-        elif "#0052CC" in bg_value:
-            color1 = "0x0052CC"
-            color2 = "0x0065FF"
-        elif "#FFFFFF" in bg_value and "#F4F5F7" in bg_value:
-            color1 = "0xFFFFFF"
-            color2 = "0xF4F5F7"
-        elif "#0D1117" in bg_value:
-            color1 = "0x0D1117"
-            color2 = "0x0D1117"
+        # Build parameters based on model
+        params = {
+            "model": model_name,
+            "prompt": prompt,
+            "size": size,
+            "n": 1,
+        }
+
+        # Only add quality for DALL-E models
+        if "dall-e" in model_name.lower():
+            params["quality"] = "standard"
+
+        response = client.images.generate(**params)
+        image_url = response.data[0].url
+
+        # Download and save the image
+        image_response = requests.get(image_url)
+        if image_response.status_code == 200:
+            with open(output_path, 'wb') as f:
+                f.write(image_response.content)
+            print(f"[SUCCESS] Saved to {output_path}")
+            return True
         else:
-            color1 = "0x444444"
-            color2 = "0x666666"
-    else:
-        # Solid color
-        color1 = color2 = bg.get("value", "#444444").lstrip("#")
-        color1 = f"0x{color1}"
-        color2 = f"0x{color2}"
+            print(f"[ERROR] Failed to download image: {image_response.status_code}")
+            return False
 
-    # Get text config
-    title_config = cover_config.get("title", {})
-    title_color = title_config.get("color", "#FFFFFF").lstrip("#")
-    title_size = title_config.get("size", 72)
-
-    subtitle_config = cover_config.get("subtitle", {})
-    subtitle_color = subtitle_config.get("color", "#FFFFFF").lstrip("#")
-    subtitle_size = subtitle_config.get("size", 32)
-    subtitle_prefix = subtitle_config.get("prefix", "")
-    if subtitle_prefix:
-        subtitle = f"{subtitle_prefix} {subtitle}"
-
-    # Escape special characters for FFmpeg drawtext filter
-    # Must escape: quotes, colons, commas, brackets, backslashes
-    title_escaped = title.replace("'", "'\\''").replace(":", "\\:")
-    subtitle_escaped = subtitle.replace("'", "'\\''").replace(":", "\\:")
-
-    # Build FFmpeg command - use color filter since gradients might not be available
-    # Create a simple gradient effect with two colors
-    cmd = [
-        "ffmpeg", "-y",
-        "-f", "lavfi",
-        "-i", f"color=c={color1}:s={width}x{height}",
-        "-f", "lavfi",
-        "-i", f"color=c={color2}:s={width}x{height}",
-        "-filter_complex", (
-            f"[0][1]blend=all_expr='A*(1-Y/{height})+B*(Y/{height})'[bg];"
-            f"[bg]drawtext=text='{title_escaped}':fontsize={title_size}:fontcolor=0x{title_color}:"
-            f"x=(w-text_w)/2:y=h/3-text_h/2,"
-            f"drawtext=text='{subtitle_escaped}':fontsize={subtitle_size}:fontcolor=0x{subtitle_color}:"
-            f"x=(w-text_w)/2:y=h/3+{title_size}"
-        ),
-        "-frames:v", "1",
-        str(output_path)
-    ]
-
-    print(f"[GENERATE] Title card: {output_path}")
-    subprocess.run(cmd, check=True, capture_output=True, text=True)
+    except Exception as e:
+        print(f"[ERROR] Image generation failed: {e}")
+        return False
 
 
-def generate_thumbnail(style: Dict[str, Any], output_path: Path, episode: str = "EP00") -> None:
-    """Generate a YouTube thumbnail (1280x720) using FFmpeg."""
+def generate_title_card(output_path: Path, title: str, subtitle: str, api_key: str, model_name: str = "dall-e-3") -> None:
+    """Generate a title card (1080x1920) using OpenAI image generation."""
 
-    dimensions = style["dimensions"]["cover_art"]["youtube_thumbnail"]
-    width = dimensions["width"]
-    height = dimensions["height"]
+    prompt = build_image_prompt("title", title, subtitle)
 
-    cover_config = style.get("cover_art", {}).get("thumbnail", {})
-    palette = style.get("palette", {})
+    # Use 1024x1792 for vertical format (closest to 9:16)
+    success = generate_with_openai(prompt, "1024x1792", output_path, api_key, model_name)
 
-    # Get layout type
-    layout = cover_config.get("layout", "split")
-
-    if layout == "split":
-        # Split layout - two colors from theme
-        primary_keys = list(palette.get("primary", {}).keys())
-        if primary_keys:
-            left_color = palette["primary"][primary_keys[0]]
-        else:
-            left_color = "#B87333"
-
-        secondary_keys = list(palette.get("secondary", {}).keys())
-        if secondary_keys:
-            right_color = palette["secondary"][secondary_keys[0]]
-        else:
-            right_color = "#FFF8E7"
-
-        # Generate split background with text
-        cmd = [
-            "ffmpeg", "-y",
-            "-f", "lavfi",
-            "-i", f"color=c={left_color}:s={width//2}x{height}",
-            "-f", "lavfi",
-            "-i", f"color=c={right_color}:s={width//2}x{height}",
-            "-filter_complex",
-            f"[0][1]hstack,drawtext=text='CLAUDE':fontsize=96:fontcolor=white:"
-            f"x={width//4}-text_w/2:y=h/2-100,"
-            f"drawtext=text='HOLIDAY':fontsize=96:fontcolor=white:"
-            f"x={width//4}-text_w/2:y=h/2,"
-            f"drawtext=text='{episode}':fontsize=48:fontcolor=black:"
-            f"x={width*3//4}-text_w/2:y=h/2-24",
-            "-frames:v", "1",
-            str(output_path)
-        ]
-    else:
-        # Simple gradient background - get colors from style
-        primary_keys = list(palette.get("primary", {}).keys())
-        if primary_keys:
-            color1 = palette["primary"][primary_keys[0]]
-            color2 = palette["primary"][primary_keys[1]] if len(primary_keys) > 1 else "#0065FF"
-        else:
-            color1 = "#0052CC"
-            color2 = "#0065FF"
+    if success and output_path.exists():
+        # Resize to exact dimensions using FFmpeg
+        temp_path = output_path.with_suffix('.tmp.png')
+        output_path.rename(temp_path)
 
         cmd = [
             "ffmpeg", "-y",
-            "-f", "lavfi",
-            "-i", f"color=c={color1}:s={width}x{height}",
-            "-f", "lavfi",
-            "-i", f"color=c={color2}:s={width}x{height}",
-            "-filter_complex", (
-                f"[0][1]blend=all_expr='A*(1-X/{width}-Y/{height})+B*(X/{width}+Y/{height})/2'[bg];"
-                f"[bg]drawtext=text='CLAUDE HOLIDAY':fontsize=80:fontcolor=white:"
-                f"x=(w-text_w)/2:y=h/2-40,"
-                f"drawtext=text='{episode}':fontsize=40:fontcolor=white:"
-                f"x=(w-text_w)/2:y=h/2+40"
-            ),
-            "-frames:v", "1",
+            "-i", str(temp_path),
+            "-vf", "scale=1080:1920",
             str(output_path)
         ]
 
-    print(f"[GENERATE] Thumbnail: {output_path}")
-    subprocess.run(cmd, check=True, capture_output=True, text=True)
+        subprocess.run(cmd, capture_output=True)
+        temp_path.unlink()
 
 
-def generate_banner(style: Dict[str, Any], output_path: Path) -> None:
-    """Generate a YouTube channel banner (2560x1440) using FFmpeg."""
+def generate_thumbnail(output_path: Path, episode: str, title: str, api_key: str, model_name: str = "dall-e-3") -> None:
+    """Generate a YouTube thumbnail (1280x720) using OpenAI image generation."""
 
-    dimensions = style["dimensions"]["cover_art"]["youtube_banner"]
-    width = dimensions["width"]
-    height = dimensions["height"]
-    safe_width = dimensions["safe_area"]["width"]
-    safe_height = dimensions["safe_area"]["height"]
+    prompt = build_image_prompt("thumbnail", title, "A COMPOSABLE MICRO-SERIES", episode)
 
-    palette = style.get("palette", {})
+    # Use 1792x1024 for horizontal format (we'll crop/resize to 1280x720)
+    success = generate_with_openai(prompt, "1792x1024", output_path, api_key, model_name)
 
-    # Calculate safe area position (centered)
-    safe_x = (width - safe_width) // 2
-    safe_y = (height - safe_height) // 2
+    if success and output_path.exists():
+        # Resize to exact dimensions using FFmpeg
+        temp_path = output_path.with_suffix('.tmp.png')
+        output_path.rename(temp_path)
 
-    # Generate banner with safe area indicator
-    primary_color = palette.get("primary", {}).get("brass", "#B87333")
+        cmd = [
+            "ffmpeg", "-y",
+            "-i", str(temp_path),
+            "-vf", "scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720",
+            str(output_path)
+        ]
 
-    # Get the first color key to find a secondary color for gradient
-    primary_keys = list(palette.get("primary", {}).keys())
-    if len(primary_keys) > 1:
-        secondary_color = palette["primary"][primary_keys[1]]
-    else:
-        secondary_color = "#FFD700"
-
-    cmd = [
-        "ffmpeg", "-y",
-        "-f", "lavfi",
-        "-i", f"color=c={primary_color}:s={width}x{height}",
-        "-f", "lavfi",
-        "-i", f"color=c={secondary_color}:s={width}x{height}",
-        "-filter_complex", (
-            f"[0][1]blend=all_expr='A*(1-X/{width})+B*(X/{width})'[bg];"
-            f"[bg]drawtext=text='CLAUDE HOLIDAY':fontsize=120:fontcolor=white:"
-            f"x={safe_x + safe_width//2}-text_w/2:y={safe_y + safe_height//2}-60,"
-            f"drawtext=text='COMMUNITY-COMPOSABLE MICRO-SERIES':fontsize=40:fontcolor=white:"
-            f"x={safe_x + safe_width//2}-text_w/2:y={safe_y + safe_height//2}+60,"
-            # Add subtle safe area border for debugging
-            f"drawbox=x={safe_x}:y={safe_y}:w={safe_width}:h={safe_height}:"
-            f"color=white@0.1:t=2"
-        ),
-        "-frames:v", "1",
-        str(output_path)
-    ]
-
-    print(f"[GENERATE] Banner: {output_path}")
-    subprocess.run(cmd, check=True, capture_output=True, text=True)
+        subprocess.run(cmd, capture_output=True)
+        temp_path.unlink()
 
 
-def generate_social_square(style: Dict[str, Any], output_path: Path) -> None:
-    """Generate a social media square (1080x1080) using FFmpeg."""
+def generate_banner(output_path: Path, title: str, subtitle: str, api_key: str, model_name: str = "dall-e-3") -> None:
+    """Generate a YouTube channel banner (2560x1440) using OpenAI image generation."""
 
-    dimensions = style["dimensions"]["cover_art"]["social_square"]
-    size = dimensions["width"]  # Square, so width = height
+    prompt = build_image_prompt("banner", title, subtitle)
 
-    palette = style.get("palette", {})
-    # Get the first primary color
-    primary_keys = list(palette.get("primary", {}).keys())
-    if primary_keys:
-        primary_color = palette["primary"][primary_keys[0]]
-    else:
-        primary_color = "#B87333"
+    # Use 1792x1024 (we'll upscale to banner size)
+    success = generate_with_openai(prompt, "1792x1024", output_path, api_key, model_name)
 
-    cmd = [
-        "ffmpeg", "-y",
-        "-f", "lavfi",
-        "-i", f"color=c={primary_color}:s={size}x{size}",
-        "-vf", (
-            f"drawtext=text='CH':fontsize=200:fontcolor=white:"
-            f"x=(w-text_w)/2:y=(h-text_h)/2"
-        ),
-        "-frames:v", "1",
-        str(output_path)
-    ]
+    if success and output_path.exists():
+        # Upscale to banner dimensions using FFmpeg
+        temp_path = output_path.with_suffix('.tmp.png')
+        output_path.rename(temp_path)
 
-    print(f"[GENERATE] Social square: {output_path}")
-    subprocess.run(cmd, check=True, capture_output=True, text=True)
+        cmd = [
+            "ffmpeg", "-y",
+            "-i", str(temp_path),
+            "-vf", "scale=2560:1440:flags=lanczos",
+            str(output_path)
+        ]
+
+        subprocess.run(cmd, capture_output=True)
+        temp_path.unlink()
+
+
+def generate_social_square(output_path: Path, api_key: str, model_name: str = "dall-e-3") -> None:
+    """Generate a social media square (1080x1080) using OpenAI image generation."""
+
+    prompt = build_image_prompt("social", "CH", "CLAUDE HOLIDAY")
+
+    # Use 1024x1024 (perfect square, we'll upscale slightly)
+    success = generate_with_openai(prompt, "1024x1024", output_path, api_key, model_name)
+
+    if success and output_path.exists():
+        # Upscale to exact dimensions using FFmpeg
+        temp_path = output_path.with_suffix('.tmp.png')
+        output_path.rename(temp_path)
+
+        cmd = [
+            "ffmpeg", "-y",
+            "-i", str(temp_path),
+            "-vf", "scale=1080:1080:flags=lanczos",
+            str(output_path)
+        ]
+
+        subprocess.run(cmd, capture_output=True)
+        temp_path.unlink()
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate cover art assets for Claude Holiday")
-    parser.add_argument("--theme", default="brass", help="Style guide theme to use")
+    parser = argparse.ArgumentParser(description="Generate AI-powered cover art assets for Claude Holiday")
     parser.add_argument("--type", choices=["all", "title", "thumbnail", "banner", "social"],
                        default="all", help="Type of asset to generate")
     parser.add_argument("--episode", default="EP00", help="Episode number for thumbnails")
     parser.add_argument("--title", default="CLAUDE HOLIDAY", help="Main title text")
     parser.add_argument("--subtitle", default="A COMPOSABLE MICRO-SERIES", help="Subtitle text")
+    parser.add_argument("--api-key", help="OpenAI API key (or set OPENAI_API_KEY env var)")
+    parser.add_argument("--model", default="dall-e-3", help="OpenAI model to use (dall-e-3, gpt-image-1, etc.)")
     args = parser.parse_args()
 
-    # Load style guide
-    style = load_style_guide(args.theme)
+    # Get API key
+    api_key = args.api_key or os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        print("[ERROR] OpenAI API key required. Set OPENAI_API_KEY or use --api-key")
+        print("\nTo get an API key:")
+        print("1. Sign up at platform.openai.com")
+        print("2. Navigate to API keys section")
+        print("3. Create a new key")
+        print("4. Set: export OPENAI_API_KEY='your-key-here'")
+        sys.exit(1)
 
     # Create output directory
-    theme_dir = OUTPUT_DIR / args.theme
-    theme_dir.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Generate requested assets
     if args.type in ["all", "title"]:
-        output_path = theme_dir / "title_card.png"
-        generate_title_card(style, output_path, args.title, args.subtitle)
+        output_path = OUTPUT_DIR / "title_card.png"
+        generate_title_card(output_path, args.title, args.subtitle, api_key, args.model)
 
     if args.type in ["all", "thumbnail"]:
-        output_path = theme_dir / f"thumbnail_{args.episode.lower()}.png"
-        generate_thumbnail(style, output_path, args.episode)
+        output_path = OUTPUT_DIR / f"thumbnail_{args.episode.lower()}.png"
+        generate_thumbnail(output_path, args.episode, args.title, api_key, args.model)
 
     if args.type in ["all", "banner"]:
-        output_path = theme_dir / "youtube_banner.png"
-        generate_banner(style, output_path)
+        output_path = OUTPUT_DIR / "youtube_banner.png"
+        generate_banner(output_path, args.title, args.subtitle, api_key, args.model)
 
     if args.type in ["all", "social"]:
-        output_path = theme_dir / "social_square.png"
-        generate_social_square(style, output_path)
+        output_path = OUTPUT_DIR / "social_square.png"
+        generate_social_square(output_path, api_key, args.model)
 
-    print(f"\n[SUCCESS] Cover art generated in: {theme_dir}")
-    print("\nAvailable themes:")
-    for guide in STYLE_GUIDES_DIR.glob("*.json"):
-        if guide.stem != "base":
-            print(f"  - {guide.stem}")
+    print(f"\n[SUCCESS] Cover art generated in: {OUTPUT_DIR}")
+    print(f"[MODEL] Using: {args.model}")
+    print("\nNote: Each image is unique. Regenerate if you want variations.")
 
 
 if __name__ == "__main__":

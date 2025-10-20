@@ -1,7 +1,7 @@
 {
-  "name": "brass",
+  "name": "default",
   "extends": "base",
-  "description": "Warm, cozy Hallmark holiday aesthetic with brass/bronze tones",
+  "description": "Claude Holiday visual style - warm Hallmark holiday aesthetic",
   "metadata": {
     "version": "0.1.0",
     "author": "Claude Holiday",

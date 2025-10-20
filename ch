@@ -58,12 +58,10 @@ def cmd_ytmeta(args: argparse.Namespace) -> None:
 
 
 def cmd_cover_art(args: argparse.Namespace) -> None:
-    """Generate cover art assets (thumbnails, banners, title cards)."""
+    """Generate AI-powered cover art assets (requires OpenAI API key)."""
     script = Path(__file__).resolve().parent / "scripts" / "generate_cover_art.py"
     script_args = []
 
-    if args.theme:
-        script_args.extend(["--theme", args.theme])
     if args.type:
         script_args.extend(["--type", args.type])
     if args.episode:
@@ -72,6 +70,8 @@ def cmd_cover_art(args: argparse.Namespace) -> None:
         script_args.extend(["--title", args.title])
     if args.subtitle:
         script_args.extend(["--subtitle", args.subtitle])
+    if args.model:
+        script_args.extend(["--model", args.model])
 
     run_script(script, script_args)
 
@@ -168,13 +168,8 @@ def main() -> None:
     # cover-art subcommand
     cover_art_parser = subparsers.add_parser(
         "cover-art",
-        help="Generate cover art assets",
-        description="Generate YouTube thumbnails, banners, title cards, and social media images."
-    )
-    cover_art_parser.add_argument(
-        "--theme",
-        default="brass",
-        help="Style guide theme to use (default: brass). Available: brass, dev, corporate"
+        help="Generate AI-powered cover art assets",
+        description="Generate professional cover art using OpenAI's image generation models. Requires OPENAI_API_KEY environment variable."
     )
     cover_art_parser.add_argument(
         "--type",
@@ -196,6 +191,11 @@ def main() -> None:
         "--subtitle",
         default="A COMPOSABLE MICRO-SERIES",
         help="Subtitle text (default: A COMPOSABLE MICRO-SERIES)"
+    )
+    cover_art_parser.add_argument(
+        "--model",
+        default="dall-e-3",
+        help="OpenAI model to use (dall-e-3, gpt-image-1, etc.)"
     )
     cover_art_parser.set_defaults(func=cmd_cover_art)
 
