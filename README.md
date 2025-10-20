@@ -17,19 +17,19 @@
 
 ```bash
 # 1. Generate multiple video candidates for each scene (saves cut ID)
-python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml --candidates-only
+./ch candidates --recipe recipes/examples/dev-default.yaml
 
-# 2. Pick your favorite takes from each scene (interactive selector)
-python scripts/select_winners.py --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
+# 2. Pick your favorite takes from each scene (creates visual contact sheet)
+./ch select --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
 
 # 3. Stitch your selections into final episodes with overlays
-python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml
+./ch compile --recipe recipes/examples/dev-default.yaml
 
 # 4. Generate YouTube metadata (title, description, tags)
-python scripts/yt/metadata.py --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
+./ch ytmeta --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
 
 # 5. Package everything for release (videos + metadata + manifest)
-python scripts/pack_release.py --cut-manifest output/cuts/<id>/manifest/cut.manifest.json --include episodes
+./ch bundle --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
 ```
 
 **That's it.** You now have:
@@ -222,6 +222,8 @@ claude_holiday/
 
 3. **Compile Your Cut**
    ```bash
+   ./ch compile --recipe recipes/my-timeline.yaml
+   # Or using uv directly:
    uv run python -m scripts.compile_cut --recipe recipes/my-timeline.yaml
    # Or use the Makefile shortcut:
    make compile-cut
@@ -269,7 +271,8 @@ uv sync
 cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 
 # 3. Compile it (uses existing footage, no API keys needed)
-uv run python -m scripts.compile_cut --recipe recipes/my-first-cut.yaml
+./ch compile --recipe recipes/my-first-cut.yaml
+# Or: uv run python -m scripts.compile_cut --recipe recipes/my-first-cut.yaml
 
 # 4. Watch your cut
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
@@ -291,6 +294,82 @@ uv run python -m scripts.generate_video --episode ep00_checking_in
 # Review draft
 open episodes/ep00_checking_in/renders/drafts/latest.mp4
 ```
+
+---
+
+## 🔧 CLI Reference
+
+The `ch` command provides a unified interface for all Claude Holiday operations:
+
+### Available Commands
+
+```bash
+ch compile      # Compile a complete cut from recipe
+ch candidates   # Generate candidate renders (no stitching)
+ch select       # Create selection templates from candidates
+ch bundle       # Pack cut into release bundle
+ch ytmeta       # Generate YouTube metadata JSON
+```
+
+### Usage Examples
+
+**Compile a cut:**
+```bash
+./ch compile --recipe recipes/my-timeline.yaml
+```
+
+**Generate candidates for review:**
+```bash
+./ch candidates --recipe recipes/my-timeline.yaml
+# Creates multiple renders per scene in output/tmp/<cut_id>/
+```
+
+**Create selection templates:**
+```bash
+./ch select --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
+# Generates episodes/<ep>/renders/selections/<cut_id>.yaml for each episode
+```
+
+**Bundle for release:**
+```bash
+./ch bundle --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
+# Creates output/releases/ClaudeHoliday_<cut_id>.zip
+```
+
+**Generate YouTube metadata:**
+```bash
+./ch ytmeta --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
+# Creates output/cuts/<cut_id>/manifest/youtube.metadata.json
+```
+
+### Command Details
+
+**`ch compile --recipe <path>`**
+- Compiles episodes from an RCFC recipe
+- Applies winner selections if available
+- Outputs to `output/episodes/<episode_id>/`
+
+**`ch candidates --recipe <path>`**
+- Generates multiple candidate renders per scene
+- Controlled by `provider.options.num_candidates` in recipe
+- Skips stitching (for review workflow)
+- Outputs to `output/tmp/<cut_id>/`
+
+**`ch select --cut-manifest <path>`**
+- Generates selection YAML templates from candidates
+- One file per episode in `episodes/<ep>/renders/selections/`
+- Edit these to set `winner_index` per scene
+- Then recompile with `ch compile`
+
+**`ch bundle --cut-manifest <path> [--include episodes] [--out dir]`**
+- Packages compiled cut into a ZIP bundle
+- Includes: videos, manifests, metadata
+- Default output: `output/releases/`
+
+**`ch ytmeta --cut-manifest <path>`**
+- Generates YouTube-ready metadata JSON
+- Title, description, tags, category
+- Based on recipe metadata and cut URI
 
 ---
 
@@ -347,13 +426,13 @@ You can generate multiple candidates per scene, review them, choose winners, and
 
 1) Generate candidates only (no stitching yet)
 ```bash
-python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml --candidates-only
+./ch candidates --recipe recipes/examples/dev-default.yaml
 # Note manifest path printed; keep the cut_id handy
 ```
 
 2) Create selections YAMLs (one per episode) from the candidates
 ```bash
-python scripts/select_winners.py --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
+./ch select --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
 # Generates: episodes/<ep>/renders/selections/<cut_id>.yaml
 # Also creates: output/cuts/<cut_id>/review.html (visual contact sheet)
 ```
@@ -367,7 +446,7 @@ Edit the YAML files to set `winner_index` per scene based on the HTML contact sh
 
 3) Compile using your selections (just run compile again; it picks up selections automatically)
 ```bash
-python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml
+./ch compile --recipe recipes/examples/dev-default.yaml
 ```
 
 Tips:
