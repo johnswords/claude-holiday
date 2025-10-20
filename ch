@@ -174,8 +174,7 @@ def main() -> None:
     cover_art_parser.add_argument(
         "--theme",
         default="brass",
-        choices=["brass", "dev", "corporate"],
-        help="Style guide theme to use (default: brass)"
+        help="Style guide theme to use (default: brass). Available: brass, dev, corporate"
     )
     cover_art_parser.add_argument(
         "--type",
