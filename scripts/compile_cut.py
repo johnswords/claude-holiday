@@ -14,6 +14,7 @@ import jsonschema
 from jsonschema import ValidationError
 
 from scripts.apply_overlays import apply_overlays
+from scripts.generate_captions import generate_captions, generate_per_scene_captions
 from scripts.providers.base import Provider, RenderConfig
 from scripts.providers.dummy import DummyProvider
 from scripts.providers.prebaked import PrebakedProvider
@@ -106,8 +107,15 @@ def load_episode_manifest(episode_id: str) -> dict[str, Any]:
         raise FileNotFoundError(f"Episode manifest not found: {path}")
     return load_yaml(path)
 
-
-def ffmpeg_concat(clips: list[Path], out_path: Path, fps: int, width: int, height: int) -> None:
+def ffmpeg_concat(
+    clips: list[Path],
+    out_path: Path,
+    fps: int,
+    width: int,
+    height: int,
+    ambience_path: Path | None = None,
+    ambience_lufs: float = -18.0,
+) -> None:
     preflight_check()
 
     # Re-encode to ensure consistent stream parameters
@@ -117,6 +125,7 @@ def ffmpeg_concat(clips: list[Path], out_path: Path, fps: int, width: int, heigh
         for clip in clips:
             f.write(f"file '{clip.as_posix()}'\n")
 
+    # Base command with video concat
     cmd = [
         "ffmpeg",
         "-y",
@@ -126,6 +135,23 @@ def ffmpeg_concat(clips: list[Path], out_path: Path, fps: int, width: int, heigh
         "0",
         "-i",
         str(concat_file),
+    ]
+
+    # Add ambience input if provided
+    audio_filter = None
+    if ambience_path and ambience_path.exists():
+        cmd.extend(["-stream_loop", "-1", "-i", str(ambience_path)])
+        # Mix ambience (input 1) with video audio (input 0) at specified LUFS
+        # amix: mix two audio streams
+        # shortest=1: end when shortest input ends (video)
+        # weights: adjust ambience volume to target LUFS (~-18 LUFS is roughly 0.1 to 0.15 weight)
+        audio_filter = "[0:a][1:a]amix=inputs=2:duration=shortest:weights=1 0.125[aout]"
+        cmd.extend(["-filter_complex", audio_filter, "-map", "0:v", "-map", "[aout]"])
+    else:
+        cmd.extend(["-map", "0:v", "-map", "0:a"])
+
+    # Video and audio encoding settings
+    cmd.extend([
         "-r",
         str(fps),
         "-vf",
@@ -139,7 +165,7 @@ def ffmpeg_concat(clips: list[Path], out_path: Path, fps: int, width: int, heigh
         "-b:a",
         "128k",
         str(out_path),
-    ]
+    ])
     try:
         result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         # Log ffmpeg stderr (contains progress and warnings even on success)
@@ -160,10 +186,13 @@ def compile_episode(
     audience_cfg: dict[str, Any],
     cut_id: str,
     font_path: str | None = None,
-) -> Path:
+    series_cfg: Dict[str, Any] | None = None,
+) -> Tuple[Path, Dict[str, Any]]:
     manifest = load_episode_manifest(episode_id)
     scenes = manifest.get("scenes") or []
     provider = provider_from_recipe(recipe)
+    if series_cfg is None:
+        series_cfg = load_series_config()
 
     tmp_dir = PROJECT_ROOT / "output" / "tmp" / cut_id / episode_id
     tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -292,10 +321,68 @@ def compile_episode(
         ready_flag.write_text(
             "candidates generated; use select_winners.py to create selections and recompile\n", encoding="utf-8"
         )
-        return ready_flag
+        return ready_flag, {}
 
-    ffmpeg_concat(scene_outputs, out_path, fps=render_cfg.fps, width=render_cfg.width, height=render_cfg.height)
-    return out_path
+    # Resolve ambience audio path from episode manifest
+    ambience_path = None
+    audio_cfg = manifest.get("audio", {})
+    ambience_name = audio_cfg.get("ambience")
+    if ambience_name:
+        audio_series_cfg = series_cfg.get("audio", {})
+        ambience_dir = audio_series_cfg.get("ambience_dir", "assets/audio/ambience")
+        ambience_lufs = float(audio_series_cfg.get("target_lufs", -18.0))
+        # Support common audio formats
+        for ext in [".mp3", ".wav", ".m4a", ".aac", ".ogg"]:
+            candidate = PROJECT_ROOT / ambience_dir / f"{ambience_name}{ext}"
+            if candidate.exists():
+                ambience_path = candidate
+                break
+    else:
+        ambience_lufs = -18.0
+
+    ffmpeg_concat(
+        scene_outputs,
+        out_path,
+        fps=render_cfg.fps,
+        width=render_cfg.width,
+        height=render_cfg.height,
+        ambience_path=ambience_path,
+        ambience_lufs=ambience_lufs,
+    )
+
+    # Generate captions from episode-level or per-scene cues
+    caption_metadata: Dict[str, Any] = {}
+    episode_cues = manifest.get("captions_cues", [])
+
+    if episode_cues:
+        # Episode-level captions
+        captions_dir = out_dir / "captions"
+        caption_paths = generate_captions(
+            captions_cues=episode_cues,
+            output_dir=captions_dir,
+            episode_id=episode_id,
+            cut_id=cut_id,
+            fps=render_cfg.fps,
+        )
+        if caption_paths:
+            caption_metadata["episode_captions"] = {
+                "srt_path": str(caption_paths["srt"].relative_to(PROJECT_ROOT)),
+                "ass_path": str(caption_paths["ass"].relative_to(PROJECT_ROOT)),
+            }
+    else:
+        # Per-scene captions
+        captions_dir = out_dir / "captions"
+        scene_captions = generate_per_scene_captions(
+            scenes=scenes,
+            output_dir=captions_dir,
+            episode_id=episode_id,
+            cut_id=cut_id,
+            fps=render_cfg.fps,
+        )
+        if scene_captions:
+            caption_metadata["scene_captions"] = scene_captions
+
+    return out_path, caption_metadata
 
 
 def compile_cut(recipe_path: Path) -> Path:
@@ -329,22 +416,25 @@ def compile_cut(recipe_path: Path) -> Path:
     include_eps = (recipe.get("scope") or {}).get("include_episodes", [])
     episode_outputs: list[dict[str, Any]] = []
     for ep in include_eps:
-        ep_out = compile_episode(
+        ep_out, caption_meta = compile_episode(
             episode_id=ep,
             recipe=recipe,
             render_cfg=render_cfg,
             audience_cfg=audience_cfg,
             cut_id=cut_id,
             font_path=font_path,
+            series_cfg=series_cfg,
         )
         # Only include in manifest when not candidates-only (ep_out is a flag file otherwise)
         if os.environ.get("CH_CANDIDATES_ONLY") != "1":
-            episode_outputs.append(
-                {
-                    "episode_id": ep,
-                    "video_path": str(ep_out.relative_to(PROJECT_ROOT)),
-                }
-            )
+            ep_data = {
+                "episode_id": ep,
+                "video_path": str(ep_out.relative_to(PROJECT_ROOT)),
+            }
+            # Add caption metadata if present
+            if caption_meta:
+                ep_data["captions"] = caption_meta
+            episode_outputs.append(ep_data)
 
     # Optional: Stitch series (not strictly required for MVP)
     # For now, skip series stitch; episodes are compiled individually.
