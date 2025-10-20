@@ -18,6 +18,7 @@ from scripts.generate_captions import generate_captions, generate_per_scene_capt
 from scripts.providers.base import Provider, RenderConfig
 from scripts.providers.dummy import DummyProvider
 from scripts.providers.prebaked import PrebakedProvider
+from scripts.providers.sora import SoraProvider
 from scripts.rcfc.uri import build_cut_uri, compute_rcfc_hash
 from scripts.utils.ffmpeg import preflight_check
 
@@ -26,7 +27,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FONT_MAC = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
 
 
-def validate_recipe(recipe: Dict[str, Any]) -> None:
+def validate_recipe(recipe: dict[str, Any]) -> None:
     """
     Validate recipe against RCFC schema. Fails fast with clear errors.
 
@@ -60,7 +61,7 @@ def validate_recipe(recipe: Dict[str, Any]) -> None:
         raise ValidationError(error_msg) from e
 
 
-def load_yaml(path: Path) -> Dict[str, Any]:
+def load_yaml(path: Path) -> dict[str, Any]:
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
@@ -82,8 +83,9 @@ def provider_from_recipe(recipe: dict[str, Any]) -> Provider:
         return PrebakedProvider()
     if name == "dummy":
         return DummyProvider()
-    # Future: Sora provider
-    raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy)")
+    if name == "sora":
+        return SoraProvider()
+    raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy, sora)")
 
 
 def select_audience_config(audience: str) -> dict[str, Any]:
@@ -104,7 +106,6 @@ def load_episode_manifest(episode_id: str) -> dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Episode manifest not found: {path}")
     return load_yaml(path)
-
 
 def ffmpeg_concat(
     clips: list[Path],
