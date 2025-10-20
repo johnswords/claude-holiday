@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any
 
 from .base import Provider, RenderConfig
 from scripts.utils.ffmpeg import preflight_check
@@ -21,10 +20,10 @@ class PrebakedProvider(Provider):
     def generate_scene(
         self,
         episode_id: str,
-        scene: Dict[str, Any],
+        scene: dict[str, Any],
         output_dir: str,
         render_cfg: RenderConfig,
-        seed: Optional[int] = None,
+        seed: int | None = None,
     ) -> str:
         scene_id = scene.get("id") or "scene"
         duration = int(scene.get("duration_sec") or 1)
@@ -61,13 +60,7 @@ class PrebakedProvider(Provider):
             str(out_path),
         ]
         try:
-            result = subprocess.run(
-                cmd,
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
+            result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:

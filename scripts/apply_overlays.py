@@ -1,16 +1,15 @@
 from __future__ import annotations
 
 import json
-import shlex
 import subprocess
 import sys
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import Any
 
 from scripts.utils.ffmpeg import preflight_check
 
 
-def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> Tuple[str, str]:
+def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> tuple[str, str]:
     # Returns ffmpeg expressions for x,y
     if position == "top_left":
         return f"{pad}", f"{pad}"
@@ -24,13 +23,13 @@ def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> Tuple[s
     return f"{pad}", f"{pad}"
 
 
-def parse_overlay_spec(spec_path: Path) -> Dict[str, Any]:
-    with open(spec_path, "r", encoding="utf-8") as f:
+def parse_overlay_spec(spec_path: Path) -> dict[str, Any]:
+    with open(spec_path, encoding="utf-8") as f:
         return json.load(f)
 
 
 def build_filters(
-    overlays: List[Dict[str, Any]],
+    overlays: list[dict[str, Any]],
     width: int,
     height: int,
     font_path: str | None = None,
@@ -51,7 +50,7 @@ def build_filters(
         "padding": 12
       }
     """
-    filters: List[str] = []
+    filters: list[str] = []
     # Optional background box via drawbox is not text-aware; we rely on drawtext box=1 instead
     for ov in overlays:
         if ov.get("type") != "text":
@@ -60,7 +59,7 @@ def build_filters(
         pos = ov.get("position", "top_right")
         start = float(ov.get("start_sec", 0))
         dur = float(ov.get("duration_sec", 2.0))
-        enable = f"between(t\\,{start}\\,{start+dur})"
+        enable = f"between(t\\,{start}\\,{start + dur})"
         size = int(ov.get("font_size", 28))
         color = ov.get("font_color", "white")
         bg = ov.get("bg_color", "0x333333AA")
@@ -81,7 +80,7 @@ def build_filters(
 
 def apply_overlays(
     in_path: Path,
-    overlays: List[Dict[str, Any]],
+    overlays: list[dict[str, Any]],
     out_path: Path,
     width: int,
     height: int,
@@ -110,13 +109,7 @@ def apply_overlays(
             str(out_path),
         ]
         try:
-            result = subprocess.run(
-                cmd,
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
+            result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:
@@ -146,13 +139,7 @@ def apply_overlays(
         str(out_path),
     ]
     try:
-        result = subprocess.run(
-            cmd,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
+        result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         if result.stderr:
             print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
     except subprocess.CalledProcessError as e:

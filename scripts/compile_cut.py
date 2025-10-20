@@ -5,20 +5,19 @@ import json
 import os
 import subprocess
 import sys
-import tempfile
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
+from typing import Any
 
 import yaml
 import jsonschema
 from jsonschema import ValidationError
 
-from scripts.rcfc.uri import compute_rcfc_hash, build_cut_uri
-from scripts.providers.base import RenderConfig, Provider
-from scripts.providers.prebaked import PrebakedProvider
-from scripts.providers.dummy import DummyProvider
 from scripts.apply_overlays import apply_overlays
+from scripts.providers.base import Provider, RenderConfig
+from scripts.providers.dummy import DummyProvider
+from scripts.providers.prebaked import PrebakedProvider
+from scripts.rcfc.uri import build_cut_uri, compute_rcfc_hash
 from scripts.utils.ffmpeg import preflight_check
 
 
@@ -65,18 +64,18 @@ def load_yaml(path: Path) -> Dict[str, Any]:
         return yaml.safe_load(f)
 
 
-def save_json(path: Path, data: Dict[str, Any]) -> None:
+def save_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
 
-def parse_resolution(res: str) -> Tuple[int, int]:
+def parse_resolution(res: str) -> tuple[int, int]:
     w, h = res.split("x")
     return int(w), int(h)
 
 
-def provider_from_recipe(recipe: Dict[str, Any]) -> Provider:
+def provider_from_recipe(recipe: dict[str, Any]) -> Provider:
     name = (recipe.get("provider") or {}).get("name", "prebaked")
     if name == "prebaked":
         return PrebakedProvider()
@@ -86,7 +85,7 @@ def provider_from_recipe(recipe: Dict[str, Any]) -> Provider:
     raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy)")
 
 
-def select_audience_config(audience: str) -> Dict[str, Any]:
+def select_audience_config(audience: str) -> dict[str, Any]:
     cfg_dir = PROJECT_ROOT / "scripts" / "config"
     path = cfg_dir / f"audience.{audience}.yaml"
     if not path.exists():
@@ -94,12 +93,12 @@ def select_audience_config(audience: str) -> Dict[str, Any]:
     return load_yaml(path)
 
 
-def load_series_config() -> Dict[str, Any]:
+def load_series_config() -> dict[str, Any]:
     cfg_path = PROJECT_ROOT / "scripts" / "config" / "series.yaml"
     return load_yaml(cfg_path)
 
 
-def load_episode_manifest(episode_id: str) -> Dict[str, Any]:
+def load_episode_manifest(episode_id: str) -> dict[str, Any]:
     path = PROJECT_ROOT / "episodes" / episode_id / "episode.yaml"
     if not path.exists():
         raise FileNotFoundError(f"Episode manifest not found: {path}")
@@ -140,13 +139,7 @@ def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, heigh
         str(out_path),
     ]
     try:
-        result = subprocess.run(
-            cmd,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
+        result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         # Log ffmpeg stderr (contains progress and warnings even on success)
         if result.stderr:
             print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
@@ -160,9 +153,9 @@ def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, heigh
 
 def compile_episode(
     episode_id: str,
-    recipe: Dict[str, Any],
+    recipe: dict[str, Any],
     render_cfg: RenderConfig,
-    audience_cfg: Dict[str, Any],
+    audience_cfg: dict[str, Any],
     cut_id: str,
     font_path: str | None = None,
 ) -> Path:
@@ -178,7 +171,7 @@ def compile_episode(
     num_candidates = int(((recipe.get("provider") or {}).get("options") or {}).get("num_candidates", 1))
     # Selections file (optional): episodes/{episode_id}/renders/selections/{cut_id}.yaml
     selections_path = PROJECT_ROOT / "episodes" / episode_id / "renders" / "selections" / f"{cut_id}.yaml"
-    selections_map: Dict[str, Any] = {}
+    selections_map: dict[str, Any] = {}
     if selections_path.exists():
         try:
             selections_map = load_yaml(selections_path)
@@ -186,7 +179,7 @@ def compile_episode(
             selections_map = {}
 
     # Collect scene output paths for concat (if not candidates-only)
-    scene_outputs: List[Path] = []
+    scene_outputs: list[Path] = []
 
     for scene in scenes:
         scene_id = scene.get("id", "scene")
@@ -194,7 +187,7 @@ def compile_episode(
         scene_dir.mkdir(parents=True, exist_ok=True)
 
         # 1) Generate or resolve scene candidates
-        candidates: List[Dict[str, Any]] = []
+        candidates: list[dict[str, Any]] = []
         for idx in range(1, max(1, num_candidates) + 1):
             cand_dir = scene_dir / f"cand{idx}"
             cand_dir.mkdir(parents=True, exist_ok=True)
@@ -255,7 +248,8 @@ def compile_episode(
                     spec_path = PROJECT_ROOT / "assets" / "templates" / "overlays" / f"{spec_name}.json"
                     if spec_path.exists():
                         import json as _json
-                        with open(spec_path, "r", encoding="utf-8") as f:
+
+                        with open(spec_path, encoding="utf-8") as f:
                             spec_data = _json.load(f)
                         spec_data["start_sec"] = ov.get("start_sec", 0.5)
                         spec_data["duration_sec"] = ov.get("duration_sec", 2.0)
@@ -287,7 +281,9 @@ def compile_episode(
     if os.environ.get("CH_CANDIDATES_ONLY") == "1":
         # Write episode-level candidates marker for discoverability
         ready_flag = tmp_dir / "_candidates_ready.txt"
-        ready_flag.write_text("candidates generated; use select_winners.py to create selections and recompile\n", encoding="utf-8")
+        ready_flag.write_text(
+            "candidates generated; use select_winners.py to create selections and recompile\n", encoding="utf-8"
+        )
         return ready_flag
 
     ffmpeg_concat(scene_outputs, out_path, fps=render_cfg.fps, width=render_cfg.width, height=render_cfg.height)
@@ -323,7 +319,7 @@ def compile_cut(recipe_path: Path) -> Path:
 
     # Compile episodes (or just generate candidates)
     include_eps = (recipe.get("scope") or {}).get("include_episodes", [])
-    episode_outputs: List[Dict[str, Any]] = []
+    episode_outputs: list[dict[str, Any]] = []
     for ep in include_eps:
         ep_out = compile_episode(
             episode_id=ep,
@@ -383,7 +379,9 @@ def compile_cut(recipe_path: Path) -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compile a Claude Holiday cut from an RCFC recipe.")
     parser.add_argument("--recipe", required=True, help="Path to RCFC recipe YAML")
-    parser.add_argument("--candidates-only", action="store_true", help="Generate candidates per scene and skip stitching")
+    parser.add_argument(
+        "--candidates-only", action="store_true", help="Generate candidates per scene and skip stitching"
+    )
     args = parser.parse_args()
     recipe_path = Path(args.recipe)
     if not recipe_path.exists():

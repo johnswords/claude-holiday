@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Protocol, Optional, Dict, Any
 import re
+from dataclasses import dataclass
+from typing import Any, Protocol
 
 
 @dataclass
@@ -14,7 +14,7 @@ class RenderConfig:
     resolution: str
 
     @staticmethod
-    def from_strings(resolution: str, fps: int, aspect: str) -> "RenderConfig":
+    def from_strings(resolution: str, fps: int, aspect: str) -> RenderConfig:
         m = re.match(r"^(\d+)x(\d+)$", resolution)
         if not m:
             raise ValueError(f"Invalid resolution '{resolution}'. Expected WIDTHxHEIGHT, e.g., 1080x1920.")
@@ -23,16 +23,15 @@ class RenderConfig:
 
 
 class Provider(Protocol):
-    def name(self) -> str:
-        ...
+    def name(self) -> str: ...
 
     def generate_scene(
         self,
         episode_id: str,
-        scene: Dict[str, Any],
+        scene: dict[str, Any],
         output_dir: str,
         render_cfg: RenderConfig,
-        seed: Optional[int] = None,
+        seed: int | None = None,
     ) -> str:
         """
         Generate or resolve a scene clip.
