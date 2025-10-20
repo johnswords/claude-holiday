@@ -3,14 +3,13 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Dict, Any
-
+from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def load_json(path: Path) -> Dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as f:
+def load_json(path: Path) -> dict[str, Any]:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -43,16 +42,7 @@ def build_youtube_metadata(cut_manifest_path: Path) -> Path:
     metadata = {
         "title": f"{title} [{audience}]",
         "description": "\n".join(desc_lines),
-        "tags": [
-            "Claude Holiday",
-            "AI",
-            "Hallmark",
-            "Sora",
-            "Open Source",
-            "RCFC",
-            "Dev Humor",
-            "Parody"
-        ],
+        "tags": ["Claude Holiday", "AI", "Hallmark", "Sora", "Open Source", "RCFC", "Dev Humor", "Parody"],
         "category": "Film & Animation",
         "language": "en-US",
     }

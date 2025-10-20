@@ -1,0 +1,38 @@
+schema_version: "0.1.0"
+metadata:
+  title: "Claude Holiday — Dev Deterministic Seeds"
+  author: "Community"
+  created: "2025-01-01T00:00:00Z"
+  description: "Example recipe with deterministic seed_base for reproducible runs"
+timeline: "Prime 2025 — Dev"
+project:
+  name: "Claude Holiday"
+  repo_url: "https://github.com/johnswords/claude_holiday"
+source:
+  commit_sha: "HEAD"
+audience_profile: "dev"
+scope:
+  include_episodes:
+    - "ep00_checking_in"
+overlays:
+  enabled: true
+  density: medium
+  theme: brass
+ending: "agnostic"
+captions:
+  track: "dev_glossary"
+  language: "en-US"
+render:
+  fps: 24
+  aspect: "9:16"
+  resolution: "1080x1920"
+provider:
+  name: "dummy"
+  options:
+    num_candidates: 3
+    # seed_base makes runs reproducible across machines
+    # candidate seeds will be: seed_base + 1, seed_base + 2, seed_base + 3
+    seed_base: 42000
+social:
+  platforms: ["youtube-short"]
+  trims: {}
