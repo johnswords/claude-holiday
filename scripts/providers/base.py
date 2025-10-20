@@ -15,7 +15,7 @@ class RenderConfig:
 
     @staticmethod
     def from_strings(resolution: str, fps: int, aspect: str) -> "RenderConfig":
-        m = re.match(r"^(\\d+)x(\\d+)$", resolution)
+        m = re.match(r"^(\d+)x(\d+)$", resolution)
         if not m:
             raise ValueError(f"Invalid resolution '{resolution}'. Expected WIDTHxHEIGHT, e.g., 1080x1920.")
         w, h = int(m.group(1)), int(m.group(2))
