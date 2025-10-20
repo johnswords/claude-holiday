@@ -1,0 +1,119 @@
+{
+  "name": "brass",
+  "extends": "base",
+  "description": "Warm, cozy Hallmark holiday aesthetic with brass/bronze tones",
+  "metadata": {
+    "version": "0.1.0",
+    "author": "Claude Holiday",
+    "created": "2025-01-20"
+  },
+  "palette": {
+    "primary": {
+      "brass": "#B87333",
+      "bronze": "#CD7F32",
+      "copper": "#B87C4C",
+      "gold": "#FFD700",
+      "amber": "#FFBF00"
+    },
+    "secondary": {
+      "warmWhite": "#FFF8E7",
+      "cream": "#FFFDD0",
+      "ivory": "#FFFFF0",
+      "beige": "#F5F5DC",
+      "sand": "#F4E4C1"
+    },
+    "accent": {
+      "holly": "#0F7938",
+      "berry": "#C41E3A",
+      "pine": "#2C5F2D",
+      "cranberry": "#9C0045",
+      "cinnamon": "#D2691E"
+    },
+    "neutral": {
+      "snow": "#FFFAFA",
+      "frost": "#E0E4E7",
+      "slate": "#708090",
+      "charcoal": "#36454F",
+      "midnight": "#191970"
+    },
+    "system": {
+      "success": "#0F7938",
+      "warning": "#FFBF00",
+      "error": "#C41E3A",
+      "info": "#708090"
+    },
+    "overlays": {
+      "text": "#FFFFFF",
+      "textDark": "#36454F",
+      "background": "rgba(184, 115, 51, 0.85)",
+      "backgroundDark": "rgba(54, 69, 79, 0.9)",
+      "border": "rgba(255, 215, 0, 0.6)"
+    }
+  },
+  "gradients": {
+    "warmGlow": "linear-gradient(135deg, #FFD700 0%, #B87333 50%, #CD7F32 100%)",
+    "sunset": "linear-gradient(180deg, #FFBF00 0%, #CD7F32 50%, #C41E3A 100%)",
+    "cozy": "radial-gradient(circle, #FFF8E7 0%, #F4E4C1 50%, #B87C4C 100%)",
+    "holiday": "linear-gradient(45deg, #0F7938 0%, #C41E3A 50%, #FFD700 100%)"
+  },
+  "textures": {
+    "noise": "url('data:image/svg+xml;base64,...')",
+    "paper": "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.05) 10px, rgba(255,255,255,.05) 20px)",
+    "grain": "repeating-radial-gradient(circle at 50% 50%, transparent 0, rgba(0,0,0,.05) 2px, transparent 4px)"
+  },
+  "cover_art": {
+    "title_card": {
+      "background": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, #B87333 0%, #CD7F32 100%)"
+      },
+      "logo": {
+        "placement": "center",
+        "scale": 0.6,
+        "color": "#FFF8E7"
+      },
+      "title": {
+        "font": "Playfair Display",
+        "size": 72,
+        "weight": 700,
+        "color": "#FFF8E7",
+        "shadow": "0 4px 12px rgba(0,0,0,0.3)"
+      },
+      "subtitle": {
+        "font": "Inter",
+        "size": 32,
+        "weight": 300,
+        "color": "#FFFDD0",
+        "opacity": 0.9
+      },
+      "decorations": {
+        "snowflakes": true,
+        "sparkles": true,
+        "vignette": "radial-gradient(circle, transparent 60%, rgba(0,0,0,0.3) 100%)"
+      }
+    },
+    "thumbnail": {
+      "layout": "split",
+      "left": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, #B87333 0%, #CD7F32 100%)"
+      },
+      "right": {
+        "type": "solid",
+        "value": "#FFF8E7"
+      },
+      "text": {
+        "placement": "center-left",
+        "color": "#FFFFFF",
+        "outline": "2px solid #FFD700"
+      }
+    }
+  },
+  "mood": {
+    "keywords": ["warm", "cozy", "nostalgic", "romantic", "festive"],
+    "lighting": "golden hour",
+    "atmosphere": "intimate",
+    "temperature": "warm",
+    "energy": "gentle"
+  }
+}

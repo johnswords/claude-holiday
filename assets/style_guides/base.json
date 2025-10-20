@@ -1,0 +1,123 @@
+{
+  "name": "base",
+  "description": "Base style guide with shared fundamentals",
+  "metadata": {
+    "version": "0.1.0",
+    "author": "Claude Holiday",
+    "created": "2025-01-20"
+  },
+  "dimensions": {
+    "video": {
+      "width": 1080,
+      "height": 1920,
+      "aspect": "9:16",
+      "fps": 24
+    },
+    "cover_art": {
+      "youtube_thumbnail": {
+        "width": 1280,
+        "height": 720
+      },
+      "youtube_banner": {
+        "width": 2560,
+        "height": 1440,
+        "safe_area": {
+          "width": 1546,
+          "height": 423
+        }
+      },
+      "title_card": {
+        "width": 1080,
+        "height": 1920
+      },
+      "social_square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  },
+  "typography": {
+    "families": {
+      "primary": "Inter",
+      "secondary": "JetBrains Mono",
+      "display": "Playfair Display"
+    },
+    "sizes": {
+      "hero": 72,
+      "title": 48,
+      "subtitle": 32,
+      "body": 24,
+      "caption": 18,
+      "overlay": 28
+    },
+    "weights": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "bold": 700,
+      "black": 900
+    }
+  },
+  "spacing": {
+    "unit": 8,
+    "padding": {
+      "small": 8,
+      "medium": 16,
+      "large": 32,
+      "xlarge": 64
+    },
+    "margins": {
+      "small": 12,
+      "medium": 24,
+      "large": 48
+    }
+  },
+  "borders": {
+    "radius": {
+      "small": 4,
+      "medium": 8,
+      "large": 16,
+      "round": 9999
+    },
+    "width": {
+      "thin": 1,
+      "medium": 2,
+      "thick": 4
+    }
+  },
+  "shadows": {
+    "small": "0 2px 4px rgba(0,0,0,0.1)",
+    "medium": "0 4px 8px rgba(0,0,0,0.15)",
+    "large": "0 8px 16px rgba(0,0,0,0.2)",
+    "glow": "0 0px 20px rgba(255,255,255,0.3)"
+  },
+  "animations": {
+    "duration": {
+      "instant": 100,
+      "fast": 200,
+      "normal": 300,
+      "slow": 500,
+      "glacial": 1000
+    },
+    "easing": {
+      "linear": "linear",
+      "ease": "ease",
+      "easeIn": "ease-in",
+      "easeOut": "ease-out",
+      "easeInOut": "ease-in-out",
+      "bounce": "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
+    }
+  },
+  "overlays": {
+    "opacity": {
+      "subtle": 0.6,
+      "medium": 0.75,
+      "strong": 0.9
+    },
+    "blur": {
+      "subtle": 2,
+      "medium": 4,
+      "strong": 8
+    }
+  }
+}

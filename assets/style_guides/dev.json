@@ -1,0 +1,146 @@
+{
+  "name": "dev",
+  "extends": "base",
+  "description": "Developer terminal aesthetic with monospace fonts and dark theme",
+  "metadata": {
+    "version": "0.1.0",
+    "author": "Claude Holiday",
+    "created": "2025-01-20"
+  },
+  "palette": {
+    "primary": {
+      "green": "#00FF00",
+      "amber": "#FFC000",
+      "cyan": "#00FFFF",
+      "magenta": "#FF00FF",
+      "blue": "#0080FF"
+    },
+    "secondary": {
+      "background": "#0D1117",
+      "surface": "#161B22",
+      "elevated": "#21262D",
+      "border": "#30363D",
+      "muted": "#484F58"
+    },
+    "accent": {
+      "error": "#FF4444",
+      "warning": "#FFAA00",
+      "success": "#00DD00",
+      "info": "#00AAFF",
+      "debug": "#FF00FF"
+    },
+    "syntax": {
+      "keyword": "#FF79C6",
+      "string": "#F1FA8C",
+      "comment": "#6272A4",
+      "function": "#50FA7B",
+      "variable": "#8BE9FD",
+      "operator": "#FF6AC1",
+      "number": "#BD93F9"
+    },
+    "neutral": {
+      "text": "#E6EDF3",
+      "textMuted": "#7D8590",
+      "textSubtle": "#484F58",
+      "white": "#FFFFFF",
+      "black": "#000000"
+    },
+    "overlays": {
+      "text": "#00FF00",
+      "textAlt": "#FFC000",
+      "background": "rgba(13, 17, 23, 0.95)",
+      "backgroundAlt": "rgba(33, 38, 45, 0.9)",
+      "border": "rgba(0, 255, 0, 0.5)"
+    }
+  },
+  "gradients": {
+    "matrix": "linear-gradient(180deg, #00FF00 0%, #008800 100%)",
+    "terminal": "linear-gradient(135deg, #0D1117 0%, #161B22 50%, #21262D 100%)",
+    "neon": "linear-gradient(45deg, #FF00FF 0%, #00FFFF 50%, #00FF00 100%)",
+    "scanline": "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,0,0.03) 2px, rgba(0,255,0,0.03) 4px)"
+  },
+  "typography": {
+    "families": {
+      "primary": "JetBrains Mono",
+      "secondary": "Fira Code",
+      "display": "Source Code Pro"
+    }
+  },
+  "effects": {
+    "glow": "0 0 10px currentColor",
+    "scanlines": true,
+    "crt": true,
+    "pixelate": false
+  },
+  "cover_art": {
+    "title_card": {
+      "background": {
+        "type": "solid",
+        "value": "#0D1117",
+        "overlay": "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,0,0.03) 2px, rgba(0,255,0,0.03) 4px)"
+      },
+      "logo": {
+        "placement": "top-center",
+        "scale": 0.5,
+        "color": "#00FF00",
+        "style": "ascii"
+      },
+      "title": {
+        "font": "JetBrains Mono",
+        "size": 64,
+        "weight": 700,
+        "color": "#00FF00",
+        "shadow": "0 0 20px #00FF00",
+        "transform": "uppercase"
+      },
+      "subtitle": {
+        "font": "JetBrains Mono",
+        "size": 24,
+        "weight": 400,
+        "color": "#FFC000",
+        "prefix": "$ ./",
+        "cursor": true
+      },
+      "decorations": {
+        "terminal_chrome": true,
+        "line_numbers": true,
+        "timestamp": "true",
+        "prompt": "holiday@terminal:~$"
+      }
+    },
+    "thumbnail": {
+      "layout": "terminal",
+      "chrome": {
+        "buttons": ["#FF5F56", "#FFBD2E", "#27C93F"],
+        "title": "holiday.sh"
+      },
+      "content": {
+        "style": "code",
+        "syntax": "bash",
+        "animation": "typing"
+      }
+    }
+  },
+  "ascii_art": {
+    "logo": [
+      "  ____ _                 _      ",
+      " / ___| | __ _ _   _  __| | ___ ",
+      "| |   | |/ _` | | | |/ _` |/ _ \\",
+      "| |___| | (_| | |_| | (_| |  __/",
+      " \\____|_|\\__,_|\\__,_|\\__,_|\\___|",
+      "  _   _       _ _     _           ",
+      " | | | | ___ | (_) __| | __ _ _   _ ",
+      " | |_| |/ _ \\| | |/ _` |/ _` | | | |",
+      " |  _  | (_) | | | (_| | (_| | |_| |",
+      " |_| |_|\\___/|_|_|\\__,_|\\__,_|\\__, |",
+      "                              |___/"
+    ]
+  },
+  "mood": {
+    "keywords": ["technical", "minimal", "focused", "precise", "hacker"],
+    "lighting": "cathode",
+    "atmosphere": "concentrated",
+    "temperature": "cool",
+    "energy": "electric"
+  }
+}
