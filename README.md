@@ -354,8 +354,16 @@ python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml --candi
 2) Create selections YAMLs (one per episode) from the candidates
 ```bash
 python scripts/select_winners.py --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json
-# Edit episodes/<ep>/renders/selections/<cut_id>.yaml to set winner_index per scene
+# Generates: episodes/<ep>/renders/selections/<cut_id>.yaml
+# Also creates: output/cuts/<cut_id>/review.html (visual contact sheet)
 ```
+
+**Selection file format:**
+- **Path pattern**: `episodes/<ep_id>/renders/selections/<cut_id>.yaml`
+- **Winner index**: 1-based (1 = first candidate, 2 = second, etc.)
+- **Default**: `winner_index: 1` for all scenes
+
+Edit the YAML files to set `winner_index` per scene based on the HTML contact sheet review.
 
 3) Compile using your selections (just run compile again; it picks up selections automatically)
 ```bash
