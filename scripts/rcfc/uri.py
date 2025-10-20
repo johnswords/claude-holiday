@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict
-from blake3 import blake3
+from typing import Any
 
+from blake3 import blake3
 
 CANON_EXCLUDE_PATHS = [
     ["source", "commit_sha"],  # exclude commit sha from rcfc hash
@@ -18,7 +18,7 @@ def _deep_copy(obj: Any) -> Any:
     return obj
 
 
-def _delete_path(d: Dict[str, Any], path: list[str]) -> None:
+def _delete_path(d: dict[str, Any], path: list[str]) -> None:
     cur = d
     for p in path[:-1]:
         if not isinstance(cur, dict) or p not in cur:
@@ -28,7 +28,7 @@ def _delete_path(d: Dict[str, Any], path: list[str]) -> None:
         cur.pop(path[-1], None)
 
 
-def canonicalize_recipe(recipe: Dict[str, Any]) -> Dict[str, Any]:
+def canonicalize_recipe(recipe: dict[str, Any]) -> dict[str, Any]:
     """Return a deep-copied, canonicalized version of the recipe suitable for hashing."""
     c = _deep_copy(recipe)
 
@@ -41,7 +41,7 @@ def canonicalize_recipe(recipe: Dict[str, Any]) -> Dict[str, Any]:
     return c
 
 
-def compute_rcfc_hash(recipe: Dict[str, Any]) -> str:
+def compute_rcfc_hash(recipe: dict[str, Any]) -> str:
     c = canonicalize_recipe(recipe)
     data = json.dumps(c, sort_keys=True, separators=(",", ":")).encode("utf-8")
     h = blake3(data).digest()

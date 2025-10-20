@@ -175,7 +175,10 @@ claude_holiday/
    ```bash
    git clone [your-fork]
    cd claude_holiday
-   pip install -r requirements.txt
+   # Install uv (if not already installed)
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   # Install dependencies
+   uv sync
    ```
 
 2. **Create Your Recipe**
@@ -186,7 +189,9 @@ claude_holiday/
 
 3. **Compile Your Cut**
    ```bash
-   python scripts/compile_cut.py --recipe recipes/my-timeline.yaml
+   uv run python -m scripts.compile_cut --recipe recipes/my-timeline.yaml
+   # Or use the Makefile shortcut:
+   make compile-cut
    ```
 
 4. **Publish Your Timeline**
@@ -216,19 +221,22 @@ claude_holiday/
 
 ### Path A: Use Existing Footage (Start Here)
 
-**Prerequisites**: Python 3.10+, Git
+**Prerequisites**: Python 3.11+, Git
 
 ```bash
 # 1. Clone and setup
 git clone [repo-url]
 cd claude_holiday
-pip install -r requirements.txt
+# Install uv if you don't have it
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Install project dependencies
+uv sync
 
 # 2. Create your first cut using prebaked footage
 cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 
 # 3. Compile it (uses existing footage, no API keys needed)
-python scripts/compile_cut.py --recipe recipes/my-first-cut.yaml
+uv run python -m scripts.compile_cut --recipe recipes/my-first-cut.yaml
 
 # 4. Watch your cut
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
@@ -238,14 +246,14 @@ open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
 
 ### Path B: Generate New Footage
 
-**Prerequisites**: Python 3.10+, OpenAI API access (Sora-2-Pro), Git LFS
+**Prerequisites**: Python 3.11+, OpenAI API access (Sora-2-Pro), Git LFS
 
 ```bash
 # Extract prompts from master script
-python scripts/extract_prompts.py --episode ep00_checking_in
+uv run python -m scripts.extract_prompts --episode ep00_checking_in
 
 # Generate video
-python scripts/generate_video.py --episode ep00_checking_in
+uv run python -m scripts.generate_video --episode ep00_checking_in
 
 # Review draft
 open episodes/ep00_checking_in/renders/drafts/latest.mp4
@@ -355,6 +363,75 @@ Tips:
 **Why this matters**: No single "official" version means every interpretation contributes to the cultural conversation. Your cut is part of the canon.
 
 See [`docs/charter.md`](docs/charter.md) for the full philosophy on timelines and composable media.
+
+---
+
+## 🛠️ Development Setup
+
+This project uses **uv** for fast, reliable Python dependency management. It replaces pip, virtualenv, and other tools with a single fast solution.
+
+### Prerequisites
+
+- Python 3.11+
+- [uv](https://docs.astral.sh/uv/) package manager
+
+### Installation
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone [your-fork]
+cd claude_holiday
+
+# Install all dependencies (creates virtual environment automatically)
+uv sync
+
+# Install development dependencies
+uv sync --group dev
+```
+
+### Development Commands
+
+We provide a `Makefile` with common development tasks:
+
+```bash
+make help        # Show all available commands
+make test        # Run test suite
+make lint        # Check code quality with ruff
+make format      # Auto-format code
+make typecheck   # Run type checking with mypy
+make coverage    # Generate test coverage report
+make clean       # Remove build artifacts
+```
+
+### Running Scripts
+
+All scripts can be run through uv:
+
+```bash
+# Using uv directly
+uv run python -m scripts.compile_cut --recipe recipes/my-cut.yaml
+uv run python -m scripts.apply_overlays --input video.mp4
+
+# Using Makefile shortcuts
+make compile-cut
+make apply-overlays
+
+# Activate virtual environment for direct access
+source .venv/bin/activate  # On Unix/macOS
+# or
+.venv\Scripts\activate     # On Windows
+```
+
+### Why uv?
+
+- **10-100x faster** than pip and pip-tools
+- **Built-in virtual environment** management
+- **Deterministic** dependency resolution with lock files
+- **Cross-platform** with consistent behavior
+- **Single tool** replaces pip, virtualenv, pip-tools, and more
 
 ---
 
