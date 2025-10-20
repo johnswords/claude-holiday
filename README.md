@@ -1,11 +1,64 @@
 # CLAUDE HOLIDAY
 
-> A 12-episode vertical micro-series parodying Hallmark holiday rom-coms through the lens of AI companionship.
+> An experiment in **community-composable media** — a 12-episode vertical micro-series parodying Hallmark holiday rom-coms through the lens of AI companionship.
 
 **Created by**: John Swords
 **Collaboration**: GPT-5 × Sora-2-Pro
 **Format**: 9:16 vertical · 24fps · ~25s per episode
 **Total Runtime**: ~5 minutes (12 episodes)
+
+**What makes this different**: There is no single definitive version. Your cut is valid and referenceable.
+
+---
+
+## 🧬 Composable Media — What Does That Mean?
+
+**CLAUDE HOLIDAY** isn't just a video series you can fork. It's a new format where:
+
+- **Config-driven "recipes" (RCFC)** define every cut — episodes, overlays, timing, provider choices
+- **No canonical version exists** — the "Prime" timeline is one interpretation, yours is equally valid
+- **Reproducible by design** — every cut gets a deterministic Cut URI for reference
+- **Community remixing IS the medium** — fork, tweak YAML, run one command, publish your timeline
+
+**Traditional media**: One creator → One product → Many consumers
+**Composable media**: Open foundation → Infinite interpretations → Community of co-creators
+
+Read the full philosophy in [`docs/charter.md`](docs/charter.md)
+
+### 🧾 RCFC Recipes — The Technical Foundation
+
+**RCFC** (Recipe-Cut Format Configuration) is the YAML format that makes composability work:
+
+```yaml
+timeline: "Prime 2025"
+episodes:
+  - ep00_checking_in
+  - ep01_first_contact
+  # ... choose which episodes to include
+
+overlays:
+  enable: true
+  style: minimal
+  # ... configure visual overlays
+
+provider:
+  type: prebaked  # or 'sora' to generate new footage
+  # ... provider-specific options
+```
+
+**What makes RCFC special:**
+- **Deterministic**: Same recipe = same Cut URI
+- **Reproducible**: Anyone can rebuild your exact cut
+- **Human-readable**: Non-coders can edit YAML
+- **Extensible**: New options without breaking old recipes
+
+**Release bundles** include:
+- Videos (per episode + full series)
+- Captions/subtitles
+- Recipe snapshot (frozen config)
+- Metadata (Cut URI, timeline, manifest)
+
+→ Everything needed to reference, reproduce, or remix your cut.
 
 ---
 
@@ -35,10 +88,16 @@ What starts as cozy meet-cutes devolve into surreal tech support scenarios: usag
 
 ## 📂 Repository Structure
 
+The repository is designed to support **two modes**: content creation (making episodes) and timeline creation (assembling cuts).
+
 ```
 claude_holiday/
 ├── docs/                    # Master documentation
-│   └── master_script.md     # Full 12-episode script
+│   ├── master_script.md     # Full 12-episode script
+│   ├── charter.md           # Community & composable media philosophy
+│   └── timelines.md         # Registry of community timelines
+├── recipes/                 # RCFC recipe files
+│   └── examples/            # Example recipes to fork
 ├── episodes/                # Per-episode production workspace
 │   ├── ep00_checking_in/
 │   │   ├── script.md        # Episode extract
@@ -48,8 +107,11 @@ claude_holiday/
 │   └── ... (ep01-11)
 ├── ideas/                   # Brainstorming & development
 ├── scripts/                 # Code & automation
+│   ├── compile_cut.py       # Main recipe compiler
+│   └── pack_release.py      # Bundle releases
 ├── assets/                  # Shared resources (fonts, audio, templates)
 ├── output/                  # Final deliverables
+│   ├── cuts/                # Generated cuts with manifests
 │   ├── episodes/
 │   ├── bonus/
 │   ├── full_series/
@@ -87,31 +149,52 @@ claude_holiday/
 
 ---
 
-## 🛠️ Workflow
+## 🛠️ Two Workflows: Create Content vs. Create Cuts
 
-### 1. Ideation → Writing
-- Brainstorm in `ideas/`
-- Update `docs/master_script.md`
+### For Content Creators (making new episodes/footage)
 
-### 2. Episode Prep
-- Extract episode details to `episodes/[ep_name]/script.md`
-- Write Sora-2-Pro prompts in `episodes/[ep_name]/prompts/`
+1. **Ideation → Writing**
+   - Brainstorm in `ideas/`
+   - Update `docs/master_script.md`
 
-### 3. Production
-- Run generation scripts from `scripts/`
-- Save drafts to `episodes/[ep_name]/renders/drafts/`
+2. **Episode Prep**
+   - Extract episode details to `episodes/[ep_name]/script.md`
+   - Write Sora-2-Pro prompts in `episodes/[ep_name]/prompts/`
 
-### 4. Iteration
-- Review, refine prompts
-- Generate new drafts
+3. **Production**
+   - Run generation scripts from `scripts/`
+   - Save drafts to `episodes/[ep_name]/renders/drafts/`
 
-### 5. Finalization
-- Approved render → `episodes/[ep_name]/renders/final/`
-- Master export → `output/episodes/`
+4. **Finalization**
+   - Approved render → `episodes/[ep_name]/renders/final/`
+   - Content available for recipe system
 
-### 6. Series Compilation
-- Stitch all episodes → `output/full_series/`
-- Create social cuts → `output/social/`
+### For Timeline Creators (making your own cut)
+
+1. **Fork & Setup**
+   ```bash
+   git clone [your-fork]
+   cd claude_holiday
+   pip install -r requirements.txt
+   ```
+
+2. **Create Your Recipe**
+   ```bash
+   cp recipes/examples/dev-default.yaml recipes/my-timeline.yaml
+   # Edit YAML: choose episodes, overlays, audience, provider
+   ```
+
+3. **Compile Your Cut**
+   ```bash
+   python scripts/compile_cut.py --recipe recipes/my-timeline.yaml
+   ```
+
+4. **Publish Your Timeline**
+   - Your Cut URI is in `output/cuts/[cut_id]/manifest/cut.manifest.json`
+   - Upload videos to YouTube/Vimeo
+   - Optional: Open PR to add your timeline to `docs/timelines.md`
+
+**No coding required** — just YAML editing and one command.
 
 ---
 
@@ -131,19 +214,32 @@ claude_holiday/
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Python 3.10+
-- OpenAI API access (Sora-2-Pro)
-- Git LFS (for large video files)
+### Path A: Use Existing Footage (Start Here)
 
-### Setup
+**Prerequisites**: Python 3.10+, Git
+
 ```bash
+# 1. Clone and setup
 git clone [repo-url]
 cd claude_holiday
 pip install -r requirements.txt
+
+# 2. Create your first cut using prebaked footage
+cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
+
+# 3. Compile it (uses existing footage, no API keys needed)
+python scripts/compile_cut.py --recipe recipes/my-first-cut.yaml
+
+# 4. Watch your cut
+open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
 ```
 
-### Generate an Episode
+**Your Cut URI** is in the manifest — share it to make your timeline referenceable.
+
+### Path B: Generate New Footage
+
+**Prerequisites**: Python 3.10+, OpenAI API access (Sora-2-Pro), Git LFS
+
 ```bash
 # Extract prompts from master script
 python scripts/extract_prompts.py --episode ep00_checking_in
@@ -165,16 +261,42 @@ open episodes/ep00_checking_in/renders/drafts/latest.mp4
 
 ---
 
-## 🤝 Contributing
+## 🤝 How to Participate
 
-This is a personal creative project, but if you're inspired to create your own AI-model rom-coms, go wild. Just credit the concept and share what you make.
+Claude Holiday is designed for community participation. Here's how:
+
+### 🎬 Create Your Timeline
+- Fork the repo
+- Copy an example recipe from `recipes/examples/`
+- Edit the YAML to choose episodes, overlays, audience, ending, provider
+- Run `python scripts/compile_cut.py --recipe your_recipe.yaml`
+- Share your Cut URI and publish your videos
+
+### 🎥 Contribute Footage
+- Create new episode variants or alternate scenes
+- Submit via PR to expand the available content pool
+- Others can then reference your footage in their recipes
+
+### 📝 Add Episode Ideas
+- Write new episode scripts following the master script format
+- Expand the story universe with bonus content
+- Create prompts for new scenes
+
+### 🌍 Register Your Timeline
+- Open a PR adding your timeline to `docs/timelines.md`
+- Include your Cut URI, description, and video links
+- Join the growing multiverse of interpretations
+
+**Code of Conduct**: Be excellent to each other. Credit the concept. No hate or harassment. Keep the satire kind and constructive. See [`docs/charter.md`](docs/charter.md) for full guidelines.
 
 ---
 
-**Status**: Pre-production
-**Next Steps**: Episode 0 prompt writing → Draft render → Iterate
+**Status**: Pre-production (Prime timeline) | Community timelines welcome now
 
-*Let's build something that makes people laugh while making them think.*
+**For creators**: Episode 0 prompt writing → Draft render → Iterate
+**For community**: Fork, customize recipes, publish your timeline
+
+*Let's build something that makes people laugh while making them think — together, in infinite variations.*
 
 ---
 
@@ -206,19 +328,44 @@ Tips:
 
 ---
 
-## 🧭 Timelines
+## 🧭 Understanding Timelines
 
-We call each distinct cut a "timeline."
+**What's a timeline?** Each distinct cut or interpretation of Claude Holiday. Think of it as a parallel universe version of the series.
 
-- Prime timeline: the default cut from this repo
-- Community timelines: your fork + recipe = your timeline
+### Timeline Types
 
-How to label your timeline:
-- Add `timeline: "Prime 2025"` (or your own label) at the root of your RCFC recipe.
-- Your manifest and YouTube metadata will include the timeline label.
+**Prime Timeline** (`timeline: "Prime 2025"`)
+- The main repository's default cut for 2025
+- Created by John Swords
+- Reference implementation, not canonical
 
-How to register a community timeline:
-- Open a PR adding an entry to `docs/timelines.md` with:
-  - Timeline name (e.g., `alice/dev-glossary-extended`)
-  - Cut URI from your manifest
-  - Link to your fork and/or YouTube playlist
+**Community Timelines** (e.g., `timeline: "alice/dev-glossary-extended"`)
+- Your fork + custom recipe = your timeline
+- Equally valid as any other interpretation
+- Can remix episodes, change overlays, reorder, add commentary
+- Each gets a unique Cut URI for reference
+
+### Publishing Your Timeline
+
+1. **Label it**: Add `timeline: "YourName/description"` to your RCFC recipe
+2. **Generate it**: Run `compile_cut.py` to get your Cut URI
+3. **Share it**: Upload videos to YouTube/Vimeo with Cut URI in description
+4. **Register it**: PR to `docs/timelines.md` with your timeline details
+
+**Why this matters**: No single "official" version means every interpretation contributes to the cultural conversation. Your cut is part of the canon.
+
+See [`docs/charter.md`](docs/charter.md) for the full philosophy on timelines and composable media.
+
+---
+
+## 📅 Annual Cadence
+
+Claude Holiday is designed as an **annual creative project**. Each year:
+- New episodes reflect what's happened in AI/software development
+- New jokes, commentary, and cultural moments
+- Same community-driven foundation
+- Prior year timelines remain referenceable
+
+**Think of it like**: An annual variety show where last year's episodes are archived but accessible, and this year's content is fresh. Your 2025 timeline will always be your 2025 timeline—frozen in time, infinitely reproducible.
+
+This creates a growing **archive of AI culture** through the lens of satire, year after year.
