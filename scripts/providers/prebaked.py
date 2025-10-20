@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .base import Provider, RenderConfig
+from scripts.utils.ffmpeg import preflight_check
 
 
 class PrebakedProvider(Provider):
@@ -41,6 +42,7 @@ class PrebakedProvider(Provider):
                 return str(out_path)
 
         # Fallback: generate a solid color clip so the compile can complete
+        preflight_check()
         color = "0x202833"
         cmd = [
             "ffmpeg",

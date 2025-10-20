@@ -14,7 +14,7 @@ chcut://{commit_sha}/{rcfc_hash}?audience={profile}&v=0.1
 
 Example:
 ```
-chcut://a1b2c3d4/7ZW2Q3N9KJ?audience=dev&v=0.1
+chcut://a1b2c3d4/3MZ6Q7WKPA?audience=dev&v=0.1
 ```
 
 Usage:

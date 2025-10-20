@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from scripts.utils.ffmpeg import preflight_check
+
 
 def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> tuple[str, str]:
     # Returns ffmpeg expressions for x,y
@@ -83,17 +85,27 @@ def apply_overlays(
     width: int,
     height: int,
     font_path: str | None = None,
+    fps: int = 24,
 ) -> Path:
+    preflight_check()
+
     if not overlays:
-        # Pass-through copy to avoid re-encode
-        # But to ensure consistent output, we re-encode lightly
+        # Normalize fps/pix_fmt to avoid concat surprises from user-provided prebaked clips
         cmd = [
             "ffmpeg",
             "-y",
             "-i",
             str(in_path),
-            "-c",
-            "copy",
+            "-r",
+            str(fps),
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "128k",
             str(out_path),
         ]
         try:
@@ -101,7 +113,7 @@ def apply_overlays(
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:
-            error_msg = f"FFmpeg copy failed: {in_path} -> {out_path}\n"
+            error_msg = f"FFmpeg normalization failed: {in_path} -> {out_path}\n"
             error_msg += f"Command: {' '.join(cmd)}\n"
             if e.stderr:
                 error_msg += f"Error output:\n{e.stderr}"
@@ -149,6 +161,7 @@ if __name__ == "__main__":
     p.add_argument("--out", dest="out", required=True, help="Output MP4 path")
     p.add_argument("--width", type=int, default=1080)
     p.add_argument("--height", type=int, default=1920)
+    p.add_argument("--fps", type=int, default=24, help="Target FPS for normalization")
     p.add_argument("--font", dest="font", default=None, help="Font file path (optional)")
     args = p.parse_args()
 
@@ -160,5 +173,6 @@ if __name__ == "__main__":
         width=args.width,
         height=args.height,
         font_path=args.font,
+        fps=args.fps,
     )
     sys.stdout.write(str(result) + "\n")

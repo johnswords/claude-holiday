@@ -30,5 +30,5 @@ provider:
   options:
     num_candidates: 3
 social:
-  platforms: ["youtube-short"]
+  platforms: ["youtube_shorts"]
   trims: {}
