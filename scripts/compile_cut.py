@@ -11,6 +11,8 @@ from pathlib import Path
 from typing import Dict, Any, List, Tuple
 
 import yaml
+import jsonschema
+from jsonschema import ValidationError
 
 from scripts.rcfc.uri import compute_rcfc_hash, build_cut_uri
 from scripts.providers.base import RenderConfig, Provider
@@ -21,6 +23,40 @@ from scripts.apply_overlays import apply_overlays
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FONT_MAC = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
+
+
+def validate_recipe(recipe: Dict[str, Any]) -> None:
+    """
+    Validate recipe against RCFC schema. Fails fast with clear errors.
+
+    Raises:
+        ValidationError: If recipe does not conform to schema
+        FileNotFoundError: If schema file is missing
+    """
+    schema_path = PROJECT_ROOT / "schemas" / "rcfc.schema.json"
+    if not schema_path.exists():
+        raise FileNotFoundError(f"Schema file not found: {schema_path}")
+
+    with open(schema_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    try:
+        jsonschema.validate(instance=recipe, schema=schema)
+    except ValidationError as e:
+        # Build a helpful error message with context
+        error_path = ".".join(str(p) for p in e.path) if e.path else "root"
+        error_msg = f"Recipe validation failed at '{error_path}': {e.message}"
+
+        # Add schema context if available
+        if e.schema_path:
+            schema_location = ".".join(str(p) for p in e.schema_path)
+            error_msg += f"\nSchema requirement: {schema_location}"
+
+        # Add the failing value for debugging
+        if e.instance is not None:
+            error_msg += f"\nProvided value: {e.instance}"
+
+        raise ValidationError(error_msg) from e
 
 
 def load_yaml(path: Path) -> Dict[str, Any]:
@@ -256,6 +292,10 @@ def compile_episode(
 
 def compile_cut(recipe_path: Path) -> Path:
     recipe = load_yaml(recipe_path)
+
+    # Validate recipe against schema before any expensive operations
+    validate_recipe(recipe)
+
     series_cfg = load_series_config()
     audience = recipe.get("audience_profile", "general")
     audience_cfg = select_audience_config(audience)
@@ -349,6 +389,10 @@ def main() -> None:
         os.environ["CH_CANDIDATES_ONLY"] = "1"
     try:
         compile_cut(recipe_path)
+    except ValidationError as e:
+        # Schema validation failed - fail fast with clear error
+        print(f"[VALIDATION ERROR] {e.message}", file=sys.stderr)
+        sys.exit(1)
     except subprocess.CalledProcessError as e:
         # Surface ffmpeg errors nicely
         sys.stderr.write(e.stderr.decode("utf-8", errors="ignore") if e.stderr else str(e) + "\n")
