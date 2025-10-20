@@ -1,9 +1,13 @@
+# INTENTIONALLY INVALID RECIPE - FOR TESTING VALIDATION
+# Invalid: include_episodes is empty (minItems: 1)
+# Expected to fail with: "Recipe validation failed at 'scope.include_episodes': [] is too short"
+
 schema_version: "0.1.0"
 metadata:
-  title: "Claude Holiday — General Default"
-  author: "Community"
+  title: "Claude Holiday — Invalid Test Recipe (Empty Episodes)"
+  author: "Test"
   created: "2025-01-01T00:00:00Z"
-timeline: "Prime 2025 — General"
+timeline: "Test Timeline"
 project:
   name: "Claude Holiday"
   repo_url: "https://github.com/johnswords/claude_holiday"
@@ -11,8 +15,7 @@ source:
   commit_sha: "HEAD"
 audience_profile: "general"
 scope:
-  include_episodes:
-    - "ep00_checking_in"
+  include_episodes: []  # INVALID: Must have at least one episode
 overlays:
   enabled: false
   density: low
@@ -27,8 +30,4 @@ render:
   resolution: "1080x1920"
 provider:
   name: "dummy"
-  options:
-    num_candidates: 3
-social:
-  platforms: ["youtube_shorts"]
-  trims: {}
+  options: {}
