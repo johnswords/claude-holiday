@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -57,5 +58,20 @@ class PrebakedProvider(Provider):
             "yuv420p",
             str(out_path),
         ]
-        subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        try:
+            result = subprocess.run(
+                cmd,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            if result.stderr:
+                print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
+        except subprocess.CalledProcessError as e:
+            error_msg = f"FFmpeg fallback generation failed for scene {scene_id}\n"
+            error_msg += f"Command: {' '.join(cmd)}\n"
+            if e.stderr:
+                error_msg += f"Error output:\n{e.stderr}"
+            raise RuntimeError(error_msg) from e
         return str(out_path)

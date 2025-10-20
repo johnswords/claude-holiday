@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import shlex
 import subprocess
+import sys
 from pathlib import Path
 from typing import List, Dict, Any, Tuple
 
@@ -96,7 +97,22 @@ def apply_overlays(
             "copy",
             str(out_path),
         ]
-        subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        try:
+            result = subprocess.run(
+                cmd,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            if result.stderr:
+                print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
+        except subprocess.CalledProcessError as e:
+            error_msg = f"FFmpeg copy failed: {in_path} -> {out_path}\n"
+            error_msg += f"Command: {' '.join(cmd)}\n"
+            if e.stderr:
+                error_msg += f"Error output:\n{e.stderr}"
+            raise RuntimeError(error_msg) from e
         return out_path
 
     vf = build_filters(overlays, width, height, font_path=font_path)
@@ -117,8 +133,22 @@ def apply_overlays(
         "128k",
         str(out_path),
     ]
-    # Use shell quoting for safety
-    subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        result = subprocess.run(
+            cmd,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        if result.stderr:
+            print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
+    except subprocess.CalledProcessError as e:
+        error_msg = f"FFmpeg overlay failed: {in_path} -> {out_path}\n"
+        error_msg += f"Command: {' '.join(cmd)}\n"
+        if e.stderr:
+            error_msg += f"Error output:\n{e.stderr}"
+        raise RuntimeError(error_msg) from e
     return out_path
 
 
