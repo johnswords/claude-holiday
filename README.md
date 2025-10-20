@@ -232,13 +232,9 @@ python scripts/compile_cut.py --recipe recipes/my-first-cut.yaml
 
 # 4. Watch your cut
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
-
-# 5. (Optional) Generate cover art for your timeline
-python scripts/generate_cover_art.py --theme brass --type all
 ```
 
 **Your Cut URI** is in the manifest — share it to make your timeline referenceable.
-**Your Cover Art** is in `output/cover_art/[theme]/` — use for YouTube, social media.
 
 ### Path B: Generate New Footage
 
@@ -274,7 +270,6 @@ Claude Holiday is designed for community participation. Here's how:
 - Copy an example recipe from `recipes/examples/`
 - Edit the YAML to choose episodes, overlays, audience, ending, provider
 - Run `python scripts/compile_cut.py --recipe your_recipe.yaml`
-- Generate cover art: `python scripts/generate_cover_art.py --theme [brass|dev|corporate]`
 - Share your Cut URI and publish your videos
 
 ### 🎥 Contribute Footage
