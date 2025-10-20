@@ -192,49 +192,89 @@ Episode [#]: “[Title]”
 ### SCENE 1 (0.0–8.0 s): ARRIVAL & STRESS
 **Duration:** 8 seconds
 
-**Sora Prompt:**
-> 9:16 vertical video. Stressed professional woman in tailored coat enters cozy inn lobby dragging rolling suitcase, phone pressed to ear, visibly frazzled. Warm amber lighting, crackling fireplace visible, holiday garland, snow falling through windows. She's mid-conversation, frustrated. Handheld camera follows her through door. 24fps, cinematic Hallmark aesthetic.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-0.0–2.0 s: City Girl bursts through door, snow on shoulders, dragging suitcase, phone to ear
-2.0–5.0 s: "Yes, I'll have the deck reviewed by Monday—I'm aware of the timeline!" (pacing, agitated)
-5.0–6.5 s: She hangs up with sharp exhale, pauses, closes eyes for a beat
-6.5–8.0 s: Cody appears behind registry desk with warm smile: "Welcome to Evergreen Inn. Long journey?"
+STYLE SPINE — warm Hallmark domestic drama; palette amber/cream/mahogany/forest green; harried → relief
+SUBJECT — professional woman ~32; shoulder-length auburn hair; tailored charcoal coat, designer rolling suitcase; phone pressed to ear; 5'6" athletic build
+SET & LIGHT — cozy inn lobby, dusk; warm window key light 3200K + fireplace fill; cool exterior rim through doorway; visible snow particulates
+CAMERA — handheld follow-through, eye-level; dolly push toward registry desk; 35mm feel; medium DoF f/4
+ACTION BEATS (0.00–8.0s)
+  0.00–2.0  she bursts through door; weight transfer forward; snow dusting shoulders; phone at right ear
+  2.0–5.0   pacing left-right 3 steps; gesticulation with left hand; visible exhale at 4.5s
+  5.0–6.5   phone lowered; sharp exhale; eyes close 1.5s; shoulder drop 3 inches
+  6.5–8.0   innkeeper rises behind desk; warm smile forms; eyeline match established
+AUDIO — fire crackle ambience + wind gust at door; muffled phone voice; footsteps on wood
+CONTINUITY — charcoal coat/auburn hair consistent; suitcase right hand → floor; avoid signage/legible text
+Dialogue:
+- Woman (frustrated, 2.0–5.0s): "Yes, I'll have the deck reviewed by Monday—I'm aware of the timeline!"
+- Innkeeper (warm, 6.5–8.0s): "Welcome to Evergreen Inn. Long journey?"
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Handheld follow → dolly push to registry
+- **One subject action**: Entry with phone call → hang up and decompress
+- **Identity anchors**: Professional woman, ~32, auburn hair, charcoal coat, designer suitcase
 
 ---
 
 ### SCENE 2 (8.0–18.0 s): THE REGISTRY & RECOGNITION
 **Duration:** 10 seconds
 
-**Sora Prompt:**
-> 9:16 vertical. Two-shot of professional woman and innkeeper (early 40s, flannel shirt, warm presence) at wooden registry desk. He slides vintage registry book across. Cozy inn lobby, fireplace glow, intimate conversation. She transitions from guarded to surprised. Slow dolly push emphasizing emotional shift. Warm tungsten lighting. 24fps, cinematic.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-8.0–10.0 s: She half-laughs: "You have no idea." Approaches desk, sets down bag
-10.0–12.0 s: Cody slides registry across: "I've got your room ready."
-12.0–14.5 s: "Remembered you mentioned the quiet side in your booking notes."
-14.5–16.5 s: She stops mid-signature, looks up: "You... remembered that?"
-16.5–18.0 s: Cody, gentle: "Every detail. That's what we do here."
+STYLE SPINE — warm Hallmark domestic drama; palette amber/cream/mahogany; guarded → surprised recognition
+SUBJECT — professional woman ~32; auburn hair; charcoal coat (consistent); innkeeper early 40s, 6'1", salt-pepper beard, red flannel shirt
+SET & LIGHT — inn lobby registry desk; fireplace key light + tungsten lamp fill 2700K; soft rim from window; wood grain visible
+CAMERA — two-shot medium, chest-height; slow dolly push 10s; 50mm feel; shallow DoF f/2.8; focus on faces
+ACTION BEATS (0.00–10.0s)
+  0.00–2.0  she approaches desk; suitcase set down right side; weight shifts to both feet
+  2.0–4.0   innkeeper slides leather registry book 12 inches forward; hands rest on counter
+  4.0–6.5   she signs name; pen pauses mid-stroke at 5.5s; eyeline shifts up
+  6.5–8.5   micro-smile forms; head tilt 10° right; sustained eye-line match 2s
+  8.5–10.0  innkeeper's gentle nod; hands remain still on counter; warm acknowledgment
+AUDIO — fire crackle continuous; pen scratch on paper; soft wood creak; her subtle exhale at 8.5s
+CONTINUITY — woman's charcoal coat/auburn hair/suitcase placement; innkeeper's flannel consistent; avoid visible text on registry
+Dialogue:
+- Woman (half-laugh, 0.0–2.0s): "You have no idea."
+- Innkeeper (warm, 2.0–4.0s): "I've got your room ready. Remembered you mentioned the quiet side in your booking notes."
+- Woman (surprised, 6.5–8.5s): "You... remembered that?"
+- Innkeeper (gentle, 8.5–10.0s): "Every detail. That's what we do here."
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Slow dolly push over 10s emphasizing emotional shift
+- **One subject action**: Registry signing with recognition moment
+- **Identity anchors**: Woman (charcoal coat, auburn hair), Innkeeper (flannel, salt-pepper beard)
 
 ---
 
 ### SCENE 3 (18.0–25.0 s): RELIEF & SETTLING
 **Duration:** 7 seconds
 
-**Sora Prompt:**
-> 9:16 vertical. Close-up of professional woman's face as tension melts away, first genuine smile. Pull back to reveal cozy inn room through doorway - four-poster bed, soft lighting, snow falling outside window. She picks up her bag with lighter energy. Warm, intimate cinematography. Golden hour glow. 24fps, Hallmark film aesthetic.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-18.0–20.0 s: Her shoulders drop, first genuine smile breaks through. Beat of connection.
-20.0–22.0 s: She picks up suitcase handle, lighter now. Cody gestures toward stairs.
-22.0–24.0 s: Wide shot: snow falls outside large windows, fireplace flickers, she walks toward stairs
-24.0–25.0 s: She glances back at Cody with soft gratitude → FADE TO BLACK
+STYLE SPINE — warm Hallmark domestic drama; palette amber/cream/mahogany/soft white; tension release → gratitude
+SUBJECT — professional woman ~32; auburn hair loose; charcoal coat (consistent); shoulders relaxed; innkeeper 40s, flannel, visible in background
+SET & LIGHT — inn lobby transitioning to stairway; golden hour key through windows 2800K; fireplace fill; soft room ambience
+CAMERA — close-up face → pull back to wide; vertical tilt up stairs; 35mm feel; deep DoF f/5.6 for environment
+ACTION BEATS (0.00–7.0s)
+  0.00–2.0  shoulder drop 2 inches; genuine smile emergence; micro-exhale visible
+  2.0–4.0   suitcase handle lifted with right hand; weight transfer toward stairs; lighter gait
+  4.0–5.5   ascending first 3 steps; left hand on bannister; snow visible through window
+  5.5–7.0   head turn 45° back; eye-line to innkeeper; soft gratitude expression holds
+AUDIO — fire crackle fading; footsteps on wood stairs; distant wind against windows; soft fabric rustle
+CONTINUITY — charcoal coat/auburn hair/suitcase consistent; innkeeper position at desk maintained; avoid text/signage; snow continuity outside
+Dialogue:
+- (No dialogue - visual storytelling only)
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Close-up → pull back to wide environmental
+- **One subject action**: Tension release and movement toward room
+- **Identity anchors**: Woman (charcoal coat, auburn hair, designer suitcase maintained)
 
 ---
 
@@ -285,50 +325,91 @@ Episode [#]: “[Title]”
 ### SCENE 1 (0.0–7.0 s): EXPLORING THE TOWN
 **Duration:** 7 seconds
 
-**Sora Prompt:**
-> 9:16 vertical video. Professional woman in stylish winter coat and scarf walks down charming small-town main street at golden hour. Fresh snow on ground, twinkling shop windows, vintage storefronts. She's relaxed, curious, taking photos with phone. Slow dolly follow, warm nostalgic lighting. Snow gently falling. 24fps, cinematic Hallmark aesthetic.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-0.0–2.0 s: Wide shot: she walks down main street, bundled up, exploring with genuine delight
-2.0–4.5 s: She pauses at vintage bookshop window, smiles, raises phone to photograph it
-4.5–6.0 s: Focus on her face: peaceful, first real breath since arriving
-6.0–7.0 s: She studies the window display, tracing the lettering with her eyes
+STYLE SPINE — warm small-town romance; palette gold/amber/cream/pine green; peaceful exploration
+SUBJECT — professional woman ~32; auburn hair in loose bun; navy peacoat, cream cashmere scarf; phone in right hand; 5'6" athletic build
+SET & LIGHT — main street golden hour; low sun key light 3000K at 30°; shop window bounce fill; snow particulates catching light
+CAMERA — wide establishing → slow dolly follow; eye-level tracking; 35mm feel; medium DoF f/4
+ACTION BEATS (0.00–7.0s)
+  0.00–2.0  walking pace 2mph; head turns left-right scanning storefronts; genuine smile emergence
+  2.0–4.5   full stop at bookshop window; phone raised to eye level; shutter tap at 4.0s
+  4.5–6.0   phone lowered; deep inhale-exhale cycle; shoulder drop indicating relaxation
+  6.0–7.0   eyeline traces window lettering left to right; slight head tilt appreciation
+AUDIO — distant church bells; snow crunch underfoot; faint carolers 100m away; camera shutter sound
+CONTINUITY — navy peacoat/cream scarf established; auburn hair consistent; phone right hand; avoid readable signage
+Dialogue:
+- (No dialogue - ambient exploration)
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Wide establishing → dolly follow
+- **One subject action**: Walking exploration → pause to photograph
+- **Identity anchors**: Woman now in navy peacoat, cream scarf (changed from inn arrival)
 
 ---
 
 ### SCENE 2 (7.0–17.0 s): THE MEET-CUTE
 **Duration:** 10 seconds
 
-**Sora Prompt:**
-> 9:16 vertical. Professional woman turns as handsome local man (well-dressed casual, warm eyes, measured movements) enters frame beside her. Two-shot conversation, charming small-town street background. He's slightly formal, she's charmed and curious. Rack focus between faces. Golden hour light, snow drifting. 24fps, romantic Hallmark cinematography.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-7.0–9.0 s: Claude enters frame smoothly: "That's actually the oldest bookshop in town."
-9.0–11.5 s: "Established 1887. The architecture is Second Empire Victorian, notable for its mansard roof."
-11.5–13.5 s: She turns, surprised but charmed: "Oh! I didn't know that. Are you a local historian or...?"
-13.5–15.5 s: Claude: "I try to provide comprehensive context when possible." (slight pause before speaking)
-15.5–17.0 s: She laughs softly: "That's... really thorough."
+STYLE SPINE — warm small-town romance; palette gold/amber/cream; charming meet-cute with subtle precision
+SUBJECT — woman ~32; auburn hair/navy peacoat/cream scarf (consistent); man ~35, 6'0", dark hair neat, gray wool coat, measured posture
+SET & LIGHT — bookshop exterior golden hour; warm key light on faces 3000K; shop window reflection fill; rim light from setting sun
+CAMERA — two-shot medium → rack focus between faces; chest height; 50mm feel; shallow DoF f/2.8
+ACTION BEATS (0.00–10.0s)
+  0.00–2.0  man enters frame right with controlled gait; stops 24 inches from woman; hands clasped
+  2.0–4.5   woman turns 90° toward him; micro-surprise in eyebrows; head tilt interest 10°
+  4.5–7.0   man's measured gesticulation toward building; 0.5s processing pause before speaking
+  7.0–8.5   woman's soft laugh; weight shift toward him 6 inches; sustained eye-line match
+  8.5–10.0  both hold position; snow drifts between them; moment suspension
+AUDIO — distant carolers continuous; soft snow landing; his voice slightly formal tone; her gentle laugh at 7.0s
+CONTINUITY — woman's navy peacoat/cream scarf/auburn hair maintained; establish man's gray coat; avoid readable text
+Dialogue:
+- Man (measured, 0.0–4.5s): "That's actually the oldest bookshop in town. Established 1887. The architecture is Second Empire Victorian, notable for its mansard roof."
+- Woman (charmed, 4.5–7.0s): "Oh! I didn't know that. Are you a local historian or...?"
+- Man (precise, 7.0–9.0s): "I try to provide comprehensive context when possible."
+- Woman (amused, 9.0–10.0s): "That's... really thorough."
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Rack focus between faces during conversation
+- **One subject action**: Turn and engage in meet-cute conversation
+- **Identity anchors**: Man established as ~35, dark hair, gray coat, measured movements (Claude)
 
 ---
 
 ### SCENE 3 (17.0–25.0 s): THE INTRODUCTION
 **Duration:** 8 seconds
 
-**Sora Prompt:**
-> 9:16 vertical. Close two-shot of professional woman and handsome local man as they introduce themselves. He extends hand, she shakes it warmly. Brief moment of connection followed by subtle awkwardness - his smile holds slightly too long. Snow drifts between them. Intimate framing, warm lighting. 24fps, Hallmark romantic tension.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-17.0–19.0 s: He smiles (measured, warm), extends hand: "I'm Claude."
-19.0–21.0 s: She shakes it, genuine warmth: "Nice to meet you, Claude." Brief connection.
-21.0–23.0 s: His hand lingers just a fraction too long; his smile holds... processing
-23.0–24.5 s: She notices but finds it endearing. Snow drifts between them in the golden light.
-24.5–25.0 s: They stand there, moment suspended → FADE TO BLACK
+STYLE SPINE — warm small-town romance; palette gold/amber/cream; intimate connection with processing delay
+SUBJECT — woman ~32; auburn hair/navy peacoat/cream scarf (consistent); man ~35, gray coat (consistent); both centered frame
+SET & LIGHT — bookshop exterior continuous; golden hour magic light 2900K; face key light; snow particulate bokeh
+CAMERA — close two-shot → static hold; chest to head framing; 85mm feel; very shallow DoF f/1.8
+ACTION BEATS (0.00–8.0s)
+  0.00–2.0  man extends right hand smoothly; measured smile formation; steady eye contact
+  2.0–4.0   handshake connection 1.5s; her genuine warmth expression; mutual grip pressure
+  4.0–5.5   his hand hold extends 0.5s beyond natural; smile frozen in processing state
+  5.5–7.0   her micro-notice of delay; finds it endearing; snow drifts create foreground bokeh
+  7.0–8.0   both remain in suspended moment; breathing synchronized; fade begins at 7.5s
+AUDIO — ambient carolers fading; snow landing on coats; subtle fabric rustle during handshake; quiet street atmosphere
+CONTINUITY — both characters' wardrobe consistent; snow accumulation on shoulders realistic; avoid any text/logos
+Dialogue:
+- Man (warm, 0.00–2.0s): "I'm Claude."
+- Woman (genuine, 2.0–4.0s): "Nice to meet you, Claude."
+- (4.0–8.0s): Silent connection and processing moment
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Static hold (no movement, emphasis on moment)
+- **One subject action**: Handshake introduction with extended processing
+- **Identity anchors**: Claude name revealed, processing delay established as character trait
 
 ---
 
@@ -638,16 +719,29 @@ Episode [#]: “[Title]”
 ### SCENE 1 (0.0–8.0 s): THE AFTERGLOW
 **Duration:** 8 seconds
 
-**Sora Prompt:**
-> 9:16 vertical video. Intimate close-up of professional woman's face in bed, soft afterglow expression, warm tungsten bedside lamp. She exhales contentedly, whispers lovingly. Slow pull-back reveals empty half of rumpled bed, her smile fading to confusion. Cozy bedroom, warm lighting. 24fps, intimate Hallmark cinematography.
+**SCENE CARD (paste into Sora):**
 
-**Action:**
 ```
-0.0–3.0 s: Tight close on her face against pillow, dreamy smile, exhales: "That was amazing, Claude..."
-3.0–5.5 s: Her hand reaches across bed, finds empty space. Confusion crosses her face.
-5.5–7.0 s: Slow pull-back reveals empty half of bed, sheets still warm but abandoned
-7.0–8.0 s: She sits up slightly, looking around the room, concerned
+STYLE SPINE — intimate domestic drama; palette warm amber/cream/soft shadows; contentment → confusion
+SUBJECT — woman ~32; auburn hair tousled; bare shoulders above sheet line; 5'6" build; flushed complexion suggesting warmth
+SET & LIGHT — inn bedroom, 2AM; bedside lamp key 2400K tungsten; moonlight rim through curtains; deep shadows high contrast
+CAMERA — extreme close-up face → slow pull-back revealing space; 85mm feel; ultra-shallow DoF f/1.4
+ACTION BEATS (0.00–8.0s)
+  0.00–3.0  micro-smile sustained; slow exhale visible in chest movement; eyes closed then flutter open
+  3.0–5.5   left hand extends across bed seeking contact; fingers spread then contract finding emptiness
+  5.5–7.0   pull-back reveals rumpled sheets, indent where body was; her expression shifts to concern
+  7.0–8.0   partial sit-up using right elbow prop; head swivel scanning room; breathing quickens
+AUDIO — quiet room tone; distant radiator tick; fabric whisper against sheets; her soft vocalization
+CONTINUITY — auburn hair established as tousled; sheet line at clavicle maintained; warm tungsten grade consistent; avoid any text
+Dialogue:
+- Woman (dreamy, 0.00–3.0s): "That was amazing, Claude..."
+- (3.0–8.0s): Wordless realization and confusion
 ```
+
+**TECHNICAL NOTES:**
+- **One camera move**: Extreme close-up → pull-back reveal
+- **One subject action**: Contentment → reaching → realization of absence
+- **Craft approach**: Implied intimacy through aftermath staging, no explicit content
 
 ---
 
