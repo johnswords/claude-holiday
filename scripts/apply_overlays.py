@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 import json
-import shlex
 import subprocess
 import sys
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import Any
+
+from scripts.utils.ffmpeg import preflight_check
 
 
-def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> Tuple[str, str]:
+def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> tuple[str, str]:
     # Returns ffmpeg expressions for x,y
     if position == "top_left":
         return f"{pad}", f"{pad}"
@@ -41,7 +42,7 @@ def _normalize_color(color: str) -> str:
     return color
 
 
-def _apply_density_timing(start: float, duration: float, density: str) -> Tuple[float, float]:
+def _apply_density_timing(start: float, duration: float, density: str) -> tuple[float, float]:
     """
     Adjust overlay timing based on density setting.
     - low: longer duration, more spacing
@@ -56,13 +57,13 @@ def _apply_density_timing(start: float, duration: float, density: str) -> Tuple[
         return start, duration
 
 
-def parse_overlay_spec(spec_path: Path) -> Dict[str, Any]:
-    with open(spec_path, "r", encoding="utf-8") as f:
+def parse_overlay_spec(spec_path: Path) -> dict[str, Any]:
+    with open(spec_path, encoding="utf-8") as f:
         return json.load(f)
 
 
 def build_filters(
-    overlays: List[Dict[str, Any]],
+    overlays: list[dict[str, Any]],
     width: int,
     height: int,
     font_path: str | None = None,
@@ -87,7 +88,7 @@ def build_filters(
     density: "low" | "medium" | "high" - adjusts timing/spacing of overlays
     theme: color scheme name (reserved for future color palette mapping)
     """
-    filters: List[str] = []
+    filters: list[str] = []
     # Note: theme parameter reserved for future color palette implementation
     # Optional background box via drawbox is not text-aware; we rely on drawtext box=1 instead
     for ov in overlays:
@@ -120,38 +121,42 @@ def build_filters(
 
 def apply_overlays(
     in_path: Path,
-    overlays: List[Dict[str, Any]],
+    overlays: list[dict[str, Any]],
     out_path: Path,
     width: int,
     height: int,
     font_path: str | None = None,
     density: str = "medium",
     theme: str | None = None,
+    fps: int = 24,
 ) -> Path:
+    preflight_check()
+
     if not overlays:
-        # Pass-through copy to avoid re-encode
-        # But to ensure consistent output, we re-encode lightly
+        # Normalize fps/pix_fmt to avoid concat surprises from user-provided prebaked clips
         cmd = [
             "ffmpeg",
             "-y",
             "-i",
             str(in_path),
-            "-c",
-            "copy",
+            "-r",
+            str(fps),
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "128k",
             str(out_path),
         ]
         try:
-            result = subprocess.run(
-                cmd,
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
+            result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:
-            error_msg = f"FFmpeg copy failed: {in_path} -> {out_path}\n"
+            error_msg = f"FFmpeg normalization failed: {in_path} -> {out_path}\n"
             error_msg += f"Command: {' '.join(cmd)}\n"
             if e.stderr:
                 error_msg += f"Error output:\n{e.stderr}"
@@ -166,6 +171,8 @@ def apply_overlays(
         str(in_path),
         "-vf",
         vf,
+        "-r",
+        str(fps),
         "-c:v",
         "libx264",
         "-pix_fmt",
@@ -177,13 +184,7 @@ def apply_overlays(
         str(out_path),
     ]
     try:
-        result = subprocess.run(
-            cmd,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
+        result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         if result.stderr:
             print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
     except subprocess.CalledProcessError as e:
@@ -205,6 +206,7 @@ if __name__ == "__main__":
     p.add_argument("--out", dest="out", required=True, help="Output MP4 path")
     p.add_argument("--width", type=int, default=1080)
     p.add_argument("--height", type=int, default=1920)
+    p.add_argument("--fps", type=int, default=24, help="Target FPS for normalization")
     p.add_argument("--font", dest="font", default=None, help="Font file path (optional)")
     p.add_argument("--density", choices=["low", "medium", "high"], default="medium", help="Overlay density")
     p.add_argument("--theme", default=None, help="Color theme (optional)")
@@ -220,5 +222,6 @@ if __name__ == "__main__":
         font_path=args.font,
         density=args.density,
         theme=args.theme,
+        fps=args.fps,
     )
     sys.stdout.write(str(result) + "\n")
