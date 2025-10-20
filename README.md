@@ -394,7 +394,7 @@ export OPENAI_API_KEY="your-key-here"
   - `--episode <EP##>` (for thumbnails, default: EP00)
   - `--title <text>` (main title, default: CLAUDE HOLIDAY)
   - `--subtitle <text>` (subtitle, default: A COMPOSABLE MICRO-SERIES)
-  - `--model <model>` (OpenAI model: dall-e-3, gpt-image-1, default: dall-e-3)
+  - `--model <model>` (OpenAI image generation model, optional)
 - Outputs to `output/cover_art/`
 - Assets include:
   - YouTube thumbnails (1280x720)

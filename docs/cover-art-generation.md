@@ -35,17 +35,12 @@ Custom text for title cards:
   --subtitle "A CUSTOM VERSION"
 ```
 
-Choose OpenAI model:
-```bash
-./ch cover-art --type all --model gpt-image-1
-```
 
 ### Using the script directly
 
 ```bash
 python3 scripts/generate_cover_art.py \
   --type all \
-  --model dall-e-3 \
   --episode EP01 \
   --title "CLAUDE HOLIDAY" \
   --subtitle "A COMPOSABLE MICRO-SERIES"
@@ -80,29 +75,18 @@ The system generates four types of assets:
    - Instagram-ready format
    - Cozy fireplace scene with CH monogram
 
-## Model Options
+## Model Information
 
-### gpt-image-1 (Recommended)
-- Latest model (2025)
-- Cost: $0.015 per image
-- Better multimodal understanding
-- Sizes: 1024x1024, 1024x1536, 1536x1024
-
-### DALL-E 3
-- Established model
-- Cost: $0.040 per image
-- More artistic variations
-- Sizes: 1024x1024, 1024x1792, 1792x1024
+The system uses OpenAI's image generation model:
+- Cost: ~$0.015 per image
+- High-quality image generation
+- Sizes: 1024x1024, 1024x1536, 1536x1024, 1792x1024
 
 ## Cost Considerations
 
-Generating a full set (4 images):
-- **gpt-image-1**: ~$0.06
-- **DALL-E 3**: ~$0.16
+Generating a full set (4 images): ~$0.06
 
-For a 12-episode series with unique thumbnails:
-- **gpt-image-1**: ~$0.24
-- **DALL-E 3**: ~$0.64
+For a 12-episode series with unique thumbnails: ~$0.24
 
 ## Best Practices
 

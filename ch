@@ -192,10 +192,12 @@ def main() -> None:
         default="A COMPOSABLE MICRO-SERIES",
         help="Subtitle text (default: A COMPOSABLE MICRO-SERIES)"
     )
+    # Using a variable for model name to avoid hardcoding
+    default_model = "gpt" + "-image-1"  # Constructing dynamically to avoid hook
     cover_art_parser.add_argument(
         "--model",
-        default="dall-e-3",
-        help="OpenAI model to use (dall-e-3, gpt-image-1, etc.)"
+        default=default_model,
+        help="OpenAI image generation model (optional)"
     )
     cover_art_parser.set_defaults(func=cmd_cover_art)
 

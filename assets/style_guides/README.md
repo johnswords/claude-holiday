@@ -10,7 +10,7 @@ This directory contains the style guide for generating consistent cover art and 
 ## How It Works
 
 1. **Base Extension**: The default style guide extends from `base.json`, inheriting shared properties
-2. **Cover Art Generation**: AI-powered generation using OpenAI's image models (dall-e-3, gpt-image-1)
+2. **Cover Art Generation**: AI-powered generation using OpenAI's image models
 
    Generates:
    - YouTube thumbnails (1280x720)
@@ -41,16 +41,11 @@ Custom text for title cards:
   --subtitle "A CUSTOM VERSION"
 ```
 
-Choose OpenAI model (dall-e-3 or gpt-image-1):
-```bash
-./ch cover-art --type all --model gpt-image-1
-```
-
 ### Using the script directly:
 
 ```bash
 export OPENAI_API_KEY="your-key-here"
-python3 scripts/generate_cover_art.py --type all --model dall-e-3
+python3 scripts/generate_cover_art.py --type all
 ```
 
 ## Composability
