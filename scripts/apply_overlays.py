@@ -6,8 +6,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from scripts.utils.ffmpeg import preflight_check
-
 
 def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> tuple[str, str]:
     # Returns ffmpeg expressions for x,y
@@ -55,6 +53,38 @@ def _apply_density_timing(start: float, duration: float, density: str) -> tuple[
         return start * 0.8, duration * 0.7
     else:  # medium or unrecognized
         return start, duration
+
+
+def _has_audio_stream(path: Path) -> bool:
+    audio_probe = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-select_streams",
+        "a",
+        "-show_entries",
+        "stream=index",
+        "-of",
+        "csv=p=0",
+        str(path),
+    ]
+
+    try:
+        probe_result = subprocess.run(
+            audio_probe,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        error_msg = f"ffprobe audio detection failed for {path}\n"
+        error_msg += f"Command: {' '.join(audio_probe)}\n"
+        if e.stderr:
+            error_msg += f"Error output:\n{e.stderr}"
+        raise RuntimeError(error_msg) from e
+
+    return bool(probe_result.stdout.strip())
 
 
 def parse_overlay_spec(spec_path: Path) -> dict[str, Any]:
@@ -130,10 +160,7 @@ def apply_overlays(
     theme: str | None = None,
     fps: int = 24,
 ) -> Path:
-    preflight_check()
-
     if not overlays:
-        # Normalize fps/pix_fmt to avoid concat surprises from user-provided prebaked clips
         cmd = [
             "ffmpeg",
             "-y",
@@ -145,12 +172,15 @@ def apply_overlays(
             "libx264",
             "-pix_fmt",
             "yuv420p",
-            "-c:a",
-            "aac",
-            "-b:a",
-            "128k",
-            str(out_path),
         ]
+
+        if _has_audio_stream(in_path):
+            cmd.extend(["-c:a", "aac", "-b:a", "128k"])
+        else:
+            cmd.append("-an")
+
+        cmd.append(str(out_path))
+
         try:
             result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.stderr:
@@ -177,12 +207,14 @@ def apply_overlays(
         "libx264",
         "-pix_fmt",
         "yuv420p",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "128k",
-        str(out_path),
     ]
+
+    if _has_audio_stream(in_path):
+        cmd.extend(["-c:a", "aac", "-b:a", "128k"])
+    else:
+        cmd.append("-an")
+
+    cmd.append(str(out_path))
     try:
         result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         if result.stderr:
@@ -206,7 +238,6 @@ if __name__ == "__main__":
     p.add_argument("--out", dest="out", required=True, help="Output MP4 path")
     p.add_argument("--width", type=int, default=1080)
     p.add_argument("--height", type=int, default=1920)
-    p.add_argument("--fps", type=int, default=24, help="Target FPS for normalization")
     p.add_argument("--font", dest="font", default=None, help="Font file path (optional)")
     p.add_argument("--density", choices=["low", "medium", "high"], default="medium", help="Overlay density")
     p.add_argument("--theme", default=None, help="Color theme (optional)")

@@ -304,7 +304,6 @@ def compile_episode(
                 width=render_cfg.width,
                 height=render_cfg.height,
                 font_path=font_path,
-                fps=render_cfg.fps,
             )
             scene_outputs.append(overlaid)
         else:
