@@ -118,8 +118,133 @@
     "social": {
       "type": "object",
       "properties": {
-        "platforms": { "type": "array", "items": { "type": "string" } },
-        "trims": { "type": "object" }
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["tiktok", "instagram", "youtube_shorts", "twitter", "linkedin", "facebook"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "trims": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]+$": {
+              "type": "object",
+              "required": ["platform", "source_episode", "timing"],
+              "properties": {
+                "platform": {
+                  "type": "string",
+                  "enum": ["tiktok", "instagram", "youtube_shorts", "twitter", "linkedin", "facebook"]
+                },
+                "source_episode": {
+                  "type": "string",
+                  "description": "Episode identifier to extract content from"
+                },
+                "timing": {
+                  "type": "object",
+                  "required": ["start", "end"],
+                  "properties": {
+                    "start": {
+                      "type": "string",
+                      "pattern": "^([0-9]+):([0-5][0-9]):([0-5][0-9])(\\.([0-9]{1,3}))?$",
+                      "description": "Start time in HH:MM:SS or HH:MM:SS.mmm format"
+                    },
+                    "end": {
+                      "type": "string",
+                      "pattern": "^([0-9]+):([0-5][0-9]):([0-5][0-9])(\\.([0-9]{1,3}))?$",
+                      "description": "End time in HH:MM:SS or HH:MM:SS.mmm format"
+                    },
+                    "max_duration": {
+                      "type": "integer",
+                      "description": "Maximum duration in seconds for platform compliance"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aspect_ratio": {
+                  "type": "string",
+                  "enum": ["9:16", "1:1", "4:5", "16:9"],
+                  "description": "Target aspect ratio for the platform"
+                },
+                "hooks": {
+                  "type": "object",
+                  "properties": {
+                    "opening_text": {
+                      "type": "string",
+                      "maxLength": 150
+                    },
+                    "cta": {
+                      "type": "string",
+                      "maxLength": 100
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "overlays": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": { "type": "boolean" },
+                    "style": {
+                      "type": "string",
+                      "enum": ["minimal", "engaging", "branded"]
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "captions": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": { "type": "boolean" },
+                    "style": {
+                      "type": "string",
+                      "enum": ["default", "word_highlight", "karaoke"]
+                    },
+                    "position": {
+                      "type": "string",
+                      "enum": ["top", "middle", "bottom"]
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "music": {
+                  "type": "object",
+                  "properties": {
+                    "track": { "type": "string" },
+                    "volume": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "metadata": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "tags": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "hashtags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "pattern": "^#[a-zA-Z0-9_]+$"
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": true
     }
