@@ -16,6 +16,7 @@ from scripts.rcfc.uri import compute_rcfc_hash, build_cut_uri
 from scripts.providers.base import RenderConfig, Provider
 from scripts.providers.prebaked import PrebakedProvider
 from scripts.providers.dummy import DummyProvider
+from scripts.providers.sora import SoraProvider
 from scripts.apply_overlays import apply_overlays
 
 
@@ -45,8 +46,9 @@ def provider_from_recipe(recipe: Dict[str, Any]) -> Provider:
         return PrebakedProvider()
     if name == "dummy":
         return DummyProvider()
-    # Future: Sora provider
-    raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy)")
+    if name == "sora":
+        return SoraProvider()
+    raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy, sora)")
 
 
 def select_audience_config(audience: str) -> Dict[str, Any]:
