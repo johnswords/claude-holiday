@@ -4,7 +4,7 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any
 
 try:
     from openai import OpenAI
@@ -12,10 +12,11 @@ except ImportError:
     OpenAI = None  # type: ignore
 
 from .base import Provider, RenderConfig
+from scripts.utils.ffmpeg import preflight_check
 
 
 class SoraProvider(Provider):
-    def __init__(self, api_key: Optional[str] = None) -> None:
+    def __init__(self, api_key: str | None = None) -> None:
         if OpenAI is None:
             raise ImportError(
                 "OpenAI SDK is required for SoraProvider. "
@@ -29,7 +30,7 @@ class SoraProvider(Provider):
     def name(self) -> str:
         return "sora"
 
-    def _build_prompt(self, scene: Dict[str, Any]) -> str:
+    def _build_prompt(self, scene: dict[str, Any]) -> str:
         """Build a video generation prompt from scene data."""
         # Extract prompt from scene description or use default
         if "description" in scene:
@@ -44,10 +45,10 @@ class SoraProvider(Provider):
     def generate_scene(
         self,
         episode_id: str,
-        scene: Dict[str, Any],
+        scene: dict[str, Any],
         output_dir: str,
         render_cfg: RenderConfig,
-        seed: Optional[int] = None,
+        seed: int | None = None,
     ) -> str:
         """
         Generate a scene using OpenAI's Sora API.
@@ -97,6 +98,7 @@ class SoraProvider(Provider):
             print(f"[SORA] Generating fallback placeholder for {scene_id}", file=sys.stderr)
 
             # Generate a placeholder using ffmpeg (same as prebaked fallback)
+            preflight_check()
             color = "0x202833"
             cmd = [
                 "ffmpeg",

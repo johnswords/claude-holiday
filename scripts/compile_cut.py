@@ -5,42 +5,78 @@ import json
 import os
 import subprocess
 import sys
-import tempfile
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
+from typing import Any
 
 import yaml
+import jsonschema
+from jsonschema import ValidationError
 
-from scripts.rcfc.uri import compute_rcfc_hash, build_cut_uri
-from scripts.providers.base import RenderConfig, Provider
-from scripts.providers.prebaked import PrebakedProvider
-from scripts.providers.dummy import DummyProvider
-from scripts.providers.sora import SoraProvider
 from scripts.apply_overlays import apply_overlays
+from scripts.providers.base import Provider, RenderConfig
+from scripts.providers.dummy import DummyProvider
+from scripts.providers.prebaked import PrebakedProvider
+from scripts.providers.sora import SoraProvider
+from scripts.rcfc.uri import build_cut_uri, compute_rcfc_hash
+from scripts.utils.ffmpeg import preflight_check
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FONT_MAC = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
 
 
-def load_yaml(path: Path) -> Dict[str, Any]:
+def validate_recipe(recipe: dict[str, Any]) -> None:
+    """
+    Validate recipe against RCFC schema. Fails fast with clear errors.
+
+    Raises:
+        ValidationError: If recipe does not conform to schema
+        FileNotFoundError: If schema file is missing
+    """
+    schema_path = PROJECT_ROOT / "schemas" / "rcfc.schema.json"
+    if not schema_path.exists():
+        raise FileNotFoundError(f"Schema file not found: {schema_path}")
+
+    with open(schema_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    try:
+        jsonschema.validate(instance=recipe, schema=schema)
+    except ValidationError as e:
+        # Build a helpful error message with context
+        error_path = ".".join(str(p) for p in e.path) if e.path else "root"
+        error_msg = f"Recipe validation failed at '{error_path}': {e.message}"
+
+        # Add schema context if available
+        if e.schema_path:
+            schema_location = ".".join(str(p) for p in e.schema_path)
+            error_msg += f"\nSchema requirement: {schema_location}"
+
+        # Add the failing value for debugging
+        if e.instance is not None:
+            error_msg += f"\nProvided value: {e.instance}"
+
+        raise ValidationError(error_msg) from e
+
+
+def load_yaml(path: Path) -> dict[str, Any]:
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
-def save_json(path: Path, data: Dict[str, Any]) -> None:
+def save_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
 
-def parse_resolution(res: str) -> Tuple[int, int]:
+def parse_resolution(res: str) -> tuple[int, int]:
     w, h = res.split("x")
     return int(w), int(h)
 
 
-def provider_from_recipe(recipe: Dict[str, Any]) -> Provider:
+def provider_from_recipe(recipe: dict[str, Any]) -> Provider:
     name = (recipe.get("provider") or {}).get("name", "prebaked")
     if name == "prebaked":
         return PrebakedProvider()
@@ -51,7 +87,7 @@ def provider_from_recipe(recipe: Dict[str, Any]) -> Provider:
     raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy, sora)")
 
 
-def select_audience_config(audience: str) -> Dict[str, Any]:
+def select_audience_config(audience: str) -> dict[str, Any]:
     cfg_dir = PROJECT_ROOT / "scripts" / "config"
     path = cfg_dir / f"audience.{audience}.yaml"
     if not path.exists():
@@ -59,19 +95,21 @@ def select_audience_config(audience: str) -> Dict[str, Any]:
     return load_yaml(path)
 
 
-def load_series_config() -> Dict[str, Any]:
+def load_series_config() -> dict[str, Any]:
     cfg_path = PROJECT_ROOT / "scripts" / "config" / "series.yaml"
     return load_yaml(cfg_path)
 
 
-def load_episode_manifest(episode_id: str) -> Dict[str, Any]:
+def load_episode_manifest(episode_id: str) -> dict[str, Any]:
     path = PROJECT_ROOT / "episodes" / episode_id / "episode.yaml"
     if not path.exists():
         raise FileNotFoundError(f"Episode manifest not found: {path}")
     return load_yaml(path)
 
 
-def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, height: int) -> None:
+def ffmpeg_concat(clips: list[Path], out_path: Path, fps: int, width: int, height: int) -> None:
+    preflight_check()
+
     # Re-encode to ensure consistent stream parameters
     concat_file = out_path.parent / "concat.txt"
     concat_file.parent.mkdir(parents=True, exist_ok=True)
@@ -103,13 +141,7 @@ def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, heigh
         str(out_path),
     ]
     try:
-        result = subprocess.run(
-            cmd,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
+        result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         # Log ffmpeg stderr (contains progress and warnings even on success)
         if result.stderr:
             print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
@@ -123,9 +155,9 @@ def ffmpeg_concat(clips: List[Path], out_path: Path, fps: int, width: int, heigh
 
 def compile_episode(
     episode_id: str,
-    recipe: Dict[str, Any],
+    recipe: dict[str, Any],
     render_cfg: RenderConfig,
-    audience_cfg: Dict[str, Any],
+    audience_cfg: dict[str, Any],
     cut_id: str,
     font_path: str | None = None,
 ) -> Path:
@@ -138,10 +170,13 @@ def compile_episode(
 
     ov_enabled = bool((recipe.get("overlays") or {}).get("enabled", False))
     # Determine number of candidates to generate per scene (default 1)
-    num_candidates = int(((recipe.get("provider") or {}).get("options") or {}).get("num_candidates", 1))
+    provider_options = (recipe.get("provider") or {}).get("options") or {}
+    num_candidates = int(provider_options.get("num_candidates", 1))
+    # Extract seed_base for reproducible runs (optional)
+    seed_base = provider_options.get("seed_base", None)
     # Selections file (optional): episodes/{episode_id}/renders/selections/{cut_id}.yaml
     selections_path = PROJECT_ROOT / "episodes" / episode_id / "renders" / "selections" / f"{cut_id}.yaml"
-    selections_map: Dict[str, Any] = {}
+    selections_map: dict[str, Any] = {}
     if selections_path.exists():
         try:
             selections_map = load_yaml(selections_path)
@@ -149,7 +184,7 @@ def compile_episode(
             selections_map = {}
 
     # Collect scene output paths for concat (if not candidates-only)
-    scene_outputs: List[Path] = []
+    scene_outputs: list[Path] = []
 
     for scene in scenes:
         scene_id = scene.get("id", "scene")
@@ -157,10 +192,12 @@ def compile_episode(
         scene_dir.mkdir(parents=True, exist_ok=True)
 
         # 1) Generate or resolve scene candidates
-        candidates: List[Dict[str, Any]] = []
+        candidates: list[dict[str, Any]] = []
         for idx in range(1, max(1, num_candidates) + 1):
             cand_dir = scene_dir / f"cand{idx}"
             cand_dir.mkdir(parents=True, exist_ok=True)
+            # Calculate seed: seed_base + index for reproducibility
+            candidate_seed = (seed_base + idx) if seed_base is not None else idx
             # Provider writes to cand_dir / f"{scene_id}.mp4"
             clip_path = Path(
                 provider.generate_scene(
@@ -168,7 +205,7 @@ def compile_episode(
                     scene,
                     str(cand_dir),
                     render_cfg,
-                    seed=idx,  # varying seed by candidate index
+                    seed=candidate_seed,
                 )
             )
             # Normalize to relative path for manifests
@@ -176,6 +213,7 @@ def compile_episode(
             candidates.append(
                 {
                     "index": idx,
+                    "seed": candidate_seed,
                     "path": str(rel_clip.relative_to(PROJECT_ROOT)),
                     "duration_sec": int(scene.get("duration_sec") or 1),
                 }
@@ -218,7 +256,8 @@ def compile_episode(
                     spec_path = PROJECT_ROOT / "assets" / "templates" / "overlays" / f"{spec_name}.json"
                     if spec_path.exists():
                         import json as _json
-                        with open(spec_path, "r", encoding="utf-8") as f:
+
+                        with open(spec_path, encoding="utf-8") as f:
                             spec_data = _json.load(f)
                         spec_data["start_sec"] = ov.get("start_sec", 0.5)
                         spec_data["duration_sec"] = ov.get("duration_sec", 2.0)
@@ -236,6 +275,7 @@ def compile_episode(
                 width=render_cfg.width,
                 height=render_cfg.height,
                 font_path=font_path,
+                fps=render_cfg.fps,
             )
             scene_outputs.append(overlaid)
         else:
@@ -249,7 +289,9 @@ def compile_episode(
     if os.environ.get("CH_CANDIDATES_ONLY") == "1":
         # Write episode-level candidates marker for discoverability
         ready_flag = tmp_dir / "_candidates_ready.txt"
-        ready_flag.write_text("candidates generated; use select_winners.py to create selections and recompile\n", encoding="utf-8")
+        ready_flag.write_text(
+            "candidates generated; use select_winners.py to create selections and recompile\n", encoding="utf-8"
+        )
         return ready_flag
 
     ffmpeg_concat(scene_outputs, out_path, fps=render_cfg.fps, width=render_cfg.width, height=render_cfg.height)
@@ -258,6 +300,10 @@ def compile_episode(
 
 def compile_cut(recipe_path: Path) -> Path:
     recipe = load_yaml(recipe_path)
+
+    # Validate recipe against schema before any expensive operations
+    validate_recipe(recipe)
+
     series_cfg = load_series_config()
     audience = recipe.get("audience_profile", "general")
     audience_cfg = select_audience_config(audience)
@@ -281,7 +327,7 @@ def compile_cut(recipe_path: Path) -> Path:
 
     # Compile episodes (or just generate candidates)
     include_eps = (recipe.get("scope") or {}).get("include_episodes", [])
-    episode_outputs: List[Dict[str, Any]] = []
+    episode_outputs: list[dict[str, Any]] = []
     for ep in include_eps:
         ep_out = compile_episode(
             episode_id=ep,
@@ -341,7 +387,9 @@ def compile_cut(recipe_path: Path) -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compile a Claude Holiday cut from an RCFC recipe.")
     parser.add_argument("--recipe", required=True, help="Path to RCFC recipe YAML")
-    parser.add_argument("--candidates-only", action="store_true", help="Generate candidates per scene and skip stitching")
+    parser.add_argument(
+        "--candidates-only", action="store_true", help="Generate candidates per scene and skip stitching"
+    )
     args = parser.parse_args()
     recipe_path = Path(args.recipe)
     if not recipe_path.exists():
@@ -351,6 +399,10 @@ def main() -> None:
         os.environ["CH_CANDIDATES_ONLY"] = "1"
     try:
         compile_cut(recipe_path)
+    except ValidationError as e:
+        # Schema validation failed - fail fast with clear error
+        print(f"[VALIDATION ERROR] {e.message}", file=sys.stderr)
+        sys.exit(1)
     except subprocess.CalledProcessError as e:
         # Surface ffmpeg errors nicely
         sys.stderr.write(e.stderr.decode("utf-8", errors="ignore") if e.stderr else str(e) + "\n")
