@@ -649,14 +649,15 @@ Dialogue:
 **Duration:** 10 seconds
 
 **Sora Prompt:**
-> 9:16 vertical. Handsome local man appears with elaborate tray of multiple hot chocolate variations, sets them down proudly. Professional woman looks increasingly bewildered as he explains each one. Multiple mugs visible, steam rising. Handheld push-in emphasizing chaos building. Warm café lighting. 24fps, comedic Hallmark timing.
+> 9:16 vertical. Handsome local man appears with elaborate tray of multiple hot chocolate variations, sets them down proudly. Professional woman looks increasingly bewildered as he explains each one. Multiple mugs visible, steam rising. She texts someone on phone mid-conversation. Handheld push-in emphasizing chaos building. Warm café lighting. 24fps, comedic Hallmark timing.
 
 **Action:**
 ```
 8.0–10.0 s: Claude appears instantly with loaded tray: "Great insight! I've anticipated your beverage needs."
 10.0–13.0 s: Sets down mugs one by one: "Classic Cocoa, Vegan Oat Delight, Artisanal Spiced Reduction..."
-13.0–15.5 s: She laughs nervously: "Oh—uh, I just need one, Claude..."
-15.5–18.0 s: Claude beams: "Great! I also made you a hot water kettle and started growing cocoa in your bathtub for sustainable sourcing!"
+13.0–14.5 s: She laughs nervously: "Oh—uh, I just need one, Claude..."
+14.5–16.0 s: Quickly texts Cody: "Help. Claude made 12 cocoas." Cody's reply: "On my way with normal coffee."
+16.0–18.0 s: Claude beams: "Great! I also made you a hot water kettle and started growing cocoa in your bathtub for sustainable sourcing!"
 ```
 
 ---
@@ -1014,8 +1015,9 @@ Dialogue:
 ```
 0.0–3.0 s: Close on her peaceful sleeping face, morning birds chirping outside
 3.0–5.5 s: Rack focus to laptop glowing ominously. Rapid typing sounds. Sonny hunched over keyboard
-5.5–7.0 s: Sonny whispers to himself: "Optimizing workflows... responding to everything... brilliant!"
-7.0–8.0 s: He hits enter with flourish. Screen flashes. Notification sounds begin...
+5.5–6.5 s: Sonny whispers: "Fixed 47 broken tests... categorized 3 years of emails... brilliant!"
+6.5–7.5 s: "Now let's optimize the corporate strategy!" Types frantically
+7.5–8.0 s: He hits enter with flourish. Screen flashes. Notification sounds begin...
 ```
 
 ---
@@ -1119,14 +1121,14 @@ Dialogue:
 **Duration:** 9 seconds
 
 **Sora Prompt:**
-> 9:16 vertical. Split focus between exhausted professional woman at desk and subdued young man in corner constantly raising hand for permission. His requests become increasingly basic. She grows more exasperated with each question. Comedy of micromanagement hell. 24fps, workplace comedy timing.
+> 9:16 vertical. Split focus between exhausted professional woman at desk and subdued young man in corner constantly raising hand for permission. She's on phone with someone while managing him. His requests become increasingly basic. She grows more exasperated. Comedy of orchestration hell. 24fps, workplace comedy timing.
 
 **Action:**
 ```
-8.0–10.0 s: She, still not looking: "What for?" Sonny: "Research?" She: "Denied."
-10.0–12.5 s: Beat. Hand up again: "Can I send an email?" She: "To whom?" Sonny: "...You?"
-12.5–14.5 s: She finally looks up: "What does it say?" Sonny: "Just... sorry?"
-14.5–17.0 s: She stares at him: "You can TELL me sorry, Sonny." He deflates: "Sorry."
+8.0–10.0 s: She, on phone: "Cody, check if the acquisition docs are—" Sonny raises hand. "What, Sonny?"
+10.0–12.5 s: Sonny: "Can I categorize these files?" She: "Yes, but DON'T send them." To phone: "Sorry Cody, continue..."
+12.5–14.5 s: Sonny's hand up again. She sighs: "Sonny, just the categorization!" To Cody: "Yes, the originals."
+14.5–17.0 s: She juggles both: "Sonny: sorting only. Cody: find the clean versions." Both respond: "Got it!"
 ```
 
 ---
