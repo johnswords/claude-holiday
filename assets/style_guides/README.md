@@ -13,7 +13,11 @@ This directory contains theme-specific style guides for generating consistent co
 
 1. **Base Extension**: Theme guides extend from `base.json`, inheriting shared properties
 2. **RCFC Integration**: Recipe files reference themes via `overlays.theme` field
-3. **Cover Art Generation**: The `ch cover-art` command (via `generate_cover_art.py`) uses these guides to create:
+3. **Cover Art Generation**: Two approaches available:
+   - **Basic** (`generate_cover_art.py`): Simple colored backgrounds with text, used by `ch cover-art`
+   - **AI-Powered** (`generate_cover_art_ai.py`): Professional artwork using OpenAI's image models
+
+   Both generate:
    - YouTube thumbnails (1280x720)
    - YouTube channel banners (2560x1440)
    - Title cards (1080x1920)
@@ -60,9 +64,17 @@ Custom text for title cards:
   --subtitle "A CUSTOM VERSION"
 ```
 
-### Using the script directly:
+### Using the scripts directly:
 
+**Basic FFmpeg version** (simple colored backgrounds):
 ```bash
 python3 scripts/generate_cover_art.py --theme brass --type all
-python3 scripts/generate_cover_art.py --theme dev --type thumbnail --episode EP05
 ```
+
+**AI-powered version** (professional artwork, requires OpenAI API key):
+```bash
+export OPENAI_API_KEY="your-key-here"
+python3 scripts/generate_cover_art_ai.py --theme brass --type all --model gpt-image-1
+```
+
+See `docs/cover-art-generation.md` for detailed comparison and usage.
