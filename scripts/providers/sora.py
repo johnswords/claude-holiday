@@ -23,9 +23,6 @@ class SoraProvider(Provider):
                 "Install it with: pip install openai"
             )
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
-        if not self.api_key:
-            raise ValueError("OPENAI_API_KEY environment variable is required for SoraProvider")
-        self.client = OpenAI(api_key=self.api_key)
 
     def name(self) -> str:
         return "sora"
@@ -66,6 +63,11 @@ class SoraProvider(Provider):
         prompt = self._build_prompt(scene)
 
         try:
+            # Initialize client (will fail if API key is missing)
+            if not self.api_key:
+                raise ValueError("OPENAI_API_KEY environment variable is required for SoraProvider")
+            client = OpenAI(api_key=self.api_key)
+
             # Call OpenAI's video generation API (Sora)
             # Note: This uses the official OpenAI SDK
             extra_params = {}
@@ -75,7 +77,7 @@ class SoraProvider(Provider):
             # Generate video using Sora
             # Note: The actual API endpoint and parameters may vary
             # This implementation follows the expected Sora API pattern
-            response = self.client.videos.create(
+            response = client.videos.create(
                 model="sora-1.0",
                 prompt=prompt,
                 duration=duration,
