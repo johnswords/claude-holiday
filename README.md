@@ -11,6 +11,39 @@
 
 ---
 
+## 🚀 30 Seconds to Your First Cut
+
+**Zero setup. Five commands. Your own AI holiday rom-com, ready to ship.**
+
+```bash
+# 1. Generate multiple video candidates for each scene (saves cut ID)
+python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml --candidates-only
+
+# 2. Pick your favorite takes from each scene (interactive selector)
+python scripts/select_winners.py --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
+
+# 3. Stitch your selections into final episodes with overlays
+python scripts/compile_cut.py --recipe recipes/examples/dev-default.yaml
+
+# 4. Generate YouTube metadata (title, description, tags)
+python scripts/yt/metadata.py --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
+
+# 5. Package everything for release (videos + metadata + manifest)
+python scripts/pack_release.py --cut-manifest output/cuts/<id>/manifest/cut.manifest.json --include episodes
+```
+
+**That's it.** You now have:
+- ✅ 12 professional episodes ready for YouTube
+- ✅ Your unique Cut URI (like a git commit hash for video)
+- ✅ Complete metadata and release package
+- ✅ Your timeline registered in the multiverse
+
+**No API keys needed** — uses prebaked footage. **No coding required** — just run the commands.
+
+→ *Watch your first episode in under a minute. Ship your timeline today.*
+
+---
+
 ## 🧬 Composable Media — What Does That Mean?
 
 **CLAUDE HOLIDAY** isn't just a video series you can fork. It's a new format where:
