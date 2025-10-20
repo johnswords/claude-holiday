@@ -25,8 +25,26 @@ def collect_assets(cut_manifest: dict[str, Any], include: list[str]) -> list[Pat
         for ep in episodes:
             assets.append(Path(ep["video_path"]))
 
+    # Include captions if requested
+    if "captions" in include:
+        for ep in episodes:
+            captions = ep.get("captions", {})
+            # Episode-level captions
+            if "episode_captions" in captions:
+                ep_caps = captions["episode_captions"]
+                if "srt_path" in ep_caps:
+                    assets.append(Path(ep_caps["srt_path"]))
+                if "ass_path" in ep_caps:
+                    assets.append(Path(ep_caps["ass_path"]))
+            # Per-scene captions
+            if "scene_captions" in captions:
+                for scene_cap in captions["scene_captions"]:
+                    if "srt_path" in scene_cap:
+                        assets.append(Path(scene_cap["srt_path"]))
+                    if "ass_path" in scene_cap:
+                        assets.append(Path(scene_cap["ass_path"]))
+
     # Placeholder: series/full compilation can be added later
-    # Captions not generated in MVP; reserved for future.
 
     # YouTube metadata (if created by yt/metadata.py)
     ytm = Path("output") / "cuts" / cut_manifest["cut_id"] / "manifest" / "youtube.metadata.json"
