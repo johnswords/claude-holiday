@@ -1,4 +1,5 @@
 import pytest
+
 from scripts.providers.base import RenderConfig
 
 

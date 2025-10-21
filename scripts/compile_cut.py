@@ -107,6 +107,7 @@ def load_episode_manifest(episode_id: str) -> dict[str, Any]:
         raise FileNotFoundError(f"Episode manifest not found: {path}")
     return load_yaml(path)
 
+
 def ffmpeg_concat(
     clips: list[Path],
     out_path: Path,
@@ -151,21 +152,23 @@ def ffmpeg_concat(
         cmd.extend(["-map", "0:v", "-map", "0:a"])
 
     # Video and audio encoding settings
-    cmd.extend([
-        "-r",
-        str(fps),
-        "-vf",
-        f"scale={width}:{height}",
-        "-c:v",
-        "libx264",
-        "-pix_fmt",
-        "yuv420p",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "128k",
-        str(out_path),
-    ])
+    cmd.extend(
+        [
+            "-r",
+            str(fps),
+            "-vf",
+            f"scale={width}:{height}",
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "128k",
+            str(out_path),
+        ]
+    )
     try:
         result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         # Log ffmpeg stderr (contains progress and warnings even on success)

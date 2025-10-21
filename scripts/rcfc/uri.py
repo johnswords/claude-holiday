@@ -47,7 +47,7 @@ def compute_rcfc_hash(recipe: dict[str, Any]) -> str:
     data = json.dumps(c, sort_keys=True, separators=(",", ":")).encode("utf-8")
     h = blake3(data).digest()
     # Return first 10 chars of base32 encoding for compact, human-safe IDs
-    return base64.b32encode(h).decode('ascii').rstrip('=')[:10]
+    return base64.b32encode(h).decode("ascii").rstrip("=")[:10]
 
 
 def build_cut_uri(commit_sha: str, rcfc_hash: str, audience: str, version: str = "0.1") -> str:

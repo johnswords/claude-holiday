@@ -18,10 +18,7 @@ from scripts.utils.ffmpeg import preflight_check
 class SoraProvider(Provider):
     def __init__(self, api_key: str | None = None) -> None:
         if OpenAI is None:
-            raise ImportError(
-                "OpenAI SDK is required for SoraProvider. "
-                "Install it with: pip install openai"
-            )
+            raise ImportError("OpenAI SDK is required for SoraProvider. Install it with: pip install openai")
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
 
     def name(self) -> str:
@@ -82,11 +79,12 @@ class SoraProvider(Provider):
                 prompt=prompt,
                 duration=duration,
                 resolution=f"{render_cfg.width}x{render_cfg.height}",
-                **extra_params
+                **extra_params,
             )
 
             # Download the generated video from the URL
             import urllib.request
+
             video_url = response.url
             urllib.request.urlretrieve(video_url, out_path)
 
@@ -118,13 +116,7 @@ class SoraProvider(Provider):
                 str(out_path),
             ]
             try:
-                result = subprocess.run(
-                    cmd,
-                    check=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True
-                )
+                result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
                 if result.stderr:
                     print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
             except subprocess.CalledProcessError as ffmpeg_err:

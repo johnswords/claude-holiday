@@ -104,7 +104,7 @@ def generate_with_openai(prompt: str, size: str, output_path: Path, api_key: str
         # Download and save the image
         image_response = requests.get(image_url)
         if image_response.status_code == 200:
-            with open(output_path, 'wb') as f:
+            with open(output_path, "wb") as f:
                 f.write(image_response.content)
             print(f"[SUCCESS] Saved to {output_path}")
             return True
@@ -127,15 +127,10 @@ def generate_title_card(output_path: Path, title: str, subtitle: str, api_key: s
 
     if success and output_path.exists():
         # Resize to exact dimensions using FFmpeg
-        temp_path = output_path.with_suffix('.tmp.png')
+        temp_path = output_path.with_suffix(".tmp.png")
         output_path.rename(temp_path)
 
-        cmd = [
-            "ffmpeg", "-y",
-            "-i", str(temp_path),
-            "-vf", "scale=1080:1920",
-            str(output_path)
-        ]
+        cmd = ["ffmpeg", "-y", "-i", str(temp_path), "-vf", "scale=1080:1920", str(output_path)]
 
         subprocess.run(cmd, capture_output=True)
         temp_path.unlink()
@@ -151,14 +146,17 @@ def generate_thumbnail(output_path: Path, episode: str, title: str, api_key: str
 
     if success and output_path.exists():
         # Resize to exact dimensions using FFmpeg
-        temp_path = output_path.with_suffix('.tmp.png')
+        temp_path = output_path.with_suffix(".tmp.png")
         output_path.rename(temp_path)
 
         cmd = [
-            "ffmpeg", "-y",
-            "-i", str(temp_path),
-            "-vf", "scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720",
-            str(output_path)
+            "ffmpeg",
+            "-y",
+            "-i",
+            str(temp_path),
+            "-vf",
+            "scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720",
+            str(output_path),
         ]
 
         subprocess.run(cmd, capture_output=True)
@@ -175,15 +173,10 @@ def generate_banner(output_path: Path, title: str, subtitle: str, api_key: str, 
 
     if success and output_path.exists():
         # Upscale to banner dimensions using FFmpeg
-        temp_path = output_path.with_suffix('.tmp.png')
+        temp_path = output_path.with_suffix(".tmp.png")
         output_path.rename(temp_path)
 
-        cmd = [
-            "ffmpeg", "-y",
-            "-i", str(temp_path),
-            "-vf", "scale=2560:1440:flags=lanczos",
-            str(output_path)
-        ]
+        cmd = ["ffmpeg", "-y", "-i", str(temp_path), "-vf", "scale=2560:1440:flags=lanczos", str(output_path)]
 
         subprocess.run(cmd, capture_output=True)
         temp_path.unlink()
@@ -199,15 +192,10 @@ def generate_social_square(output_path: Path, api_key: str, model_name: str) -> 
 
     if success and output_path.exists():
         # Upscale to exact dimensions using FFmpeg
-        temp_path = output_path.with_suffix('.tmp.png')
+        temp_path = output_path.with_suffix(".tmp.png")
         output_path.rename(temp_path)
 
-        cmd = [
-            "ffmpeg", "-y",
-            "-i", str(temp_path),
-            "-vf", "scale=1080:1080:flags=lanczos",
-            str(output_path)
-        ]
+        cmd = ["ffmpeg", "-y", "-i", str(temp_path), "-vf", "scale=1080:1080:flags=lanczos", str(output_path)]
 
         subprocess.run(cmd, capture_output=True)
         temp_path.unlink()
@@ -215,8 +203,12 @@ def generate_social_square(output_path: Path, api_key: str, model_name: str) -> 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate AI-powered cover art assets for Claude Holiday")
-    parser.add_argument("--type", choices=["all", "title", "thumbnail", "banner", "social"],
-                       default="all", help="Type of asset to generate")
+    parser.add_argument(
+        "--type",
+        choices=["all", "title", "thumbnail", "banner", "social"],
+        default="all",
+        help="Type of asset to generate",
+    )
     parser.add_argument("--episode", default="EP00", help="Episode number for thumbnails")
     parser.add_argument("--title", default="CLAUDE HOLIDAY", help="Main title text")
     parser.add_argument("--subtitle", default="A COMPOSABLE MICRO-SERIES", help="Subtitle text")

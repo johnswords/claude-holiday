@@ -11,6 +11,24 @@
 
 ---
 
+## ⚠️ Current Status: Metadata-Only Repository
+
+**IMPORTANT**: This repository currently ships with **episode manifests only** (YAML metadata describing scenes, timing, and dialogue). **No actual video footage is included.**
+
+**What this means for you:**
+
+- ✅ **Tooling works perfectly** — compile pipeline, Cut URI generation, release bundling all functional
+- ✅ **Evaluate the workflow** — test recipe customization, overlay system, candidate selection
+- ⚠️ **Placeholder output** — the `prebaked` provider generates **solid-color timed placeholders** when no footage exists (see `scripts/providers/prebaked.py:44`)
+- 🎥 **To get actual video**: Use `provider.type: sora` in your recipe and provide OpenAI API access (see Path B below)
+
+**This is intentional**—the project is designed to be metadata-driven and composable. You're testing the foundation before the Prime timeline footage drops.
+
+→ *If you're evaluating the concept/tooling: proceed with prebaked mode (placeholders are fine)*
+→ *If you want real video now: switch to Sora provider (requires API keys and costs)*
+
+---
+
 ## 🚀 30 Seconds to Your First Cut
 
 **Prerequisites**: Python 3.11+, uv, FFmpeg
@@ -40,12 +58,15 @@ uv sync                                           # Install Python dependencies
 ```
 
 **That's it.** You now have:
-- ✅ 12 professional episodes ready for YouTube
+- ✅ 12 compiled episodes (placeholder footage until renders added)
 - ✅ Your unique Cut URI (like a git commit hash for video)
 - ✅ Complete metadata and release package
 - ✅ Your timeline registered in the multiverse
+- ✅ Verified the entire workflow end-to-end
 
-→ *Watch your first episode in under a minute. Ship your timeline today.*
+**No API keys needed** — uses placeholder mode (solid-color timed clips). **No coding required** — just run the commands.
+
+→ *Test the workflow in under a minute. Evaluate the tooling today.*
 
 ---
 
@@ -263,7 +284,7 @@ claude_holiday/
 
 ## 🚀 Quick Start
 
-### Path A: Use Existing Footage (Start Here)
+### Path A: Test the Tooling (Start Here)
 
 **Prerequisites**:
 - **Python 3.11+** — Required for all scripts
@@ -276,6 +297,8 @@ claude_holiday/
 
 **Optional**:
 - **OpenAI API key** — Only needed for cover art generation (`./ch cover-art`)
+
+**Note**: This path uses placeholder mode—solid-color timed clips (see status notice above). Perfect for evaluating the workflow, testing recipe customization, and understanding the composable media system.
 
 ```bash
 # 1. Clone and setup
@@ -293,23 +316,24 @@ make preflight
 uv sync
 # Or use Makefile: make install
 
-# 5. Create your first cut using prebaked footage
+# 4. Create your first cut using prebaked provider (placeholder mode)
 cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 
-# 6. Compile it (uses existing footage, no API keys needed)
+# 5. Compile it (generates placeholder footage, no API keys needed)
 ./ch compile --recipe recipes/my-first-cut.yaml
 # Or: uv run python -m scripts.compile_cut --recipe recipes/my-first-cut.yaml
 
-# 7. Watch your cut
+# 6. Review your placeholder cut (solid-color timed clips)
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
 
-# 8. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
+# 7. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
 export OPENAI_API_KEY="your-key-here"
 ./ch cover-art --type all
 ```
 
-**Your Cut URI** is in the manifest — share it to make your timeline referenceable.
-**Your Cover Art** is in `output/cover_art/` — use for YouTube, social media.
+**Your Cut URI** is in the manifest — this proves the deterministic build system works.
+**Your Cover Art** is in `output/cover_art/` — preview the visual branding system.
+**Your Placeholders** prove the entire pipeline—from YAML to final deliverables—is functional.
 
 **Makefile shortcuts** for common tasks:
 - `make preflight` — Check all prerequisites (Python, uv, FFmpeg)
@@ -485,10 +509,10 @@ Claude Holiday is designed for community participation. Here's how:
 
 ---
 
-**Status**: Pre-production (Prime timeline) | Community timelines welcome now
+**Status**: Metadata-only repository (tooling complete, renders pending) | Early testing welcome
 
-**For creators**: Episode 0 prompt writing → Draft render → Iterate
-**For community**: Fork, customize recipes, publish your timeline
+**For creators**: Episode manifests complete → Awaiting Sora render generation
+**For community**: Test the workflow with placeholder mode, customize recipes, evaluate the system
 
 *Let's build something that makes people laugh while making them think — together, in infinite variations.*
 
@@ -584,10 +608,11 @@ git clone [your-fork]
 cd claude_holiday
 
 # Install all dependencies (creates virtual environment automatically)
+# This includes: PyYAML, blake3, pysubs2, jsonschema, openai, and dev tools
 uv sync
 
-# Install development dependencies
-uv sync --group dev
+# Note: FFmpeg is required for video processing
+# Install via: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)
 ```
 
 ### Development Commands
@@ -630,6 +655,25 @@ source .venv/bin/activate  # On Unix/macOS
 - **Deterministic** dependency resolution with lock files
 - **Cross-platform** with consistent behavior
 - **Single tool** replaces pip, virtualenv, pip-tools, and more
+
+### Core Dependencies
+
+All dependencies are managed in `pyproject.toml`:
+
+**Production:**
+- `PyYAML` — RCFC recipe parsing
+- `blake3` — Fast cut URI hashing
+- `pysubs2` — Caption/subtitle generation
+- `jsonschema` — Recipe validation
+- `openai` — Sora-2-Pro video generation
+
+**Development:**
+- `pytest` & `pytest-cov` — Testing and coverage
+- `ruff` — Fast linting and formatting
+- `mypy` — Static type checking
+- `types-PyYAML` — Type stubs for PyYAML
+
+**Note:** `requirements.txt` is kept for reference only. Use `uv` for all dependency management.
 
 ---
 

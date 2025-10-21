@@ -36,29 +36,26 @@ def extract_thumbnail(video_path: Path, timestamp: str = "00:00:01") -> str | No
     try:
         cmd = [
             "ffmpeg",
-            "-ss", timestamp,
-            "-i", str(video_path),
-            "-vframes", "1",
-            "-f", "image2pipe",
-            "-vcodec", "png",
-            "-"
+            "-ss",
+            timestamp,
+            "-i",
+            str(video_path),
+            "-vframes",
+            "1",
+            "-f",
+            "image2pipe",
+            "-vcodec",
+            "png",
+            "-",
         ]
-        result = subprocess.run(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=True
-        )
-        b64 = base64.b64encode(result.stdout).decode('utf-8')
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        b64 = base64.b64encode(result.stdout).decode("utf-8")
         return f"data:image/png;base64,{b64}"
     except Exception:
         return None
 
 
-def generate_contact_sheet(
-    cut_id: str,
-    episode_selections: list[dict[str, Any]]
-) -> None:
+def generate_contact_sheet(cut_id: str, episode_selections: list[dict[str, Any]]) -> None:
     """Generate HTML contact sheet showing all candidates for visual review."""
     html_parts = [
         "<!DOCTYPE html>",
@@ -119,7 +116,7 @@ def generate_contact_sheet(
                 idx = cand["index"]
                 rel_path = cand["path"]
                 video_path = PROJECT_ROOT / rel_path
-                is_winner = (idx == winner_idx)
+                is_winner = idx == winner_idx
 
                 winner_class = " winner" if is_winner else ""
                 html_parts.append(f"<div class='candidate{winner_class}'>")
