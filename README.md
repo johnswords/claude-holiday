@@ -133,7 +133,7 @@ claude_holiday/
 │   └── examples/            # Example recipes to fork
 ├── episodes/                # Per-episode production workspace
 │   ├── ep00_checking_in/
-│   │   ├── script.md        # Episode extract
+│   │   ├── episode.yaml     # Episode manifest (scenes, timing, dialogue)
 │   │   ├── prompts/         # Sora-2-Pro prompts
 │   │   ├── assets/          # Episode-specific files
 │   │   └── renders/         # Draft & final renders
@@ -191,7 +191,7 @@ claude_holiday/
    - Update `docs/master_script.md`
 
 2. **Episode Prep**
-   - Extract episode details to `episodes/[ep_name]/script.md`
+   - Create episode manifest at `episodes/[ep_name]/episode.yaml`
    - Write Sora-2-Pro prompts in `episodes/[ep_name]/prompts/`
 
 3. **Production**
@@ -356,6 +356,7 @@ export OPENAI_API_KEY="your-key-here"
 
 # Generate specific asset:
 ./ch cover-art --type thumbnail --episode EP05
+```
 
 ### Command Details
 
