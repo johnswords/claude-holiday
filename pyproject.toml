@@ -13,6 +13,7 @@ dependencies = [
     "PyYAML>=6.0.2",
     "blake3>=0.4.1",
     "pysubs2>=1.6.1",
+    "jsonschema>=4.23.0",
 ]
 
 [project.optional-dependencies]
@@ -88,6 +89,9 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = "-v --tb=short"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
 
 [tool.coverage.run]
 source = ["scripts"]
