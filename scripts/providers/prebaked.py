@@ -10,6 +10,21 @@ from .base import Provider, RenderConfig
 
 
 class PrebakedProvider(Provider):
+    """
+    Prebaked provider: uses pre-rendered footage from episodes/<ep>/renders/
+
+    Expected paths (in order of preference):
+    1. episodes/<ep_id>/renders/final/<scene_id>.mp4  (approved final renders)
+    2. episodes/<ep_id>/renders/drafts/<scene_id>.mp4 (draft renders)
+
+    IMPORTANT: If no footage exists, generates solid-color PLACEHOLDER clips
+    using FFmpeg (see fallback below). This allows the pipeline to complete
+    even when the repository ships with metadata-only (YAML manifests).
+
+    Current repo state: Metadata-only—no MP4 files ship with the repo.
+    Result: All "prebaked" compiles produce placeholder footage until renders added.
+    """
+
     def __init__(self) -> None:
         pass
 
@@ -35,12 +50,16 @@ class PrebakedProvider(Provider):
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / f"{scene_id}.mp4"
 
+        # Try to find existing pre-rendered footage
         for cand in candidates:
             if cand.exists():
                 shutil.copy(str(cand), str(out_path))
                 return str(out_path)
 
-        # Fallback: generate a solid color clip so the compile can complete
+        # FALLBACK: Generate solid-color placeholder when no footage exists
+        # This allows early testers to evaluate the workflow/tooling with
+        # metadata-only repos (current state). Replace with actual Sora
+        # renders when ready to produce real episodes.
         color = "0x202833"
         cmd = [
             "ffmpeg",
