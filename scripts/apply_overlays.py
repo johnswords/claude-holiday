@@ -130,7 +130,7 @@ def build_filters(
         dur_raw = float(ov.get("duration_sec", 2.0))
         # Apply density timing adjustments
         start, dur = _apply_density_timing(start_raw, dur_raw, density)
-        enable = f"between(t\\,{start}\\,{start+dur})"
+        enable = f"between(t\\,{start}\\,{start + dur})"
         size = int(ov.get("font_size", 28))
         color = ov.get("font_color", "white")
         bg = _normalize_color(ov.get("bg_color", "0x333333AA"))

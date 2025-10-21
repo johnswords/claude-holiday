@@ -1,0 +1,68 @@
+episode_id: "ep01_first_contact"
+title: "Episode 01 — First Contact"
+scenes:
+  - id: "s1"
+    title: "Exploring the Town"
+    duration_sec: 7
+    sora_prompt: >
+      STYLE SPINE — warm small-town romance; palette gold/amber/cream/pine green; peaceful exploration
+      SUBJECT — professional woman ~32; auburn hair in loose bun; navy peacoat, cream cashmere scarf; phone in right hand; 5'6" athletic build
+      SET & LIGHT — main street golden hour; low sun key light 3000K at 30°; shop window bounce fill; snow particulates catching light
+      CAMERA — wide establishing → slow dolly follow; eye-level tracking; 35mm feel; medium DoF f/4
+      ACTION BEATS (0.00–7.0s)
+        0.00–2.0  walking pace 2mph; head turns left-right scanning storefronts; genuine smile emergence
+        2.0–4.5   full stop at bookshop window; phone raised to eye level; shutter tap at 4.0s
+        4.5–6.0   phone lowered; deep inhale-exhale cycle; shoulder drop indicating relaxation
+        6.0–7.0   eyeline traces window lettering left to right; slight head tilt appreciation
+      AUDIO — distant church bells; snow crunch underfoot; faint carolers 100m away; camera shutter sound
+      CONTINUITY — navy peacoat/cream scarf established; auburn hair consistent; phone right hand; avoid readable signage
+      Dialogue:
+      - (No dialogue - ambient exploration)
+    overlays: []
+  - id: "s2"
+    title: "The Meet-Cute"
+    duration_sec: 10
+    sora_prompt: >
+      STYLE SPINE — warm small-town romance; palette gold/amber/cream; charming meet-cute with subtle precision
+      SUBJECT — woman ~32; auburn hair/navy peacoat/cream scarf (consistent); man ~35, 6'0", dark hair neat, gray wool coat, measured posture
+      SET & LIGHT — bookshop exterior golden hour; warm key light on faces 3000K; shop window reflection fill; rim light from setting sun
+      CAMERA — two-shot medium → rack focus between faces; chest height; 50mm feel; shallow DoF f/2.8
+      ACTION BEATS (0.00–10.0s)
+        0.00–2.0  man enters frame right with controlled gait; stops 24 inches from woman; hands clasped
+        2.0–4.5   woman turns 90° toward him; micro-surprise in eyebrows; head tilt interest 10°
+        4.5–7.0   man's measured gesticulation toward building; 0.5s processing pause before speaking
+        7.0–8.5   woman's soft laugh; weight shift toward him 6 inches; sustained eye-line match
+        8.5–10.0  both hold position; snow drifts between them; moment suspension
+      AUDIO — distant carolers continuous; soft snow landing; his voice slightly formal tone; her gentle laugh at 7.0s
+      CONTINUITY — woman's navy peacoat/cream scarf/auburn hair maintained; establish man's gray coat; avoid readable text
+      Dialogue:
+      - Man (measured, 0.0–4.5s): "That's actually the oldest bookshop in town. Established 1887. The architecture is Second Empire Victorian, notable for its mansard roof."
+      - Woman (charmed, 4.5–7.0s): "Oh! I didn't know that. Are you a local historian or...?"
+      - Man (precise, 7.0–9.0s): "I try to provide comprehensive context when possible."
+      - Woman (amused, 9.0–10.0s): "That's... really thorough."
+    overlays: []
+  - id: "s3"
+    title: "The Introduction"
+    duration_sec: 8
+    sora_prompt: >
+      STYLE SPINE — warm small-town romance; palette gold/amber/cream; intimate connection with processing delay
+      SUBJECT — woman ~32; auburn hair/navy peacoat/cream scarf (consistent); man ~35, gray coat (consistent); both centered frame
+      SET & LIGHT — bookshop exterior continuous; golden hour magic light 2900K; face key light; snow particulate bokeh
+      CAMERA — close two-shot → static hold; chest to head framing; 85mm feel; very shallow DoF f/1.8
+      ACTION BEATS (0.00–8.0s)
+        0.00–2.0  man extends right hand smoothly; measured smile formation; steady eye contact
+        2.0–4.0   handshake connection 1.5s; her genuine warmth expression; mutual grip pressure
+        4.0–5.5   his hand hold extends 0.5s beyond natural; smile frozen in processing state
+        5.5–7.0   her micro-notice of delay; finds it endearing; snow drifts create foreground bokeh
+        7.0–8.0   both remain in suspended moment; breathing synchronized; fade begins at 7.5s
+      AUDIO — ambient carolers fading; snow landing on coats; subtle fabric rustle during handshake; quiet street atmosphere
+      CONTINUITY — both characters' wardrobe consistent; snow accumulation on shoulders realistic; avoid any text/logos
+      Dialogue:
+      - Man (warm, 0.00–2.0s): "I'm Claude."
+      - Woman (genuine, 2.0–4.0s): "Nice to meet you, Claude."
+      - (4.0–8.0s): Silent connection and processing moment
+    overlays: []
+audio:
+  ambience: "town_carolers"
+  stingers: []
+captions_cues: []

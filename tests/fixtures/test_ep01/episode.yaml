@@ -1,0 +1,8 @@
+episode_id: "test_ep01"
+title: "Test Episode 01"
+scenes:
+  - id: "s1"
+    title: "Test Scene"
+    duration_sec: 5
+    sora_prompt: "Test prompt for integration testing"
+    overlays: []

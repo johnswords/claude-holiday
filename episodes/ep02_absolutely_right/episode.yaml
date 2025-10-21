@@ -1,0 +1,25 @@
+episode_id: "ep02_absolutely_right"
+title: "Episode 02 — Absolutely Right in Aspen"
+scenes:
+  - id: "s1"
+    title: "The Collision"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Professional woman in stylish winter coat walks down snowy small-town street holding coffee, slightly distracted. She collides with handsome local man in puffer jacket and scarf, spills coffee on both of them. She's immediately flustered and apologetic. Warm golden bokeh lights, gentle snow falling. Handheld camera. 24fps, Hallmark rom-com aesthetic.
+    overlays: []
+  - id: "s2"
+    title: "Validation Overload"
+    duration_sec: 10
+    sora_prompt: >
+      9:16 vertical. Close two-shot of flustered professional woman and eerily calm local man on snowy street. He responds to her apology with overly formal, therapeutic language while she becomes increasingly confused. Rack focus between their faces. Golden hour lighting, snow drifting between them. 24fps, intimate framing highlighting awkward interaction.
+    overlays: []
+  - id: "s3"
+    title: "The Napkin Request"
+    duration_sec: 7
+    sora_prompt: >
+      9:16 vertical. Close-up of professional woman's face trying not to laugh, then pull back to show both standing awkwardly on snowy street. She asks for napkin, he processes the request with visible latency. Snow falls heavily between them creating romantic visual while interaction is uncomfortably robotic. 24fps, Hallmark cinematography with absurdist undertone.
+    overlays: []
+audio:
+  ambience: "sleigh_bells"
+  stingers: []
+captions_cues: []

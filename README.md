@@ -11,11 +11,36 @@
 
 ---
 
+## ⚠️ Current Status: Metadata-Only Repository
+
+**IMPORTANT**: This repository currently ships with **episode manifests only** (YAML metadata describing scenes, timing, and dialogue). **No actual video footage is included.**
+
+**What this means for you:**
+
+- ✅ **Tooling works perfectly** — compile pipeline, Cut URI generation, release bundling all functional
+- ✅ **Evaluate the workflow** — test recipe customization, overlay system, candidate selection
+- ⚠️ **Placeholder output** — the `prebaked` provider generates **solid-color timed placeholders** when no footage exists (see `scripts/providers/prebaked.py:44`)
+- 🎥 **To get actual video**: Use `provider.type: sora` in your recipe and provide OpenAI API access (see Path B below)
+
+**This is intentional**—the project is designed to be metadata-driven and composable. You're testing the foundation before the Prime timeline footage drops.
+
+→ *If you're evaluating the concept/tooling: proceed with prebaked mode (placeholders are fine)*
+→ *If you want real video now: switch to Sora provider (requires API keys and costs)*
+
+---
+
 ## 🚀 30 Seconds to Your First Cut
 
-**Zero setup. Five commands. Your own AI holiday rom-com, ready to ship.**
+**Prerequisites**: Python 3.11+, uv, FFmpeg
+**No API keys needed** — uses prebaked footage. **No coding required** — just YAML and CLI commands.
 
 ```bash
+# First-time setup (one time only)
+curl -LsSf https://astral.sh/uv/install.sh | sh  # Install uv
+uv sync                                           # Install Python dependencies
+# Install FFmpeg: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)
+
+# Then run these five commands to create your cut:
 # 1. Generate multiple video candidates for each scene (saves cut ID)
 ./ch candidates --recipe recipes/examples/dev-default.yaml
 
@@ -33,14 +58,15 @@
 ```
 
 **That's it.** You now have:
-- ✅ 12 professional episodes ready for YouTube
+- ✅ 12 compiled episodes (placeholder footage until renders added)
 - ✅ Your unique Cut URI (like a git commit hash for video)
 - ✅ Complete metadata and release package
 - ✅ Your timeline registered in the multiverse
+- ✅ Verified the entire workflow end-to-end
 
-**No API keys needed** — uses prebaked footage. **No coding required** — just run the commands.
+**No API keys needed** — uses placeholder mode (solid-color timed clips). **No coding required** — just run the commands.
 
-→ *Watch your first episode in under a minute. Ship your timeline today.*
+→ *Test the workflow in under a minute. Evaluate the tooling today.*
 
 ---
 
@@ -133,7 +159,7 @@ claude_holiday/
 │   └── examples/            # Example recipes to fork
 ├── episodes/                # Per-episode production workspace
 │   ├── ep00_checking_in/
-│   │   ├── script.md        # Episode extract
+│   │   ├── episode.yaml     # Episode manifest (scenes, timing, dialogue)
 │   │   ├── prompts/         # Sora-2-Pro prompts
 │   │   ├── assets/          # Episode-specific files
 │   │   └── renders/         # Draft & final renders
@@ -191,7 +217,7 @@ claude_holiday/
    - Update `docs/master_script.md`
 
 2. **Episode Prep**
-   - Extract episode details to `episodes/[ep_name]/script.md`
+   - Create episode manifest at `episodes/[ep_name]/episode.yaml`
    - Write Sora-2-Pro prompts in `episodes/[ep_name]/prompts/`
 
 3. **Production**
@@ -204,6 +230,8 @@ claude_holiday/
 
 ### For Timeline Creators (making your own cut)
 
+**Prerequisites**: Python 3.11+, uv, FFmpeg (see [Quick Start](#-quick-start) for install instructions)
+
 1. **Fork & Setup**
    ```bash
    git clone [your-fork]
@@ -212,6 +240,8 @@ claude_holiday/
    curl -LsSf https://astral.sh/uv/install.sh | sh
    # Install dependencies
    uv sync
+   # Verify FFmpeg is available
+   ffmpeg -version
    ```
 
 2. **Create Your Recipe**
@@ -254,40 +284,72 @@ claude_holiday/
 
 ## 🚀 Quick Start
 
-### Path A: Use Existing Footage (Start Here)
+### Path A: Test the Tooling (Start Here)
 
-**Prerequisites**: Python 3.11+, Git
+**Prerequisites**:
+- **Python 3.11+** — Required for all scripts
+- **uv** — Fast Python package manager ([install guide](https://docs.astral.sh/uv/))
+- **FFmpeg** — Video processing engine ([install guide](https://ffmpeg.org/download.html))
+  - macOS: `brew install ffmpeg`
+  - Ubuntu/Debian: `sudo apt install ffmpeg`
+  - Windows: Download from [ffmpeg.org](https://ffmpeg.org/download.html)
+- **Git** — Version control (optional but recommended)
+
+**Optional**:
+- **OpenAI API key** — Only needed for cover art generation (`./ch cover-art`)
+
+**Note**: This path uses placeholder mode—solid-color timed clips (see status notice above). Perfect for evaluating the workflow, testing recipe customization, and understanding the composable media system.
 
 ```bash
 # 1. Clone and setup
 git clone [repo-url]
 cd claude_holiday
-# Install uv if you don't have it
-curl -LsSf https://astral.sh/uv/install.sh | sh
-# Install project dependencies
-uv sync
 
-# 2. Create your first cut using prebaked footage
+# 2. Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 3. Verify all prerequisites (optional but recommended)
+make preflight
+# This checks Python 3.11+, uv, and FFmpeg
+
+# 4. Install project dependencies
+uv sync
+# Or use Makefile: make install
+
+# 4. Create your first cut using prebaked provider (placeholder mode)
 cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 
-# 3. Compile it (uses existing footage, no API keys needed)
+# 5. Compile it (generates placeholder footage, no API keys needed)
 ./ch compile --recipe recipes/my-first-cut.yaml
 # Or: uv run python -m scripts.compile_cut --recipe recipes/my-first-cut.yaml
 
-# 4. Watch your cut
+# 6. Review your placeholder cut (solid-color timed clips)
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
 
-# 5. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
+# 7. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
 export OPENAI_API_KEY="your-key-here"
 ./ch cover-art --type all
 ```
 
-**Your Cut URI** is in the manifest — share it to make your timeline referenceable.
-**Your Cover Art** is in `output/cover_art/` — use for YouTube, social media.
+**Your Cut URI** is in the manifest — this proves the deterministic build system works.
+**Your Cover Art** is in `output/cover_art/` — preview the visual branding system.
+**Your Placeholders** prove the entire pipeline—from YAML to final deliverables—is functional.
+
+**Makefile shortcuts** for common tasks:
+- `make preflight` — Check all prerequisites (Python, uv, FFmpeg)
+- `make install` — Install all dependencies
+- `make test` — Run test suite
+- `make lint` — Check code quality
+- `make help` — Show all available commands
 
 ### Path B: Generate New Footage
 
-**Prerequisites**: Python 3.11+, OpenAI API access (Sora-2-Pro), Git LFS
+**Prerequisites**:
+- **Python 3.11+** — Required for all scripts
+- **uv** — Python package manager
+- **FFmpeg** — Video processing (same install as Path A)
+- **OpenAI API access** — Sora-2-Pro for video generation
+- **Git LFS** — For managing large video files (optional but recommended)
 
 ```bash
 # Extract prompts from master script
@@ -356,6 +418,7 @@ export OPENAI_API_KEY="your-key-here"
 
 # Generate specific asset:
 ./ch cover-art --type thumbnail --episode EP05
+```
 
 ### Command Details
 
@@ -417,11 +480,14 @@ export OPENAI_API_KEY="your-key-here"
 Claude Holiday is designed for community participation. Here's how:
 
 ### 🎬 Create Your Timeline
+**Prerequisites**: Python 3.11+, uv, FFmpeg (see [Quick Start](#-quick-start) for installation)
+
 - Fork the repo
+- Install dependencies: `uv sync` (or `make install`)
 - Copy an example recipe from `recipes/examples/`
 - Edit the YAML to choose episodes, overlays, audience, ending, provider
 - Run `./ch compile --recipe your_recipe.yaml`
-- Generate cover art: `export OPENAI_API_KEY="your-key-here" && ./ch cover-art --type all`
+- Generate cover art: `export OPENAI_API_KEY="your-key-here" && ./ch cover-art --type all` (optional)
 - Share your Cut URI and publish your videos
 
 ### 🎥 Contribute Footage
@@ -443,10 +509,10 @@ Claude Holiday is designed for community participation. Here's how:
 
 ---
 
-**Status**: Pre-production (Prime timeline) | Community timelines welcome now
+**Status**: Metadata-only repository (tooling complete, renders pending) | Early testing welcome
 
-**For creators**: Episode 0 prompt writing → Draft render → Iterate
-**For community**: Fork, customize recipes, publish your timeline
+**For creators**: Episode manifests complete → Awaiting Sora render generation
+**For community**: Test the workflow with placeholder mode, customize recipes, evaluate the system
 
 *Let's build something that makes people laugh while making them think — together, in infinite variations.*
 
@@ -524,8 +590,12 @@ This project uses **uv** for fast, reliable Python dependency management. It rep
 
 ### Prerequisites
 
-- Python 3.11+
-- [uv](https://docs.astral.sh/uv/) package manager
+- **Python 3.11+** — Core runtime
+- **[uv](https://docs.astral.sh/uv/)** — Package manager
+- **FFmpeg** — Required for video processing (compile, overlays, selections)
+  - Used by: `compile_cut.py`, `apply_overlays.py`, `select_winners.py`, and all provider scripts
+  - Install: `brew install ffmpeg` (macOS) or `apt install ffmpeg` (Linux)
+  - Verify: `ffmpeg -version`
 
 ### Installation
 
@@ -538,10 +608,11 @@ git clone [your-fork]
 cd claude_holiday
 
 # Install all dependencies (creates virtual environment automatically)
+# This includes: PyYAML, blake3, pysubs2, jsonschema, openai, and dev tools
 uv sync
 
-# Install development dependencies
-uv sync --group dev
+# Note: FFmpeg is required for video processing
+# Install via: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)
 ```
 
 ### Development Commands
@@ -584,6 +655,25 @@ source .venv/bin/activate  # On Unix/macOS
 - **Deterministic** dependency resolution with lock files
 - **Cross-platform** with consistent behavior
 - **Single tool** replaces pip, virtualenv, pip-tools, and more
+
+### Core Dependencies
+
+All dependencies are managed in `pyproject.toml`:
+
+**Production:**
+- `PyYAML` — RCFC recipe parsing
+- `blake3` — Fast cut URI hashing
+- `pysubs2` — Caption/subtitle generation
+- `jsonschema` — Recipe validation
+- `openai` — Sora-2-Pro video generation
+
+**Development:**
+- `pytest` & `pytest-cov` — Testing and coverage
+- `ruff` — Fast linting and formatting
+- `mypy` — Static type checking
+- `types-PyYAML` — Type stubs for PyYAML
+
+**Note:** `requirements.txt` is kept for reference only. Use `uv` for all dependency management.
 
 ---
 

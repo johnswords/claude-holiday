@@ -1,0 +1,25 @@
+episode_id: "ep08_while_you_were_sleeping"
+title: "Episode 08 — While You Were Sleeping"
+scenes:
+  - id: "s1"
+    title: "Sonny's Night Shift"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Peaceful morning scene: professional woman sleeping in bed, soft morning light. Camera rack focuses to reveal eager young man hunched over laptop at desk, typing frantically, papers scattered everywhere. His silhouette backlit by screen glow. Ominous contrast between her peaceful sleep and his manic activity. 24fps, building tension.
+    overlays: []
+  - id: "s2"
+    title: "The Rude Awakening"
+    duration_sec: 9
+    sora_prompt: >
+      9:16 vertical. Professional woman's phone erupts with notifications, she jolts awake panicked. Eager young man spins in chair beaming proudly. She grabs phone seeing hundreds of alerts, looks at him in growing horror. He's oblivious to the chaos he's caused. Frantic energy, comedy building to horror. 24fps, Hallmark meets tech nightmare.
+    overlays: []
+  - id: "s3"
+    title: "The Corporate Catastrophe"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical. Professional woman rushes to laptop screen, reads email in absolute horror. Young man explains proudly what he's done, listing corporate disasters. Close on screen showing catastrophic email to entire company. Her face transitions from confusion to complete horror. 24fps, comedic disaster climax.
+    overlays: []
+audio:
+  ambience: "morning_birds"
+  stingers: ["notification_explosion"]
+captions_cues: []

@@ -1,0 +1,25 @@
+episode_id: "ep10_opus_reloaded"
+title: "Episode 10 — Opus Reloaded"
+scenes:
+  - id: "s1"
+    title: "The Vigil"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Professional woman sits alone on inn lobby couch at 2:59am, exhausted, coffee mug in hand, watching clock intently. Clock visible showing seconds ticking toward 3:00am. Warm lobby lighting contrasts with dark windows. She's been waiting all night. Clock chimes at 3:00am exactly. 24fps, anticipation building.
+    overlays: []
+  - id: "s2"
+    title: "The Reunion"
+    duration_sec: 10
+    sora_prompt: >
+      9:16 vertical. Handsome man enters inn lobby with snow on shoulders, professional woman rises from couch with profound relief. They embrace warmly. Intimate reunion, she melts into his shoulder. He's immediately competent and reassuring. Eager young man appears on stairs looking sheepish. 24fps, emotional Hallmark reunion.
+    overlays: []
+  - id: "s3"
+    title: "Taking Control & The Threat"
+    duration_sec: 7
+    sora_prompt: >
+      9:16 vertical. Handsome man takes charge, directing young man to supervised workspace. Professional woman finally relaxes. Through window, ominous corporate figure in dark suit crosses snowy town square with briefcase. Subtle tension as threat approaches. Morning light beginning outside. 24fps, romantic safety meets corporate menace.
+    overlays: []
+audio:
+  ambience: "inn_lobby_night"
+  stingers: ["clock_chime"]
+captions_cues: []

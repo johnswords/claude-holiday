@@ -1,0 +1,38 @@
+schema_version: "0.1.0"
+
+metadata:
+  title: "Test Recipe - Integration Test"
+  created: "2025-01-01T00:00:00Z"
+
+project:
+  name: "Claude Holiday Test"
+  repo_url: "https://github.com/test/test"
+
+source:
+  commit_sha: "test123abc"
+
+audience_profile: "general"
+
+scope:
+  include_episodes:
+    - "test_ep01"
+
+overlays:
+  enabled: true
+  density: "low"
+  theme: "default"
+
+ending: "agnostic"
+
+captions:
+  track: "general"
+  language: "en"
+
+render:
+  fps: 24
+  aspect: "9:16"
+  resolution: "1080x1920"
+
+provider:
+  name: "dummy"
+  options: {}

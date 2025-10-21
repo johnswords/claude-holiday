@@ -1,0 +1,38 @@
+episode_id: "ep05_claude_limit"
+title: "Episode 05 — Claude Limit"
+scenes:
+  - id: "s1"
+    title: "The Afterglow"
+    duration_sec: 8
+    sora_prompt: >
+      STYLE SPINE — intimate domestic drama; palette warm amber/cream/soft shadows; contentment → confusion
+      SUBJECT — woman ~32; auburn hair tousled; bare shoulders above sheet line; 5'6" build; flushed complexion suggesting warmth
+      SET & LIGHT — inn bedroom, 2AM; bedside lamp key 2400K tungsten; moonlight rim through curtains; deep shadows high contrast
+      CAMERA — extreme close-up face → slow pull-back revealing space; 85mm feel; ultra-shallow DoF f/1.4
+      ACTION BEATS (0.00–8.0s)
+        0.00–3.0  micro-smile sustained; slow exhale visible in chest movement; eyes closed then flutter open
+        3.0–5.5   left hand extends across bed seeking contact; fingers spread then contract finding emptiness
+        5.5–7.0   pull-back reveals rumpled sheets, indent where body was; her expression shifts to concern
+        7.0–8.0   partial sit-up using right elbow prop; head swivel scanning room; breathing quickens
+      AUDIO — quiet room tone; distant radiator tick; fabric whisper against sheets; her soft vocalization
+      CONTINUITY — auburn hair established as tousled; sheet line at clavicle maintained; warm tungsten grade consistent; avoid any text
+      Dialogue:
+      - Woman (dreamy, 0.00–3.0s): "That was amazing, Claude..."
+      - (3.0–8.0s): Wordless realization and confusion
+    overlays: []
+  - id: "s2"
+    title: "The Explanation"
+    duration_sec: 10
+    sora_prompt: >
+      9:16 vertical. Handsome man in coat stands perfectly still in bedroom doorway, formal and composed. Professional woman in bed stares at him bewildered. He delivers technical explanation with automated empathy. Another eager younger man appears behind him. Warm bedroom lighting contrasts with clinical interaction. 24fps, surreal Hallmark moment.
+    overlays: []
+  - id: "s3"
+    title: "The Handoff"
+    duration_sec: 7
+    sora_prompt: >
+      9:16 vertical. Formal man steps aside revealing eager younger man bouncing on toes in hallway. Professional woman in bed completely bewildered as eager man waves enthusiastically. First man provides technical instructions about the replacement. Door closes gently on confused woman. 24fps, absurdist Hallmark comedy.
+    overlays: []
+audio:
+  ambience: "bedroom_night"
+  stingers: ["scheduler_ping"]
+captions_cues: []

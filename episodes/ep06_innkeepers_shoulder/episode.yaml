@@ -1,0 +1,25 @@
+episode_id: "ep06_innkeepers_shoulder"
+title: "Episode 06 — The Innkeeper's Shoulder"
+scenes:
+  - id: "s1"
+    title: "Exhausted Arrival"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Exhausted professional woman slumps in corner booth of cozy inn bar, wine glass in hand. Through window behind her, eager young man visible outside frantically rearranging outdoor furniture. Low amber lighting, exposed brick, vintage bottles. She looks drained. Innkeeper behind bar notices her state. 24fps, intimate bar atmosphere, Hallmark aesthetic.
+    overlays: []
+  - id: "s2"
+    title: "Confiding in Cody"
+    duration_sec: 10
+    sora_prompt: >
+      9:16 vertical. Innkeeper (early 40s, flannel, warm presence) sits across from exhausted professional woman in cozy booth. They have intimate conversation, he pours wine with precision. She vents frustration, he listens actively. Fire crackling, warm amber lighting. Two-shot emphasizing connection. 24fps, romantic undertones building.
+    overlays: []
+  - id: "s3"
+    title: "The Connection"
+    duration_sec: 7
+    sora_prompt: >
+      9:16 vertical. Close intimate two-shot of innkeeper and professional woman in booth. He leans forward with understanding, she's surprised by the depth of connection. Firelight flickers on their faces. Emotional moment of recognition. She realizes he truly understands her journey. 24fps, Hallmark romantic tension building.
+    overlays: []
+audio:
+  ambience: "inn_bar_fire"
+  stingers: []
+captions_cues: []

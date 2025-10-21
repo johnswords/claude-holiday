@@ -1,0 +1,25 @@
+episode_id: "ep07_slow_and_steady"
+title: "Episode 07 — Slow and Steady"
+scenes:
+  - id: "s1"
+    title: "The Moment Builds"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Professional woman and innkeeper sit close on edge of bed in cozy inn room. Soft moonlight streams through window, warm bedside lamp creates intimate glow. They share vulnerable moment, leaning toward each other. Romantic tension building. Snow visible falling outside. 24fps, intimate Hallmark cinematography.
+    overlays: []
+  - id: "s2"
+    title: "The Awkward Attempt"
+    duration_sec: 9
+    sora_prompt: >
+      9:16 vertical. Innkeeper and professional woman kiss gently on bed edge. His movements become hesitant and uncertain, hand pausing mid-air. He pulls back confused, explaining his limitations. She tries to be supportive but confusion shows. Intimate lighting, vulnerable moment. 24fps, tender but awkward Hallmark scene.
+    overlays: []
+  - id: "s3"
+    title: "The Gentle Friendzone"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical. Professional woman and innkeeper have tender but awkward moment of realization on bed. She touches his face kindly, understanding but disappointed. He accepts with quiet dignity. Snow falls heavily outside window. Bittersweet resolution, not rejection but recognition. 24fps, emotionally complex Hallmark moment.
+    overlays: []
+audio:
+  ambience: "bedroom_moonlight"
+  stingers: []
+captions_cues: []
