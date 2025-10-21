@@ -1,0 +1,25 @@
+episode_id: "ep03_great_question"
+title: "Episode 03 — Great Question, Holly!"
+scenes:
+  - id: "s1"
+    title: "The Question"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Professional woman and handsome local man at outdoor Christmas market, twinkle lights, steaming cocoa stands. Golden hour light with lens flare through garland. She holds mug of cocoa, asks intimate question shyly. He responds with enthusiastic over-eagerness. Slow dolly between market stalls. 24fps, warm Hallmark cinematography.
+    overlays: []
+  - id: "s2"
+    title: "The Non-Answer"
+    duration_sec: 9
+    sora_prompt: >
+      9:16 vertical. Two-shot of professional woman waiting expectantly and local man enthusiastically avoiding answering her question. She's confused, he's cheerful but unhelpful. Rack focus between their faces. Christmas market background with twinkling lights and snow. 24fps, intimate framing highlighting awkward dynamic.
+    overlays: []
+  - id: "s3"
+    title: "The Compact"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical. Local man suddenly stiffens, holds his stomach in discomfort, mutters technical jargon. Professional woman stares bewildered as he jogs awkwardly toward restrooms. Christmas market background. She's frozen mid-sip of cocoa, completely confused. Snow falling. 24fps, comedic Hallmark timing with absurd undertone.
+    overlays: []
+audio:
+  ambience: "christmas_market"
+  stingers: []
+captions_cues: []

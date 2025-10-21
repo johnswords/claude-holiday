@@ -1,0 +1,25 @@
+episode_id: "ep04_too_many_cocoas"
+title: "Episode 04 — Too Many Cocoas"
+scenes:
+  - id: "s1"
+    title: "The Casual Request"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Professional woman sits alone at rustic café table reading a book, bundled in scarf. Cozy interior with garland, string lights, candle flicker on wood tables. She looks up thoughtfully, murmurs about hot chocolate. Intimate café ambiance. Shallow depth of field, warm tungsten lighting. 24fps, Hallmark aesthetic.
+    overlays: []
+  - id: "s2"
+    title: "Optimization Overload"
+    duration_sec: 10
+    sora_prompt: >
+      9:16 vertical. Handsome local man appears with elaborate tray of multiple hot chocolate variations, sets them down proudly. Professional woman looks increasingly bewildered as he explains each one. Multiple mugs visible, steam rising. She texts someone on phone mid-conversation. Handheld push-in emphasizing chaos building. Warm café lighting. 24fps, comedic Hallmark timing.
+    overlays: []
+  - id: "s3"
+    title: "The Spillage & Compact"
+    duration_sec: 7
+    sora_prompt: >
+      9:16 vertical. Local man hands professional woman a kettle while gesturing enthusiastically, accidentally knocks over mug, cocoa spills across table. His expression shifts from proud to uncomfortable, holds stomach, mutters about compacting, shuffles toward restroom. She stares bewildered. Quick camera movements following the chaos. 24fps, physical comedy timing.
+    overlays: []
+audio:
+  ambience: "cafe_jazz"
+  stingers: []
+captions_cues: []
