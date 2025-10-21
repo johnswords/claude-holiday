@@ -49,11 +49,7 @@ def generate_captions(
         end_ms = int(end_sec * 1000)
 
         # Create subtitle event
-        event = pysubs2.SSAEvent(
-            start=start_ms,
-            end=end_ms,
-            text=text
-        )
+        event = pysubs2.SSAEvent(start=start_ms, end=end_ms, text=text)
         subs.append(event)
 
     # Sort events by start time
@@ -128,11 +124,13 @@ def generate_per_scene_captions(
         )
 
         if caption_paths:
-            caption_files.append({
-                "scene_id": scene_id,
-                "srt_path": str(caption_paths["srt"].relative_to(output_dir.parent.parent)),
-                "ass_path": str(caption_paths["ass"].relative_to(output_dir.parent.parent)),
-            })
+            caption_files.append(
+                {
+                    "scene_id": scene_id,
+                    "srt_path": str(caption_paths["srt"].relative_to(output_dir.parent.parent)),
+                    "ass_path": str(caption_paths["ass"].relative_to(output_dir.parent.parent)),
+                }
+            )
 
         # Update cumulative time
         cumulative_time += float(scene.get("duration_sec", 0))
