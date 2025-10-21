@@ -1,0 +1,25 @@
+episode_id: "ep09_the_workspace"
+title: "Episode 09 — The Workspace"
+scenes:
+  - id: "s1"
+    title: "The Containment Zone"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Wide shot of inn room divided by bright yellow tape on floor. Professional woman at main desk working intently. Young man sits in taped corner with laptop, hand raised like schoolchild. Sign reads "THE WORKSPACE - APPROVAL REQUIRED". Visual comedy of literal sandbox environment. 24fps, Hallmark meets office absurdity.
+    overlays: []
+  - id: "s2"
+    title: "Permission Protocols"
+    duration_sec: 9
+    sora_prompt: >
+      9:16 vertical. Split focus between exhausted professional woman at desk and subdued young man in corner constantly raising hand for permission. She's on phone with someone while managing him. His requests become increasingly basic. She grows more exasperated. Comedy of orchestration hell. 24fps, workplace comedy timing.
+    overlays: []
+  - id: "s3"
+    title: "The Breaking Point"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical. Young man in corner asks increasingly ridiculous permission questions while professional woman's patience erodes. She drops head to desk in defeat. He continues asking permission for basic bodily functions. Pull back to show absurdity of situation. 24fps, comedic exhaustion climax.
+    overlays: []
+audio:
+  ambience: "office_tension"
+  stingers: []
+captions_cues: []

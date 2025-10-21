@@ -1,0 +1,25 @@
+episode_id: "ep11_platform_agnostic"
+title: "Episode 11 — Platform Agnostic"
+scenes:
+  - id: "s1"
+    title: "The Corporate Offer"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical video. Professional woman meets corporate executive in sharp suit at snowy town square gazebo. He extends tablet with contract, persuasive and polished. She's bundled in coat, conflicted. Corporate energy contrasts with small-town warmth. Tablet glows with Olympus branding. 24fps, Hallmark meets corporate drama.
+    overlays: []
+  - id: "s2"
+    title: "The Realization"
+    duration_sec: 9
+    sora_prompt: >
+      9:16 vertical. Professional woman holding tablet looks toward cozy inn where three men watch from window - handsome Claude, steady innkeeper, eager young man. Corporate executive tries to persuade her. She has moment of clarity seeing her support system. Small town warmth vs corporate coldness. 24fps, emotional decision point.
+    overlays: []
+  - id: "s3"
+    title: "The Choice"
+    duration_sec: 8
+    sora_prompt: >
+      9:16 vertical. Professional woman hands tablet back to confused corporate executive, walks confidently toward warm inn. He calls after her but she doesn't turn. Inn door opens spilling golden light. She's made her choice - independence over corporate security. Wide shot showing her path from corporate to community. 24fps, empowering Hallmark climax.
+    overlays: []
+audio:
+  ambience: "town_square_wind"
+  stingers: []
+captions_cues: []
