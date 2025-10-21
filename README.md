@@ -539,10 +539,11 @@ git clone [your-fork]
 cd claude_holiday
 
 # Install all dependencies (creates virtual environment automatically)
+# This includes: PyYAML, blake3, pysubs2, jsonschema, openai, and dev tools
 uv sync
 
-# Install development dependencies
-uv sync --group dev
+# Note: FFmpeg is required for video processing
+# Install via: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)
 ```
 
 ### Development Commands
@@ -585,6 +586,25 @@ source .venv/bin/activate  # On Unix/macOS
 - **Deterministic** dependency resolution with lock files
 - **Cross-platform** with consistent behavior
 - **Single tool** replaces pip, virtualenv, pip-tools, and more
+
+### Core Dependencies
+
+All dependencies are managed in `pyproject.toml`:
+
+**Production:**
+- `PyYAML` — RCFC recipe parsing
+- `blake3` — Fast cut URI hashing
+- `pysubs2` — Caption/subtitle generation
+- `jsonschema` — Recipe validation
+- `openai` — Sora-2-Pro video generation
+
+**Development:**
+- `pytest` & `pytest-cov` — Testing and coverage
+- `ruff` — Fast linting and formatting
+- `mypy` — Static type checking
+- `types-PyYAML` — Type stubs for PyYAML
+
+**Note:** `requirements.txt` is kept for reference only. Use `uv` for all dependency management.
 
 ---
 
