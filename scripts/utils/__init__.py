@@ -1,1 +1,1 @@
-"""Utility modules for Holiday Media scripts"""
+"""Utility functions for Claude Holiday scripts."""
