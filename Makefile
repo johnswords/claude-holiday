@@ -16,9 +16,23 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(GREEN)%-15s$(NC) %s\n", $$1, $$2}'
 	@echo ""
 	@echo "$(YELLOW)Quick Start:$(NC)"
+	@echo "  make preflight  # Check all prerequisites"
 	@echo "  make install    # Set up development environment"
 	@echo "  make test       # Run tests"
 	@echo "  make lint       # Check code quality"
+
+preflight: ## Check all required dependencies (Python, uv, FFmpeg)
+	@echo "$(BLUE)Checking prerequisites...$(NC)"
+	@echo ""
+	@echo -n "Python 3.11+: "
+	@python3 --version 2>/dev/null | grep -E 'Python 3\.(1[1-9]|[2-9][0-9])' > /dev/null && echo "$(GREEN)✓$(NC)" || (echo "$(RED)✗ (Python 3.11+ required)$(NC)" && exit 1)
+	@echo -n "uv package manager: "
+	@uv --version > /dev/null 2>&1 && echo "$(GREEN)✓$(NC)" || (echo "$(RED)✗ (install: curl -LsSf https://astral.sh/uv/install.sh | sh)$(NC)" && exit 1)
+	@echo -n "FFmpeg: "
+	@ffmpeg -version > /dev/null 2>&1 && echo "$(GREEN)✓$(NC)" || (echo "$(RED)✗ (install: brew install ffmpeg or apt install ffmpeg)$(NC)" && exit 1)
+	@echo ""
+	@echo "$(GREEN)✓ All prerequisites met!$(NC)"
+	@echo "$(YELLOW)Next step: make install$(NC)"
 
 install: ## Install project with all dependencies using uv
 	@echo "$(BLUE)Installing project with uv...$(NC)"

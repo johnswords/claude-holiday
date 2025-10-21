@@ -13,9 +13,16 @@
 
 ## 🚀 30 Seconds to Your First Cut
 
-**Zero setup. Five commands. Your own AI holiday rom-com, ready to ship.**
+**Prerequisites**: Python 3.11+, uv, FFmpeg
+**No API keys needed** — uses prebaked footage. **No coding required** — just YAML and CLI commands.
 
 ```bash
+# First-time setup (one time only)
+curl -LsSf https://astral.sh/uv/install.sh | sh  # Install uv
+uv sync                                           # Install Python dependencies
+# Install FFmpeg: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)
+
+# Then run these five commands to create your cut:
 # 1. Generate multiple video candidates for each scene (saves cut ID)
 ./ch candidates --recipe recipes/examples/dev-default.yaml
 
@@ -37,8 +44,6 @@
 - ✅ Your unique Cut URI (like a git commit hash for video)
 - ✅ Complete metadata and release package
 - ✅ Your timeline registered in the multiverse
-
-**No API keys needed** — uses prebaked footage. **No coding required** — just run the commands.
 
 → *Watch your first episode in under a minute. Ship your timeline today.*
 
@@ -204,6 +209,8 @@ claude_holiday/
 
 ### For Timeline Creators (making your own cut)
 
+**Prerequisites**: Python 3.11+, uv, FFmpeg (see [Quick Start](#-quick-start) for install instructions)
+
 1. **Fork & Setup**
    ```bash
    git clone [your-fork]
@@ -212,6 +219,8 @@ claude_holiday/
    curl -LsSf https://astral.sh/uv/install.sh | sh
    # Install dependencies
    uv sync
+   # Verify FFmpeg is available
+   ffmpeg -version
    ```
 
 2. **Create Your Recipe**
@@ -256,28 +265,45 @@ claude_holiday/
 
 ### Path A: Use Existing Footage (Start Here)
 
-**Prerequisites**: Python 3.11+, Git
+**Prerequisites**:
+- **Python 3.11+** — Required for all scripts
+- **uv** — Fast Python package manager ([install guide](https://docs.astral.sh/uv/))
+- **FFmpeg** — Video processing engine ([install guide](https://ffmpeg.org/download.html))
+  - macOS: `brew install ffmpeg`
+  - Ubuntu/Debian: `sudo apt install ffmpeg`
+  - Windows: Download from [ffmpeg.org](https://ffmpeg.org/download.html)
+- **Git** — Version control (optional but recommended)
+
+**Optional**:
+- **OpenAI API key** — Only needed for cover art generation (`./ch cover-art`)
 
 ```bash
 # 1. Clone and setup
 git clone [repo-url]
 cd claude_holiday
-# Install uv if you don't have it
-curl -LsSf https://astral.sh/uv/install.sh | sh
-# Install project dependencies
-uv sync
 
-# 2. Create your first cut using prebaked footage
+# 2. Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 3. Verify all prerequisites (optional but recommended)
+make preflight
+# This checks Python 3.11+, uv, and FFmpeg
+
+# 4. Install project dependencies
+uv sync
+# Or use Makefile: make install
+
+# 5. Create your first cut using prebaked footage
 cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
 
-# 3. Compile it (uses existing footage, no API keys needed)
+# 6. Compile it (uses existing footage, no API keys needed)
 ./ch compile --recipe recipes/my-first-cut.yaml
 # Or: uv run python -m scripts.compile_cut --recipe recipes/my-first-cut.yaml
 
-# 4. Watch your cut
+# 7. Watch your cut
 open output/cuts/[cut_id]/episodes/ep00_checking_in.mp4
 
-# 5. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
+# 8. (Optional) Generate AI-powered cover art (requires OPENAI_API_KEY)
 export OPENAI_API_KEY="your-key-here"
 ./ch cover-art --type all
 ```
@@ -285,9 +311,21 @@ export OPENAI_API_KEY="your-key-here"
 **Your Cut URI** is in the manifest — share it to make your timeline referenceable.
 **Your Cover Art** is in `output/cover_art/` — use for YouTube, social media.
 
+**Makefile shortcuts** for common tasks:
+- `make preflight` — Check all prerequisites (Python, uv, FFmpeg)
+- `make install` — Install all dependencies
+- `make test` — Run test suite
+- `make lint` — Check code quality
+- `make help` — Show all available commands
+
 ### Path B: Generate New Footage
 
-**Prerequisites**: Python 3.11+, OpenAI API access (Sora-2-Pro), Git LFS
+**Prerequisites**:
+- **Python 3.11+** — Required for all scripts
+- **uv** — Python package manager
+- **FFmpeg** — Video processing (same install as Path A)
+- **OpenAI API access** — Sora-2-Pro for video generation
+- **Git LFS** — For managing large video files (optional but recommended)
 
 ```bash
 # Extract prompts from master script
@@ -418,11 +456,14 @@ export OPENAI_API_KEY="your-key-here"
 Claude Holiday is designed for community participation. Here's how:
 
 ### 🎬 Create Your Timeline
+**Prerequisites**: Python 3.11+, uv, FFmpeg (see [Quick Start](#-quick-start) for installation)
+
 - Fork the repo
+- Install dependencies: `uv sync` (or `make install`)
 - Copy an example recipe from `recipes/examples/`
 - Edit the YAML to choose episodes, overlays, audience, ending, provider
 - Run `./ch compile --recipe your_recipe.yaml`
-- Generate cover art: `export OPENAI_API_KEY="your-key-here" && ./ch cover-art --type all`
+- Generate cover art: `export OPENAI_API_KEY="your-key-here" && ./ch cover-art --type all` (optional)
 - Share your Cut URI and publish your videos
 
 ### 🎥 Contribute Footage
@@ -525,8 +566,12 @@ This project uses **uv** for fast, reliable Python dependency management. It rep
 
 ### Prerequisites
 
-- Python 3.11+
-- [uv](https://docs.astral.sh/uv/) package manager
+- **Python 3.11+** — Core runtime
+- **[uv](https://docs.astral.sh/uv/)** — Package manager
+- **FFmpeg** — Required for video processing (compile, overlays, selections)
+  - Used by: `compile_cut.py`, `apply_overlays.py`, `select_winners.py`, and all provider scripts
+  - Install: `brew install ffmpeg` (macOS) or `apt install ffmpeg` (Linux)
+  - Verify: `ffmpeg -version`
 
 ### Installation
 
