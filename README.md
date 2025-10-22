@@ -472,7 +472,7 @@ export OPENAI_API_KEY="your-key-here"
 
 ## 📜 License
 
-© 2025 John Swords — All rights semi-reserved
+Released under the [MIT License](LICENSE). © 2024 John Swords.
 
 **Disclaimer**: Any resemblance to Hallmark® films or Anthropic Claude™ is purely coincidental and unintentionally hilarious. No trademarks were harmed in the making of this micro-series.
 
