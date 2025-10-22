@@ -41,6 +41,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh  # Install uv
 uv sync                                           # Install Python dependencies
 # Install FFmpeg: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)
 
+# Contributors: install dev tooling and enable git hooks
+uv sync --group dev                               # Install dev-only dependencies (linting, typing, hooks)
+uv run pre-commit install                         # Activate pre-commit hooks for consistent checks
+
 # Then run these five commands to create your cut:
 # 1. Generate multiple video candidates for each scene (saves cut ID)
 ./ch candidates --recipe recipes/examples/dev-default.yaml

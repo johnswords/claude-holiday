@@ -22,9 +22,10 @@ dependencies = [
 dev = [
     "pytest>=7.4.3",
     "pytest-cov>=4.1.0",
-    "ruff>=0.8.6",
+    "ruff>=0.6.9",
     "mypy>=1.11.2",
     "types-PyYAML>=6.0.12.20240917",
+    "pre-commit>=3.7.0",
 ]
 
 [project.scripts]
@@ -45,9 +46,10 @@ packages = ["scripts", "tests"]
 dev = [
     "pytest>=7.4.3",
     "pytest-cov>=4.1.0",
-    "ruff>=0.8.6",
+    "ruff>=0.6.9",
     "mypy>=1.11.2",
     "types-PyYAML>=6.0.12.20240917",
+    "pre-commit>=3.7.0",
 ]
 
 [tool.ruff]
