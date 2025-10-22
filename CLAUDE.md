@@ -31,6 +31,9 @@ uv sync
 
 # Install dev dependencies
 uv sync --group dev
+
+# Enable git hooks (installs pre-commit-managed lint/type/test checks)
+uv run pre-commit install
 ```
 
 ### Running Commands
