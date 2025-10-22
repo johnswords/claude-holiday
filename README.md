@@ -332,6 +332,8 @@ export OPENAI_API_KEY="your-key-here"
 ./ch cover-art --type all
 ```
 
+> **Maintainers**: After modifying `pyproject.toml` dependencies, run `uv lock` (or `uv sync`) to regenerate `uv.lock` and include the updated lockfile in your commit.
+
 **Your Cut URI** is in the manifest — this proves the deterministic build system works.
 **Your Cover Art** is in `output/cover_art/` — preview the visual branding system.
 **Your Placeholders** prove the entire pipeline—from YAML to final deliverables—is functional.
