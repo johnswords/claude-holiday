@@ -32,6 +32,7 @@
 ## 🚀 30 Seconds to Your First Cut
 
 **Prerequisites**: Python 3.11+, uv, FFmpeg
+**Python deps**: `uv sync` installs required packages, including `requests>=2.31` for HTTP workflows
 **No API keys needed** — uses prebaked footage. **No coding required** — just YAML and CLI commands.
 
 ```bash
