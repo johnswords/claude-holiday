@@ -4,10 +4,6 @@ on:
   push:
   pull_request:
 
-permissions:
-  contents: read
-  actions: write
-
 env:
   UV_PROJECT_ENVIRONMENT: .venv
   UV_CACHE_DIR: .uv
