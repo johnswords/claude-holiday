@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 env:
   UV_PROJECT_ENVIRONMENT: .venv
