@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
@@ -7,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-def _pos_to_xy(position: str, width: int, height: int, pad: int = 12) -> tuple[str, str]:
+def _pos_to_xy(position: str, _width: int, _height: int, pad: int = 12) -> tuple[str, str]:
     # Returns ffmpeg expressions for x,y
     if position == "top_left":
         return f"{pad}", f"{pad}"
@@ -73,8 +74,7 @@ def _has_audio_stream(path: Path) -> bool:
         probe_result = subprocess.run(
             audio_probe,
             check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            capture_output=True,
             text=True,
         )
     except subprocess.CalledProcessError as e:
@@ -120,6 +120,7 @@ def build_filters(
     """
     filters: list[str] = []
     # Note: theme parameter reserved for future color palette implementation
+    _ = theme
     # Optional background box via drawbox is not text-aware; we rely on drawtext box=1 instead
     for ov in overlays:
         if ov.get("type") != "text":
@@ -182,7 +183,7 @@ def apply_overlays(
         cmd.append(str(out_path))
 
         try:
-            result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(cmd, check=True, capture_output=True, text=True)
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:
@@ -216,7 +217,7 @@ def apply_overlays(
 
     cmd.append(str(out_path))
     try:
-        result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         if result.stderr:
             print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
     except subprocess.CalledProcessError as e:
@@ -228,25 +229,30 @@ def apply_overlays(
     return out_path
 
 
-if __name__ == "__main__":
-    import argparse
-    import sys
-
-    p = argparse.ArgumentParser(description="Apply baked overlays to a video (ffmpeg).")
-    p.add_argument("--in", dest="inp", required=True, help="Input MP4 path")
-    p.add_argument("--spec", dest="spec", required=True, help="Overlay spec JSON path")
-    p.add_argument("--out", dest="out", required=True, help="Output MP4 path")
-    p.add_argument("--width", type=int, default=1080)
-    p.add_argument("--height", type=int, default=1920)
-    p.add_argument("--font", dest="font", default=None, help="Font file path (optional)")
-    p.add_argument("--density", choices=["low", "medium", "high"], default="medium", help="Overlay density")
-    p.add_argument("--theme", default=None, help="Color theme (optional)")
-    args = p.parse_args()
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Apply baked overlays to a video (ffmpeg).")
+    parser.add_argument("--in", dest="inp", required=True, help="Input MP4 path")
+    parser.add_argument("--spec", dest="spec", required=True, help="Overlay spec JSON path")
+    parser.add_argument("--out", dest="out", required=True, help="Output MP4 path")
+    parser.add_argument("--width", type=int, default=1080)
+    parser.add_argument("--height", type=int, default=1920)
+    parser.add_argument("--font", dest="font", default=None, help="Font file path (optional)")
+    parser.add_argument(
+        "--density",
+        choices=["low", "medium", "high"],
+        default="medium",
+        help="Overlay density",
+    )
+    parser.add_argument("--theme", default=None, help="Color theme (optional)")
+    parser.add_argument("--fps", type=int, default=24, help="Output frames per second")
+    args = parser.parse_args(argv)
 
     spec = parse_overlay_spec(Path(args.spec))
+    overlays: list[dict[str, Any]] = spec["overlays"] if isinstance(spec.get("overlays"), list) else [spec]
+
     result = apply_overlays(
         Path(args.inp),
-        [spec],
+        overlays,
         Path(args.out),
         width=args.width,
         height=args.height,
@@ -255,4 +261,9 @@ if __name__ == "__main__":
         theme=args.theme,
         fps=args.fps,
     )
-    sys.stdout.write(str(result) + "\n")
+    sys.stdout.write(f"{result}\n")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
