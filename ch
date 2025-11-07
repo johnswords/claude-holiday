@@ -3,6 +3,7 @@
 ch - Claude Holiday CLI
 Unified entry point for all Claude Holiday commands.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -80,51 +81,37 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         prog="ch",
         description="Claude Holiday - Community-composable media toolkit",
-        epilog="Example: ch compile --recipe recipes/examples/dev-default.yaml"
+        epilog="Example: ch compile --recipe recipes/examples/dev-default.yaml",
     )
 
-    subparsers = parser.add_subparsers(
-        dest="command",
-        help="Available commands",
-        metavar="COMMAND"
-    )
+    subparsers = parser.add_subparsers(dest="command", help="Available commands", metavar="COMMAND")
 
     # compile subcommand
     compile_parser = subparsers.add_parser(
         "compile",
         help="Compile a complete cut from recipe",
-        description="Compile episodes from an RCFC recipe, applying selections if available."
+        description="Compile episodes from an RCFC recipe, applying selections if available.",
     )
-    compile_parser.add_argument(
-        "--recipe",
-        required=True,
-        help="Path to RCFC recipe YAML file"
-    )
+    compile_parser.add_argument("--recipe", required=True, help="Path to RCFC recipe YAML file")
     compile_parser.set_defaults(func=cmd_compile)
 
     # candidates subcommand
     candidates_parser = subparsers.add_parser(
         "candidates",
         help="Generate candidate renders (no stitching)",
-        description="Generate multiple candidate renders per scene for review. Use 'ch select' afterward to choose winners."
+        description="Generate multiple candidate renders per scene for review. Use 'ch select' afterward to choose winners.",
     )
-    candidates_parser.add_argument(
-        "--recipe",
-        required=True,
-        help="Path to RCFC recipe YAML file"
-    )
+    candidates_parser.add_argument("--recipe", required=True, help="Path to RCFC recipe YAML file")
     candidates_parser.set_defaults(func=cmd_candidates)
 
     # select subcommand
     select_parser = subparsers.add_parser(
         "select",
         help="Create selection templates from candidates",
-        description="Generate per-episode selection YAML files from candidates. Edit these to choose winner_index, then recompile."
+        description="Generate per-episode selection YAML files from candidates. Edit these to choose winner_index, then recompile.",
     )
     select_parser.add_argument(
-        "--cut-manifest",
-        required=True,
-        help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
+        "--cut-manifest", required=True, help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
     )
     select_parser.set_defaults(func=cmd_select)
 
@@ -132,23 +119,19 @@ def main() -> None:
     bundle_parser = subparsers.add_parser(
         "bundle",
         help="Pack cut into release bundle",
-        description="Create a release ZIP bundle containing videos, manifests, and metadata."
+        description="Create a release ZIP bundle containing videos, manifests, and metadata.",
     )
     bundle_parser.add_argument(
-        "--cut-manifest",
-        required=True,
-        help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
+        "--cut-manifest", required=True, help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
     )
     bundle_parser.add_argument(
         "--include",
         nargs="+",
         default=["episodes"],
-        help="Assets to include: episodes series captions (default: episodes)"
+        help="Assets to include: episodes series captions (default: episodes)",
     )
     bundle_parser.add_argument(
-        "--out",
-        default="output/releases",
-        help="Output directory for bundles (default: output/releases)"
+        "--out", default="output/releases", help="Output directory for bundles (default: output/releases)"
     )
     bundle_parser.set_defaults(func=cmd_bundle)
 
@@ -156,12 +139,10 @@ def main() -> None:
     ytmeta_parser = subparsers.add_parser(
         "ytmeta",
         help="Generate YouTube metadata JSON",
-        description="Build YouTube-ready metadata (title, description, tags) from a cut manifest."
+        description="Build YouTube-ready metadata (title, description, tags) from a cut manifest.",
     )
     ytmeta_parser.add_argument(
-        "--cut-manifest",
-        required=True,
-        help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
+        "--cut-manifest", required=True, help="Path to cut manifest JSON (output/cuts/<id>/manifest/cut.manifest.json)"
     )
     ytmeta_parser.set_defaults(func=cmd_ytmeta)
 
@@ -169,36 +150,22 @@ def main() -> None:
     cover_art_parser = subparsers.add_parser(
         "cover-art",
         help="Generate AI-powered cover art assets",
-        description="Generate professional cover art using OpenAI's image generation models. Requires OPENAI_API_KEY environment variable."
+        description="Generate professional cover art using OpenAI's image generation models. Requires OPENAI_API_KEY environment variable.",
     )
     cover_art_parser.add_argument(
         "--type",
         default="all",
         choices=["all", "title", "thumbnail", "banner", "social"],
-        help="Type of asset to generate (default: all)"
+        help="Type of asset to generate (default: all)",
     )
+    cover_art_parser.add_argument("--episode", default="EP00", help="Episode number for thumbnails (default: EP00)")
+    cover_art_parser.add_argument("--title", default="CLAUDE HOLIDAY", help="Main title text (default: CLAUDE HOLIDAY)")
     cover_art_parser.add_argument(
-        "--episode",
-        default="EP00",
-        help="Episode number for thumbnails (default: EP00)"
-    )
-    cover_art_parser.add_argument(
-        "--title",
-        default="CLAUDE HOLIDAY",
-        help="Main title text (default: CLAUDE HOLIDAY)"
-    )
-    cover_art_parser.add_argument(
-        "--subtitle",
-        default="A COMPOSABLE MICRO-SERIES",
-        help="Subtitle text (default: A COMPOSABLE MICRO-SERIES)"
+        "--subtitle", default="A COMPOSABLE MICRO-SERIES", help="Subtitle text (default: A COMPOSABLE MICRO-SERIES)"
     )
     # Using a variable for model name to avoid hardcoding
     default_model = "gpt" + "-image-1"  # Constructing dynamically to avoid hook
-    cover_art_parser.add_argument(
-        "--model",
-        default=default_model,
-        help="OpenAI image generation model (optional)"
-    )
+    cover_art_parser.add_argument("--model", default=default_model, help="OpenAI image generation model (optional)")
     cover_art_parser.set_defaults(func=cmd_cover_art)
 
     args = parser.parse_args()
