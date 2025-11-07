@@ -121,7 +121,7 @@ def generate_per_scene_captions(
             output_dir=scene_dir,
             episode_id=episode_id,
             cut_id=f"{cut_id}_{scene_id}",
-            fps=fps,
+            _fps=fps,
         )
 
         if caption_paths:

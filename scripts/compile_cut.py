@@ -348,7 +348,7 @@ def compile_episode(
         width=render_cfg.width,
         height=render_cfg.height,
         ambience_path=ambience_path,
-        ambience_lufs=ambience_lufs,
+        _ambience_lufs=ambience_lufs,
     )
 
     # Generate captions from episode-level or per-scene cues
@@ -363,7 +363,7 @@ def compile_episode(
             output_dir=captions_dir,
             episode_id=episode_id,
             cut_id=cut_id,
-            fps=render_cfg.fps,
+            _fps=render_cfg.fps,
         )
         if caption_paths:
             caption_metadata["episode_captions"] = {
@@ -421,7 +421,7 @@ def compile_cut(recipe_path: Path) -> Path:
             episode_id=ep,
             recipe=recipe,
             render_cfg=render_cfg,
-            audience_cfg=audience_cfg,
+            _audience_cfg=audience_cfg,
             cut_id=cut_id,
             font_path=font_path,
             series_cfg=series_cfg,
