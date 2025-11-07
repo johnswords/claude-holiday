@@ -8,7 +8,7 @@ import pytest
 # Try importing jsonschema - these tests will be skipped if not available
 pytest.importorskip("jsonschema")
 
-from jsonschema import ValidationError, validate
+from jsonschema import ValidationError, validate  # noqa: E402
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 

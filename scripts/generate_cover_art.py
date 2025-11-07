@@ -15,12 +15,11 @@ Creates:
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
+
 import requests
 from openai import OpenAI
 
@@ -28,7 +27,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = PROJECT_ROOT / "output" / "cover_art"
 
 
-def build_image_prompt(asset_type: str, title: str, subtitle: str, episode: str = None) -> str:
+def build_image_prompt(asset_type: str, title: str, subtitle: str, episode: str | None = None) -> str:
     """Build a detailed prompt based on master script visuals.
 
     Uses the visual language from docs/master_script.md to ensure consistency
@@ -67,9 +66,9 @@ def build_image_prompt(asset_type: str, title: str, subtitle: str, episode: str 
         )
     else:  # social
         specific = (
-            f"Square format cozy inn fireplace scene with 'CH' monogram. "
-            f"Warm amber glow, holiday garland, vintage feel. "
-            f"Instagram-ready 1:1 aspect ratio."
+            "Square format cozy inn fireplace scene with 'CH' monogram. "
+            "Warm amber glow, holiday garland, vintage feel. "
+            "Instagram-ready 1:1 aspect ratio."
         )
 
     # Add quality modifiers

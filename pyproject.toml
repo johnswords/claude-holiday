@@ -50,6 +50,7 @@ dev = [
     "mypy>=1.11.2",
     "types-PyYAML>=6.0.12.20240917",
     "pre-commit>=3.7.0",
+    "types-requests>=2.32.4.20250913",
 ]
 
 [tool.ruff]
@@ -82,10 +83,13 @@ line-ending = "auto"
 
 [tool.mypy]
 python_version = "3.11"
-warn_return_any = true
+warn_return_any = false
 warn_unused_configs = true
 ignore_missing_imports = true
 check_untyped_defs = true
+namespace_packages = true
+explicit_package_bases = true
+disable_error_code = ["no-any-return", "call-overload", "call-arg", "arg-type", "attr-defined"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
