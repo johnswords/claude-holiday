@@ -9,8 +9,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-import yaml
 import jsonschema
+import yaml
 from jsonschema import ValidationError
 
 from scripts.apply_overlays import apply_overlays
@@ -21,7 +21,6 @@ from scripts.providers.prebaked import PrebakedProvider
 from scripts.providers.sora import SoraProvider
 from scripts.rcfc.uri import build_cut_uri, compute_rcfc_hash
 from scripts.utils.ffmpeg import preflight_check
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FONT_MAC = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
@@ -39,7 +38,7 @@ def validate_recipe(recipe: dict[str, Any]) -> None:
     if not schema_path.exists():
         raise FileNotFoundError(f"Schema file not found: {schema_path}")
 
-    with open(schema_path, "r", encoding="utf-8") as f:
+    with open(schema_path, encoding="utf-8") as f:
         schema = json.load(f)
 
     try:
@@ -62,7 +61,7 @@ def validate_recipe(recipe: dict[str, Any]) -> None:
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -115,7 +114,7 @@ def ffmpeg_concat(
     width: int,
     height: int,
     ambience_path: Path | None = None,
-    ambience_lufs: float = -18.0,
+    _ambience_lufs: float = -18.0,
 ) -> None:
     preflight_check()
 
@@ -170,7 +169,7 @@ def ffmpeg_concat(
         ]
     )
     try:
-        result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         # Log ffmpeg stderr (contains progress and warnings even on success)
         if result.stderr:
             print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
@@ -186,11 +185,11 @@ def compile_episode(
     episode_id: str,
     recipe: dict[str, Any],
     render_cfg: RenderConfig,
-    audience_cfg: dict[str, Any],
+    _audience_cfg: dict[str, Any],
     cut_id: str,
     font_path: str | None = None,
-    series_cfg: Dict[str, Any] | None = None,
-) -> Tuple[Path, Dict[str, Any]]:
+    series_cfg: dict[str, Any] | None = None,
+) -> tuple[Path, dict[str, Any]]:
     manifest = load_episode_manifest(episode_id)
     scenes = manifest.get("scenes") or []
     provider = provider_from_recipe(recipe)
@@ -353,7 +352,7 @@ def compile_episode(
     )
 
     # Generate captions from episode-level or per-scene cues
-    caption_metadata: Dict[str, Any] = {}
+    caption_metadata: dict[str, Any] = {}
     episode_cues = manifest.get("captions_cues", [])
 
     if episode_cues:

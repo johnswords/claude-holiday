@@ -1,4 +1,5 @@
 """FFmpeg utilities and preflight checks for Claude Holiday."""
+
 from __future__ import annotations
 
 import shutil
@@ -29,15 +30,10 @@ def preflight_check() -> None:
     # Verify ffmpeg is functional by checking version
     try:
         result = subprocess.run(
-            ["ffmpeg", "-version"],
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            timeout=5
+            ["ffmpeg", "-version"], check=True, capture_output=True, text=True, timeout=5
         )
         # Extract version from output (first line typically contains version info)
-        version_line = result.stdout.split('\n')[0] if result.stdout else "unknown"
+        version_line = result.stdout.split("\n")[0] if result.stdout else "unknown"
         print(f"[FFMPEG] Found: {version_line}", file=sys.stderr)
 
     except subprocess.CalledProcessError as e:

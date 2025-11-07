@@ -1,17 +1,18 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Any
+
 import pysubs2
 
 
 def generate_captions(
-    captions_cues: List[Dict[str, Any]],
+    captions_cues: list[dict[str, Any]],
     output_dir: Path,
     episode_id: str,
     cut_id: str,
-    fps: int = 24,
-) -> Dict[str, Path]:
+    _fps: int = 24,
+) -> dict[str, Path]:
     """
     Generate .srt and .ass subtitle files from caption cues.
 
@@ -70,12 +71,12 @@ def generate_captions(
 
 
 def generate_per_scene_captions(
-    scenes: List[Dict[str, Any]],
+    scenes: list[dict[str, Any]],
     output_dir: Path,
     episode_id: str,
     cut_id: str,
     fps: int = 24,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     Generate captions from per-scene caption cues.
 

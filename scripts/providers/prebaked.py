@@ -37,7 +37,7 @@ class PrebakedProvider(Provider):
         scene: dict[str, Any],
         output_dir: str,
         render_cfg: RenderConfig,
-        seed: int | None = None,
+        _seed: int | None = None,
     ) -> str:
         scene_id = scene.get("id") or "scene"
         duration = int(scene.get("duration_sec") or 1)
@@ -77,7 +77,7 @@ class PrebakedProvider(Provider):
             str(out_path),
         ]
         try:
-            result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(cmd, check=True, capture_output=True, text=True)
             if result.stderr:
                 print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
         except subprocess.CalledProcessError as e:

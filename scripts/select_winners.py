@@ -48,7 +48,7 @@ def extract_thumbnail(video_path: Path, timestamp: str = "00:00:01") -> str | No
             "png",
             "-",
         ]
-        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        result = subprocess.run(cmd, capture_output=True, check=True)
         b64 = base64.b64encode(result.stdout).decode("utf-8")
         return f"data:image/png;base64,{b64}"
     except Exception:
@@ -101,16 +101,16 @@ def generate_contact_sheet(cut_id: str, episode_selections: list[dict[str, Any]]
         ep_id = ep_sel["episode_id"]
         scenes = ep_sel["scenes"]
 
-        html_parts.append(f"<div class='episode'>")
+        html_parts.append("<div class='episode'>")
         html_parts.append(f"<h2>Episode: {ep_id}</h2>")
 
         for scene_id, scene_data in scenes.items():
             winner_idx = scene_data.get("winner_index", 1)
             candidates = scene_data.get("candidates", [])
 
-            html_parts.append(f"<div class='scene'>")
+            html_parts.append("<div class='scene'>")
             html_parts.append(f"<h3>Scene: {scene_id}</h3>")
-            html_parts.append(f"<div class='candidates'>")
+            html_parts.append("<div class='candidates'>")
 
             for cand in candidates:
                 idx = cand["index"]
@@ -131,10 +131,10 @@ def generate_contact_sheet(cut_id: str, episode_selections: list[dict[str, Any]]
                 if thumb:
                     html_parts.append(f"<img src='{thumb}' alt='Candidate {idx}'>")
                 else:
-                    html_parts.append(f"<div class='no-video'>Video not found or could not extract frame</div>")
+                    html_parts.append("<div class='no-video'>Video not found or could not extract frame</div>")
 
                 html_parts.append(f"<div class='path'>{rel_path}</div>")
-                html_parts.append(f"</div>")
+                html_parts.append("</div>")
 
             html_parts.append("</div>")  # end candidates grid
             html_parts.append("</div>")  # end scene

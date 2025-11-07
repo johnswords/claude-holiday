@@ -11,8 +11,9 @@ try:
 except ImportError:
     OpenAI = None  # type: ignore
 
-from .base import Provider, RenderConfig
 from scripts.utils.ffmpeg import preflight_check
+
+from .base import Provider, RenderConfig
 
 
 class SoraProvider(Provider):
@@ -38,7 +39,7 @@ class SoraProvider(Provider):
 
     def generate_scene(
         self,
-        episode_id: str,
+        _episode_id: str,
         scene: dict[str, Any],
         output_dir: str,
         render_cfg: RenderConfig,
@@ -116,7 +117,7 @@ class SoraProvider(Provider):
                 str(out_path),
             ]
             try:
-                result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                result = subprocess.run(cmd, check=True, capture_output=True, text=True)
                 if result.stderr:
                     print(f"[FFMPEG] {result.stderr}", file=sys.stderr)
             except subprocess.CalledProcessError as ffmpeg_err:
