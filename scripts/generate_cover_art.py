@@ -27,7 +27,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = PROJECT_ROOT / "output" / "cover_art"
 
 
-def build_image_prompt(asset_type: str, title: str, subtitle: str, episode: str = None) -> str:
+def build_image_prompt(asset_type: str, title: str, subtitle: str, episode: str | None = None) -> str:
     """Build a detailed prompt based on master script visuals.
 
     Uses the visual language from docs/master_script.md to ensure consistency
