@@ -29,9 +29,7 @@ def preflight_check() -> None:
 
     # Verify ffmpeg is functional by checking version
     try:
-        result = subprocess.run(
-            ["ffmpeg", "-version"], check=True, capture_output=True, text=True, timeout=5
-        )
+        result = subprocess.run(["ffmpeg", "-version"], check=True, capture_output=True, text=True, timeout=5)
         # Extract version from output (first line typically contains version info)
         version_line = result.stdout.split("\n")[0] if result.stdout else "unknown"
         print(f"[FFMPEG] Found: {version_line}", file=sys.stderr)
