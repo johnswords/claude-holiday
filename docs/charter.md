@@ -27,8 +27,8 @@ All media is personal. Claude Holiday is an experiment in community-composable m
 - Fork the repo.
 - Copy an example recipe in `recipes/examples/`.
 - Edit the YAML to choose episodes, overlays, audience, ending, and provider.
-- Run `python scripts/compile_cut.py --recipe your_recipe.yaml`.
-- Optionally `python scripts/pack_release.py ...` to zip a release bundle.
+- Run `./ch compile --recipe your_recipe.yaml`.
+- Optionally `./ch bundle --cut-manifest output/cuts/<cut_id>/manifest/cut.manifest.json` to zip a release bundle.
 - Share your Cut URI and upload the videos (e.g., to YouTube).
 
 ## Code of Conduct

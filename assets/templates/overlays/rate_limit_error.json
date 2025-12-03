@@ -1,0 +1,10 @@
+{
+  "name": "rate_limit_error",
+  "type": "text",
+  "text": "HTTP 429: Rate limit exceeded",
+  "position": "bottom_left",
+  "font_size": 26,
+  "font_color": "white",
+  "bg_color": "0xCC3333CC",
+  "padding": 10
+}

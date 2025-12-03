@@ -47,7 +47,7 @@
     },
     "audience_profile": {
       "type": "string",
-      "enum": ["general", "dev", "custom"]
+      "enum": ["general", "dev"]
     },
     "scope": {
       "type": "object",

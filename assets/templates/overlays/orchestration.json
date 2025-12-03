@@ -1,0 +1,10 @@
+{
+  "name": "orchestration",
+  "type": "text",
+  "text": "multi_model_orchestration",
+  "position": "top_left",
+  "font_size": 24,
+  "font_color": "#88CCFF",
+  "bg_color": "0x112244CC",
+  "padding": 10
+}

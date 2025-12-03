@@ -1,0 +1,10 @@
+{
+  "name": "batch_chaos",
+  "type": "text",
+  "text": "batch_size: MAX_INT",
+  "position": "top_right",
+  "font_size": 26,
+  "font_color": "#FF6666",
+  "bg_color": "0x441111CC",
+  "padding": 10
+}

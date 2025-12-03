@@ -21,7 +21,11 @@ import sys
 from pathlib import Path
 
 import requests
+from dotenv import load_dotenv
 from openai import OpenAI
+
+# Load .env file if present (for OPENAI_API_KEY)
+load_dotenv()
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = PROJECT_ROOT / "output" / "cover_art"

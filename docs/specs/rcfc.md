@@ -21,7 +21,7 @@ RCFC describes how to compile a specific "cut" of Claude Holiday from episode ma
   - `repo_url` (string)
 - `source` (object):
   - `commit_sha` (string) — git commit used
-- `audience_profile` (string): "general" | "dev" | "custom"
+- `audience_profile` (string): "general" | "dev"
 - `scope` (object):
   - `include_episodes` (array of strings) — e.g., ["ep00_checking_in"]
   - `include_bonus` (array of strings, optional)

@@ -5,4 +5,10 @@ scenes:
     title: "Test Scene"
     duration_sec: 5
     sora_prompt: "Test prompt for integration testing"
-    overlays: []
+    overlays:
+      - spec: "test_overlay"
+        text: "Integration Test Overlay"
+        start_sec: 1.0
+        duration_sec: 2.0
+        position: "bottom_left"
+        track: "dev_glossary"

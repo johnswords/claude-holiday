@@ -21,9 +21,9 @@ from scripts.providers.prebaked import PrebakedProvider
 from scripts.providers.sora import SoraProvider
 from scripts.rcfc.uri import build_cut_uri, compute_rcfc_hash
 from scripts.utils.ffmpeg import preflight_check
+from scripts.utils.fonts import resolve_font
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_FONT_MAC = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
 
 
 def validate_recipe(recipe: dict[str, Any]) -> None:
@@ -408,10 +408,8 @@ def compile_cut(recipe_path: Path) -> Path:
     commit_sha = (recipe.get("source") or {}).get("commit_sha", "HEAD")
     cut_uri = build_cut_uri(commit_sha=commit_sha, rcfc_hash=rcfc_hash, audience=audience)
 
-    # Determine font (optional, for drawtext)
-    font_path = None
-    if Path(DEFAULT_FONT_MAC).exists():
-        font_path = DEFAULT_FONT_MAC
+    # Determine font (optional, for drawtext) - cross-platform resolution
+    font_path = resolve_font()
 
     # Compile episodes (or just generate candidates)
     include_eps = (recipe.get("scope") or {}).get("include_episodes", [])

@@ -1,0 +1,26 @@
+# Test episode without overlays
+# Used for testing compilation when no overlays are present
+
+episode_id: "test_ep_no_overlays"
+title: "Test Episode - No Overlays"
+scenes:
+  - id: "s1"
+    title: "First scene without overlays"
+    duration_sec: 8
+    sora_prompt: >
+      Test prompt for scene 1.
+      9:16 vertical format, no overlays.
+    overlays: []
+
+  - id: "s2"
+    title: "Second scene without overlays"
+    duration_sec: 10
+    sora_prompt: >
+      Test prompt for scene 2.
+      9:16 vertical format, no overlays.
+    overlays: []
+
+audio:
+  ambience: "test_ambience"
+  stingers: []
+captions_cues: []
