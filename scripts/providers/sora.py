@@ -47,13 +47,13 @@ class SoraProvider(Provider):
         duration = scene.get("duration_sec", 5)
         return f"A {duration}-second professional video scene. Vertical 9:16 format. Scene ID: {scene_id}"
 
-    def generate_scene(
+    def generate_scene(  # noqa: ARG002 (seed reserved for future use)
         self,
         _episode_id: str,
         scene: dict[str, Any],
         output_dir: str,
         render_cfg: RenderConfig,
-        seed: int | None = None,
+        seed: int | None = None,  # noqa: ARG002
     ) -> str:
         """
         Generate a scene using OpenAI's Sora 2 API.
@@ -91,12 +91,12 @@ class SoraProvider(Provider):
             print(f"[SORA] Job created: {video_id}, polling for completion...", file=sys.stderr)
 
             # Poll for completion
-            for attempt in range(MAX_POLL_ATTEMPTS):
+            for _attempt in range(MAX_POLL_ATTEMPTS):
                 video_status = client.videos.retrieve(video_id)
 
                 if video_status.status == "completed":
                     # Download the video
-                    print(f"[SORA] Video completed, downloading...", file=sys.stderr)
+                    print("[SORA] Video completed, downloading...", file=sys.stderr)
                     import urllib.request
 
                     # The completed video should have a URL

@@ -12,11 +12,12 @@ from typing import Any
 import yaml
 from dotenv import load_dotenv
 
-# Load .env file if present (for OPENAI_API_KEY)
-load_dotenv()
-
 from scripts.providers.base import RenderConfig
 from scripts.providers.sora import SoraProvider
+
+# Load .env file if present (for OPENAI_API_KEY)
+# Must be after imports but before any code that uses env vars
+load_dotenv()
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EPISODES_DIR = PROJECT_ROOT / "episodes"
@@ -47,8 +48,6 @@ def generate_scene(
     seed: int | None = None,
 ) -> str:
     """Generate a single scene video."""
-    scene_id = scene.get("id", "scene")
-
     # Create episode output directory
     ep_out_dir = output_dir / episode_id
     ep_out_dir.mkdir(parents=True, exist_ok=True)
@@ -120,20 +119,24 @@ def generate_episode(
                 output_dir=output_dir,
                 seed=seed,
             )
-            results.append({
-                "episode_id": episode_id,
-                "scene_id": scene_id,
-                "status": "success",
-                "output_path": output_path,
-            })
+            results.append(
+                {
+                    "episode_id": episode_id,
+                    "scene_id": scene_id,
+                    "status": "success",
+                    "output_path": output_path,
+                }
+            )
         except Exception as e:
             print(f"[ERROR] {episode_id}/{scene_id}: {e}", file=sys.stderr)
-            results.append({
-                "episode_id": episode_id,
-                "scene_id": scene_id,
-                "status": "error",
-                "error": str(e),
-            })
+            results.append(
+                {
+                    "episode_id": episode_id,
+                    "scene_id": scene_id,
+                    "status": "error",
+                    "error": str(e),
+                }
+            )
 
     return results
 
@@ -239,11 +242,13 @@ def main() -> None:
             all_results.extend(results)
         except FileNotFoundError as e:
             print(f"[ERROR] {e}", file=sys.stderr)
-            all_results.append({
-                "episode_id": episode_id,
-                "status": "error",
-                "error": str(e),
-            })
+            all_results.append(
+                {
+                    "episode_id": episode_id,
+                    "status": "error",
+                    "error": str(e),
+                }
+            )
 
     # Summary
     success_count = sum(1 for r in all_results if r.get("status") == "success")

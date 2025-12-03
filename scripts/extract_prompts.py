@@ -38,14 +38,16 @@ def extract_prompts_from_episode(episode_path: Path) -> list[dict[str, Any]]:
         sora_prompt = scene.get("sora_prompt", "")
 
         if sora_prompt:
-            prompts.append({
-                "episode_id": episode_id,
-                "episode_title": title,
-                "scene_id": scene_id,
-                "scene_title": scene_title,
-                "duration_sec": duration,
-                "sora_prompt": sora_prompt.strip(),
-            })
+            prompts.append(
+                {
+                    "episode_id": episode_id,
+                    "episode_title": title,
+                    "scene_id": scene_id,
+                    "scene_title": scene_title,
+                    "duration_sec": duration,
+                    "sora_prompt": sora_prompt.strip(),
+                }
+            )
 
     return prompts
 
@@ -137,10 +139,7 @@ def main() -> None:
         sys.exit(1)
 
     # Format output
-    if args.format == "json":
-        output = format_prompts_json(prompts)
-    else:
-        output = format_prompts_markdown(prompts)
+    output = format_prompts_json(prompts) if args.format == "json" else format_prompts_markdown(prompts)
 
     # Write output
     if args.output:
