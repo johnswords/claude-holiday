@@ -197,10 +197,11 @@ class TestE2ECompilation:
 
         generated_clips: list[Path] = []
         for scene in scenes:
+            scene_id = str(scene["id"])
             clip_path = provider.generate_scene(
                 episode_id="test_ep",
                 scene=scene,
-                output_dir=str(output_dir / scene["id"]),
+                output_dir=str(output_dir / scene_id),
                 render_cfg=render_cfg,
             )
             generated_clips.append(Path(clip_path))
