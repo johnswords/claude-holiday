@@ -355,18 +355,26 @@ export OPENAI_API_KEY="your-key-here"
 - **Python 3.11+** — Required for all scripts
 - **uv** — Python package manager
 - **FFmpeg** — Video processing (same install as Path A)
-- **OpenAI API access** — Sora-2-Pro for video generation
+- **OpenAI API access** — Sora-2-Pro for video generation (`OPENAI_API_KEY` env var)
 - **Git LFS** — For managing large video files (optional but recommended)
 
 ```bash
-# Extract prompts from master script
-uv run python -m scripts.extract_prompts --episode ep00_checking_in
+# Set your OpenAI API key
+export OPENAI_API_KEY="your-key-here"
 
-# Generate video
-uv run python -m scripts.generate_video --episode ep00_checking_in
+# Extract prompts for review (markdown or json format)
+./ch extract-prompts --episodes ep00_checking_in --format markdown
 
-# Review draft
-open episodes/ep00_checking_in/renders/drafts/latest.mp4
+# Preview what would be generated (dry run)
+./ch generate-video --episodes ep00_checking_in --dry-run
+
+# Generate actual video clips via Sora
+./ch generate-video --episodes ep00_checking_in
+
+# Generate specific scenes only
+./ch generate-video --episodes ep00_checking_in --scenes s1 s2
+
+# Output location: output/sora_renders/<episode_id>/<scene_id>.mp4
 ```
 
 ---
@@ -378,12 +386,19 @@ The `ch` command provides a unified interface for all Claude Holiday operations:
 ### Available Commands
 
 ```bash
-ch compile      # Compile a complete cut from recipe
-ch candidates   # Generate candidate renders (no stitching)
-ch select       # Create selection templates from candidates
-ch bundle       # Pack cut into release bundle
-ch ytmeta       # Generate YouTube metadata JSON
-ch cover-art    # Generate cover art assets (thumbnails, banners, title cards)
+# Core workflow
+ch compile         # Compile a complete cut from recipe
+ch candidates      # Generate candidate renders (no stitching)
+ch select          # Create selection templates from candidates
+ch bundle          # Pack cut into release bundle
+
+# Metadata & assets
+ch ytmeta          # Generate YouTube metadata JSON
+ch cover-art       # Generate cover art (thumbnails, banners, title cards)
+
+# Path B: Sora generation (requires OPENAI_API_KEY)
+ch extract-prompts # Extract Sora prompts from episode manifests
+ch generate-video  # Generate video clips using Sora provider
 ```
 
 ### Usage Examples

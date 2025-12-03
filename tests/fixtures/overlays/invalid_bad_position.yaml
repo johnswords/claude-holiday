@@ -1,0 +1,9 @@
+# Invalid overlay configuration - invalid position value
+# Position must be one of: top_left, top_right, bottom_left, bottom_right
+
+spec: "bad_position"
+text: "Some overlay text"
+start_sec: 2.0
+duration_sec: 2.5
+position: "center"  # INVALID - not a valid position
+track: "dev_glossary"

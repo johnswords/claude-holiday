@@ -6,7 +6,19 @@ scenes:
     duration_sec: 8
     sora_prompt: >
       9:16 vertical video. Wide shot of inn room divided by bright yellow tape on floor. Professional woman at main desk working intently. Young man sits in taped corner with laptop, hand raised like schoolchild. Sign reads "THE WORKSPACE - APPROVAL REQUIRED". Visual comedy of literal sandbox environment. 24fps, Hallmark meets office absurdity.
-    overlays: []
+    overlays:
+      - spec: "sandbox_mode"
+        text: "sandbox: enabled"
+        start_sec: 1.0
+        duration_sec: 3.0
+        position: "top_left"
+        track: "dev_glossary"
+      - spec: "scope_creep"
+        text: "scope_creep.warn()"
+        start_sec: 5.5
+        duration_sec: 2.0
+        position: "bottom_right"
+        track: "dev_glossary"
   - id: "s2"
     title: "Permission Protocols"
     duration_sec: 9

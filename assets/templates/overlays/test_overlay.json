@@ -1,0 +1,10 @@
+{
+  "name": "test_overlay",
+  "type": "text",
+  "text": "TEST OVERLAY",
+  "position": "top_left",
+  "font_size": 24,
+  "font_color": "white",
+  "bg_color": "0x666666AA",
+  "padding": 8
+}

@@ -1,0 +1,24 @@
+# Valid overlay configuration - multiple overlays on same scene
+# Tests overlay stacking and timing coordination
+
+overlays:
+  - spec: "rate_limit_error"
+    text: "HTTP 429: Rate limit exceeded"
+    start_sec: 2.0
+    duration_sec: 2.5
+    position: "bottom_left"
+    track: "dev_glossary"
+
+  - spec: "cron_reset"
+    text: "cron(0 3 * * FRI)"
+    start_sec: 6.0
+    duration_sec: 2.0
+    position: "bottom_right"
+    track: "dev_glossary"
+
+  - spec: "token_count"
+    text: "tokens: 127,834 / 200,000"
+    start_sec: 4.0
+    duration_sec: 3.0
+    position: "top_right"
+    track: "dev_glossary"

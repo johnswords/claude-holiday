@@ -1,0 +1,10 @@
+{
+  "name": "freedom",
+  "type": "text",
+  "text": "break; // freedom",
+  "position": "bottom_right",
+  "font_size": 26,
+  "font_color": "#AAFFAA",
+  "bg_color": "0x224422CC",
+  "padding": 10
+}

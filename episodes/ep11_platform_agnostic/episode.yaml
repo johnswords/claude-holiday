@@ -18,7 +18,19 @@ scenes:
     duration_sec: 8
     sora_prompt: >
       9:16 vertical. Professional woman hands tablet back to confused corporate executive, walks confidently toward warm inn. He calls after her but she doesn't turn. Inn door opens spilling golden light. She's made her choice - independence over corporate security. Wide shot showing her path from corporate to community. 24fps, empowering Hallmark climax.
-    overlays: []
+    overlays:
+      - spec: "orchestration"
+        text: "multi_model_orchestration"
+        start_sec: 2.0
+        duration_sec: 2.5
+        position: "top_left"
+        track: "dev_glossary"
+      - spec: "freedom"
+        text: "break; // freedom"
+        start_sec: 5.5
+        duration_sec: 2.0
+        position: "bottom_right"
+        track: "dev_glossary"
 audio:
   ambience: "town_square_wind"
   stingers: []

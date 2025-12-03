@@ -13,8 +13,8 @@ from pathlib import Path
 
 
 def run_script(script_path: Path, args: list[str]) -> None:
-    """Execute a Python script with given arguments."""
-    cmd = [sys.executable, str(script_path)] + args
+    """Execute a Python script with given arguments using uv."""
+    cmd = ["uv", "run", "python", str(script_path)] + args
     result = subprocess.run(cmd, cwd=script_path.parent.parent)
     sys.exit(result.returncode)
 
@@ -73,6 +73,42 @@ def cmd_cover_art(args: argparse.Namespace) -> None:
         script_args.extend(["--subtitle", args.subtitle])
     if args.model:
         script_args.extend(["--model", args.model])
+
+    run_script(script, script_args)
+
+
+def cmd_extract_prompts(args: argparse.Namespace) -> None:
+    """Extract Sora prompts from episode manifests."""
+    script = Path(__file__).resolve().parent / "scripts" / "extract_prompts.py"
+    script_args = []
+
+    if args.episodes:
+        script_args.extend(["--episodes"] + args.episodes)
+    if args.format:
+        script_args.extend(["--format", args.format])
+    if args.output:
+        script_args.extend(["--output", args.output])
+
+    run_script(script, script_args)
+
+
+def cmd_generate_video(args: argparse.Namespace) -> None:
+    """Generate video clips using Sora provider."""
+    script = Path(__file__).resolve().parent / "scripts" / "generate_video.py"
+    script_args = ["--episodes"] + args.episodes
+
+    if args.scenes:
+        script_args.extend(["--scenes"] + args.scenes)
+    if args.output:
+        script_args.extend(["--output", args.output])
+    if args.resolution:
+        script_args.extend(["--resolution", args.resolution])
+    if args.fps:
+        script_args.extend(["--fps", str(args.fps)])
+    if args.seed:
+        script_args.extend(["--seed", str(args.seed)])
+    if args.dry_run:
+        script_args.append("--dry-run")
 
     run_script(script, script_args)
 
@@ -167,6 +203,75 @@ def main() -> None:
     default_model = "gpt" + "-image-1"  # Constructing dynamically to avoid hook
     cover_art_parser.add_argument("--model", default=default_model, help="OpenAI image generation model (optional)")
     cover_art_parser.set_defaults(func=cmd_cover_art)
+
+    # extract-prompts subcommand (Path B)
+    extract_parser = subparsers.add_parser(
+        "extract-prompts",
+        help="Extract Sora prompts from episode manifests",
+        description="Extract all Sora prompts for review or batch generation. Supports JSON and Markdown output.",
+    )
+    extract_parser.add_argument(
+        "--episodes",
+        nargs="+",
+        help="Specific episode IDs to extract (default: all episodes)",
+    )
+    extract_parser.add_argument(
+        "--format",
+        choices=["json", "markdown"],
+        default="markdown",
+        help="Output format (default: markdown)",
+    )
+    extract_parser.add_argument(
+        "--output",
+        "-o",
+        help="Output file path (default: stdout)",
+    )
+    extract_parser.set_defaults(func=cmd_extract_prompts)
+
+    # generate-video subcommand (Path B)
+    gen_video_parser = subparsers.add_parser(
+        "generate-video",
+        help="Generate video clips using Sora provider",
+        description="Generate video clips for specific episodes/scenes using OpenAI's Sora. Requires OPENAI_API_KEY.",
+    )
+    gen_video_parser.add_argument(
+        "--episodes",
+        nargs="+",
+        required=True,
+        help="Episode IDs to generate (e.g., ep00_checking_in)",
+    )
+    gen_video_parser.add_argument(
+        "--scenes",
+        nargs="+",
+        help="Specific scene IDs to generate (default: all scenes)",
+    )
+    gen_video_parser.add_argument(
+        "--output",
+        "-o",
+        help="Output directory (default: output/sora_renders)",
+    )
+    gen_video_parser.add_argument(
+        "--resolution",
+        default="1080x1920",
+        help="Video resolution WxH (default: 1080x1920)",
+    )
+    gen_video_parser.add_argument(
+        "--fps",
+        type=int,
+        default=24,
+        help="Frames per second (default: 24)",
+    )
+    gen_video_parser.add_argument(
+        "--seed",
+        type=int,
+        help="Random seed for reproducibility",
+    )
+    gen_video_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be generated without calling Sora",
+    )
+    gen_video_parser.set_defaults(func=cmd_generate_video)
 
     args = parser.parse_args()
 

@@ -1,0 +1,10 @@
+{
+  "name": "scope_creep",
+  "type": "text",
+  "text": "scope_creep.warn()",
+  "position": "bottom_right",
+  "font_size": 24,
+  "font_color": "#FF8800",
+  "bg_color": "0x442200CC",
+  "padding": 10
+}

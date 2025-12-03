@@ -1,0 +1,10 @@
+{
+  "name": "no_tests",
+  "type": "text",
+  "text": "// without running them",
+  "position": "bottom_left",
+  "font_size": 22,
+  "font_color": "#AAAAAA",
+  "bg_color": "0x333333BB",
+  "padding": 8
+}

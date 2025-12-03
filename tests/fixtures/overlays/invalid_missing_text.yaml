@@ -1,0 +1,9 @@
+# Invalid overlay configuration - missing required 'text' field
+# This should fail validation
+
+spec: "missing_text"
+# text: is intentionally missing
+start_sec: 2.0
+duration_sec: 2.5
+position: "bottom_left"
+track: "dev_glossary"

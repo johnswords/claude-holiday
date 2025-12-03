@@ -1,0 +1,10 @@
+{
+  "name": "cron_reset",
+  "type": "text",
+  "text": "cron(0 3 * * FRI)",
+  "position": "bottom_right",
+  "font_size": 24,
+  "font_color": "#88FF88",
+  "bg_color": "0x222244CC",
+  "padding": 10
+}

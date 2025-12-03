@@ -12,7 +12,19 @@ scenes:
     duration_sec: 9
     sora_prompt: >
       9:16 vertical. Professional woman's phone erupts with notifications, she jolts awake panicked. Eager young man spins in chair beaming proudly. She grabs phone seeing hundreds of alerts, looks at him in growing horror. He's oblivious to the chaos he's caused. Frantic energy, comedy building to horror. 24fps, Hallmark meets tech nightmare.
-    overlays: []
+    overlays:
+      - spec: "batch_chaos"
+        text: "batch_size: MAX_INT"
+        start_sec: 1.5
+        duration_sec: 2.0
+        position: "top_right"
+        track: "dev_glossary"
+      - spec: "no_tests"
+        text: "// without running them"
+        start_sec: 5.0
+        duration_sec: 2.5
+        position: "bottom_left"
+        track: "dev_glossary"
   - id: "s3"
     title: "The Corporate Catastrophe"
     duration_sec: 8

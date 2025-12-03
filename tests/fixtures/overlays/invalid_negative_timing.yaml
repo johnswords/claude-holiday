@@ -1,0 +1,9 @@
+# Invalid overlay configuration - negative timing values
+# start_sec and duration_sec must be non-negative
+
+spec: "negative_timing"
+text: "Some overlay text"
+start_sec: -1.0  # INVALID - negative start time
+duration_sec: 2.5
+position: "bottom_left"
+track: "dev_glossary"
