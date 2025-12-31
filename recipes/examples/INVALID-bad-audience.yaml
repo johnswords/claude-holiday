@@ -1,6 +1,6 @@
 # INTENTIONALLY INVALID RECIPE - FOR TESTING VALIDATION
 # Invalid: audience_profile has invalid enum value
-# Expected to fail with: "Recipe validation failed at 'audience_profile': 'production' is not one of ['general', 'dev']"
+# Expected to fail with: "Recipe validation failed at 'audience_profile': 'production' is not one of ['general']"
 
 schema_version: "0.1.0"
 metadata:
@@ -13,7 +13,7 @@ project:
   repo_url: "https://github.com/johnswords/claude_holiday"
 source:
   commit_sha: "HEAD"
-audience_profile: "production"  # INVALID: Must be "general" or "dev"
+audience_profile: "production"  # INVALID: Must be "general"
 scope:
   include_episodes:
     - "ep00_checking_in"

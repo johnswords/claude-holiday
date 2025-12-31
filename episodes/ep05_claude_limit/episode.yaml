@@ -25,26 +25,11 @@ scenes:
     duration_sec: 10
     sora_prompt: >
       9:16 vertical. Handsome man in coat stands perfectly still in bedroom doorway, formal and composed. Professional woman in bed stares at him bewildered. He delivers technical explanation with automated empathy. Another eager younger man appears behind him. Warm bedroom lighting contrasts with clinical interaction. 24fps, surreal Hallmark moment.
-    overlays:
-      - spec: "rate_limit_error"
-        text: "HTTP 429: Rate limit exceeded"
-        start_sec: 2.0
-        duration_sec: 2.5
-        position: "bottom_left"
-        track: "dev_glossary"
-      - spec: "cron_reset"
-        text: "cron(0 3 * * FRI)"
-        start_sec: 6.0
-        duration_sec: 2.0
-        position: "bottom_right"
-        track: "dev_glossary"
+    overlays: []
   - id: "s3"
     title: "The Handoff"
     duration_sec: 7
     sora_prompt: >
       9:16 vertical. Formal man steps aside revealing eager younger man bouncing on toes in hallway. Professional woman in bed completely bewildered as eager man waves enthusiastically. First man provides technical instructions about the replacement. Door closes gently on confused woman. 24fps, absurdist Hallmark comedy.
     overlays: []
-audio:
-  ambience: "bedroom_night"
-  stingers: ["scheduler_ping"]
 captions_cues: []

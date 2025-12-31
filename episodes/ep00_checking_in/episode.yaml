@@ -60,7 +60,4 @@ scenes:
       Dialogue:
       - (No dialogue - visual storytelling only)
     overlays: []
-audio:
-  ambience: "inn_fire_crackle"
-  stingers: []
 captions_cues: []

@@ -11,12 +11,12 @@ scenes:
       Test prompt for scene 1 with single overlay.
       9:16 vertical format, basic test scene.
     overlays:
-      - spec: "rate_limit_error"
-        text: "HTTP 429: Rate limit exceeded"
+      - spec: "scene_title"
+        text: "The First Meeting"
         start_sec: 2.0
         duration_sec: 2.5
         position: "bottom_left"
-        track: "dev_glossary"
+        track: "general"
 
   - id: "s2"
     title: "Scene with multiple overlays"
@@ -25,24 +25,24 @@ scenes:
       Test prompt for scene 2 with multiple overlays.
       9:16 vertical format, testing overlay stacking.
     overlays:
-      - spec: "cron_reset"
-        text: "cron(0 3 * * FRI)"
+      - spec: "location"
+        text: "Pinecrest Inn"
         start_sec: 1.0
         duration_sec: 2.0
         position: "bottom_right"
-        track: "dev_glossary"
-      - spec: "token_warning"
-        text: "Context window: 95% full"
+        track: "general"
+      - spec: "time_indicator"
+        text: "December 23rd, Evening"
         start_sec: 5.0
         duration_sec: 3.0
         position: "top_right"
-        track: "dev_glossary"
-      - spec: "model_switch"
-        text: "Switching to claude-3-opus..."
+        track: "general"
+      - spec: "scene_title"
+        text: "Chapter Two"
         start_sec: 8.0
         duration_sec: 2.5
         position: "top_left"
-        track: "dev_glossary"
+        track: "general"
 
   - id: "s3"
     title: "Scene without overlays"
@@ -51,8 +51,4 @@ scenes:
       Test prompt for scene 3 with no overlays.
       9:16 vertical format, clean scene.
     overlays: []
-
-audio:
-  ambience: "test_ambience"
-  stingers: ["test_stinger"]
 captions_cues: []

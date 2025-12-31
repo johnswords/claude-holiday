@@ -62,7 +62,4 @@ scenes:
       - Woman (genuine, 2.0–4.0s): "Nice to meet you, Claude."
       - (4.0–8.0s): Silent connection and processing moment
     overlays: []
-audio:
-  ambience: "town_carolers"
-  stingers: []
 captions_cues: []

@@ -1,11 +1,11 @@
 # CLAUDE HOLIDAY
 
-> An experiment in **community-composable media** — a 12-episode vertical micro-series parodying Hallmark holiday rom-coms through the lens of AI companionship.
+> An experiment in **community-composable media** — an 11-episode vertical micro-series parodying Hallmark holiday rom-coms through the lens of AI companionship.
 
 **Created by**: John Swords
 **Collaboration**: GPT-5 × Sora-2-Pro
-**Format**: 9:16 vertical · 24fps · ~25s per episode
-**Total Runtime**: ~5 minutes (12 episodes)
+**Format**: 9:16 vertical · 24fps · 25s per episode (all-in, includes 1s title card)
+**Total Runtime**: ~4.5 minutes (11 episodes × 25s)
 
 **What makes this different**: There is no single definitive version. Your cut is valid and referenceable.
 
@@ -47,13 +47,13 @@ uv run pre-commit install                         # Activate pre-commit hooks fo
 
 # Then run these five commands to create your cut:
 # 1. Generate multiple video candidates for each scene (saves cut ID)
-./ch candidates --recipe recipes/examples/dev-default.yaml
+./ch candidates --recipe recipes/prime-2025.yaml
 
 # 2. Pick your favorite takes from each scene (creates visual contact sheet)
 ./ch select --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
 
 # 3. Stitch your selections into final episodes with overlays
-./ch compile --recipe recipes/examples/dev-default.yaml
+./ch compile --recipe recipes/prime-2025.yaml
 
 # 4. Generate YouTube metadata (title, description, tags)
 ./ch ytmeta --cut-manifest output/cuts/<id>/manifest/cut.manifest.json
@@ -63,7 +63,7 @@ uv run pre-commit install                         # Activate pre-commit hooks fo
 ```
 
 **That's it.** You now have:
-- ✅ 12 compiled episodes (placeholder footage until renders added)
+- ✅ 11 compiled episodes (placeholder footage until renders added)
 - ✅ Your unique Cut URI (like a git commit hash for video)
 - ✅ Complete metadata and release package
 - ✅ Your timeline registered in the multiverse
@@ -157,7 +157,7 @@ The repository is designed to support **two modes**: content creation (making ep
 ```
 claude_holiday/
 ├── docs/                    # Master documentation
-│   ├── master_script.md     # Full 12-episode script
+│   ├── master_script.md     # Full 11-episode script
 │   ├── charter.md           # Community & composable media philosophy
 │   └── timelines.md         # Registry of community timelines
 ├── recipes/                 # RCFC recipe files
@@ -177,7 +177,6 @@ claude_holiday/
 ├── output/                  # Final deliverables
 │   ├── cuts/                # Generated cuts with manifests
 │   ├── episodes/
-│   ├── bonus/
 │   ├── full_series/
 │   └── social/
 └── pitch/                   # Pitch deck & marketing materials
@@ -208,8 +207,6 @@ claude_holiday/
 **Act 5: Resolution** (Ep 10-11)
 - **Ep 10**: "Opus Reloaded" — Claude returns, Olympus offer
 - **Ep 11**: "Platform Agnostic" — The empowered choice
-
-**Bonus**: Speed-dating outtakes (Percy, Gail, Larry, Quinn)
 
 ---
 
@@ -251,7 +248,7 @@ claude_holiday/
 
 2. **Create Your Recipe**
    ```bash
-   cp recipes/examples/dev-default.yaml recipes/my-timeline.yaml
+   cp recipes/examples/general-default.yaml recipes/my-timeline.yaml
    # Edit YAML: choose episodes, overlays, audience, provider
    ```
 
@@ -322,7 +319,7 @@ uv sync
 # Or use Makefile: make install
 
 # 4. Create your first cut using prebaked provider (placeholder mode)
-cp recipes/examples/dev-default.yaml recipes/my-first-cut.yaml
+cp recipes/examples/general-default.yaml recipes/my-first-cut.yaml
 
 # 5. Compile it (generates placeholder footage, no API keys needed)
 ./ch compile --recipe recipes/my-first-cut.yaml
@@ -546,7 +543,7 @@ You can generate multiple candidates per scene, review them, choose winners, and
 
 1) Generate candidates only (no stitching yet)
 ```bash
-./ch candidates --recipe recipes/examples/dev-default.yaml
+./ch candidates --recipe recipes/prime-2025.yaml
 # Note manifest path printed; keep the cut_id handy
 ```
 
@@ -566,7 +563,7 @@ Edit the YAML files to set `winner_index` per scene based on the HTML contact sh
 
 3) Compile using your selections (just run compile again; it picks up selections automatically)
 ```bash
-./ch compile --recipe recipes/examples/dev-default.yaml
+./ch compile --recipe recipes/prime-2025.yaml
 ```
 
 Tips:

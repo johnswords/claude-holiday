@@ -5,6 +5,8 @@ from typing import Any
 
 import pysubs2
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 
 def generate_captions(
     captions_cues: list[dict[str, Any]],
@@ -128,8 +130,8 @@ def generate_per_scene_captions(
             caption_files.append(
                 {
                     "scene_id": scene_id,
-                    "srt_path": str(caption_paths["srt"].relative_to(output_dir.parent.parent)),
-                    "ass_path": str(caption_paths["ass"].relative_to(output_dir.parent.parent)),
+                    "srt_path": str(caption_paths["srt"].relative_to(PROJECT_ROOT)),
+                    "ass_path": str(caption_paths["ass"].relative_to(PROJECT_ROOT)),
                 }
             )
 

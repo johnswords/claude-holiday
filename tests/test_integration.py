@@ -250,7 +250,6 @@ class TestFullPipeline:
         from scripts.compile_cut import (
             load_yaml,
             provider_from_recipe,
-            select_audience_config,
             validate_recipe,
         )
         from scripts.providers.base import RenderConfig
@@ -271,10 +270,8 @@ class TestFullPipeline:
         assert cfg.width > 0
         assert cfg.height > 0
 
-        # 4. Load audience config
+        # 4. Verify audience profile is valid (no longer loads separate config)
         audience = recipe.get("audience_profile", "general")
-        audience_cfg = select_audience_config(audience)
-        assert audience_cfg is not None
-        assert "style" in audience_cfg or "overlay_style" in audience_cfg or len(audience_cfg) >= 0
+        assert audience == "general"  # Only general audience supported now
 
         # Pipeline successfully initialized!

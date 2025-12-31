@@ -3,7 +3,7 @@
 This module provides reusable test fixtures for:
 - RCFC recipe validation
 - Episode manifest handling
-- Overlay configuration testing
+- Overlay configuration testing (general audience)
 """
 
 from __future__ import annotations
@@ -70,7 +70,7 @@ def base_recipe() -> dict[str, Any]:
 
 
 # =============================================================================
-# Overlay Fixtures - Valid Cases
+# Overlay Fixtures - Valid Cases (General Audience)
 # =============================================================================
 
 
@@ -78,12 +78,12 @@ def base_recipe() -> dict[str, Any]:
 def valid_overlay_single() -> dict[str, Any]:
     """A single valid overlay configuration (episode manifest format)."""
     return {
-        "spec": "rate_limit_error",
-        "text": "HTTP 429: Rate limit exceeded",
+        "spec": "scene_title",
+        "text": "The First Meeting",
         "start_sec": 2.0,
         "duration_sec": 2.5,
         "position": "bottom_left",
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -91,9 +91,9 @@ def valid_overlay_single() -> dict[str, Any]:
 def valid_overlay_for_ffmpeg() -> dict[str, Any]:
     """A single valid overlay in FFmpeg-ready format (for apply_overlays)."""
     return {
-        "name": "rate_limit_ping",
+        "name": "scene_title",
         "type": "text",
-        "text": "HTTP 429",
+        "text": "Chapter One",
         "position": "top_right",
         "start_sec": 5.0,
         "duration_sec": 2.0,
@@ -109,28 +109,28 @@ def valid_overlay_multiple() -> list[dict[str, Any]]:
     """Multiple valid overlays on the same scene (episode manifest format)."""
     return [
         {
-            "spec": "rate_limit_error",
-            "text": "HTTP 429: Rate limit exceeded",
+            "spec": "scene_intro",
+            "text": "The Journey Begins",
             "start_sec": 2.0,
             "duration_sec": 2.5,
             "position": "bottom_left",
-            "track": "dev_glossary",
+            "track": "general",
         },
         {
-            "spec": "cron_reset",
-            "text": "cron(0 3 * * FRI)",
+            "spec": "location",
+            "text": "Pinecrest Inn",
             "start_sec": 6.0,
             "duration_sec": 2.0,
             "position": "bottom_right",
-            "track": "dev_glossary",
+            "track": "general",
         },
         {
-            "spec": "token_count",
-            "text": "tokens: 127,834 / 200,000",
+            "spec": "time_indicator",
+            "text": "December 23rd",
             "start_sec": 4.0,
             "duration_sec": 3.0,
             "position": "top_right",
-            "track": "dev_glossary",
+            "track": "general",
         },
     ]
 
@@ -146,7 +146,7 @@ def valid_overlay_all_positions() -> list[dict[str, Any]]:
             "start_sec": i * 2.0,
             "duration_sec": 1.5,
             "position": pos,
-            "track": "dev_glossary",
+            "track": "general",
         }
         for i, pos in enumerate(positions)
     ]
@@ -166,7 +166,7 @@ def invalid_overlay_missing_text() -> dict[str, Any]:
         "start_sec": 2.0,
         "duration_sec": 2.5,
         "position": "bottom_left",
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -179,7 +179,7 @@ def invalid_overlay_missing_position() -> dict[str, Any]:
         "start_sec": 2.0,
         "duration_sec": 2.5,
         # "position" is missing
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -191,7 +191,7 @@ def invalid_overlay_missing_timing() -> dict[str, Any]:
         "text": "Some overlay text",
         # "start_sec" and "duration_sec" are missing
         "position": "bottom_left",
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -204,7 +204,7 @@ def invalid_overlay_bad_position() -> dict[str, Any]:
         "start_sec": 2.0,
         "duration_sec": 2.5,
         "position": "center",  # Invalid: must be top_left, top_right, bottom_left, bottom_right
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -217,7 +217,7 @@ def invalid_overlay_negative_timing() -> dict[str, Any]:
         "start_sec": -1.0,  # Invalid: negative start time
         "duration_sec": 2.5,
         "position": "bottom_left",
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -230,7 +230,7 @@ def invalid_overlay_zero_duration() -> dict[str, Any]:
         "start_sec": 2.0,
         "duration_sec": 0,  # Invalid: zero duration
         "position": "bottom_left",
-        "track": "dev_glossary",
+        "track": "general",
     }
 
 
@@ -253,12 +253,12 @@ def episode_manifest_with_overlays() -> dict[str, Any]:
                 "sora_prompt": "Test prompt for scene 1",
                 "overlays": [
                     {
-                        "spec": "rate_limit_error",
-                        "text": "HTTP 429: Rate limit exceeded",
+                        "spec": "scene_title",
+                        "text": "The First Meeting",
                         "start_sec": 2.0,
                         "duration_sec": 2.5,
                         "position": "bottom_left",
-                        "track": "dev_glossary",
+                        "track": "general",
                     }
                 ],
             },
@@ -269,20 +269,20 @@ def episode_manifest_with_overlays() -> dict[str, Any]:
                 "sora_prompt": "Test prompt for scene 2",
                 "overlays": [
                     {
-                        "spec": "cron_reset",
-                        "text": "cron(0 3 * * FRI)",
+                        "spec": "location",
+                        "text": "Pinecrest Inn",
                         "start_sec": 1.0,
                         "duration_sec": 2.0,
                         "position": "bottom_right",
-                        "track": "dev_glossary",
+                        "track": "general",
                     },
                     {
-                        "spec": "token_warning",
-                        "text": "Context window: 95% full",
+                        "spec": "time_indicator",
+                        "text": "December 23rd, Evening",
                         "start_sec": 5.0,
                         "duration_sec": 3.0,
                         "position": "top_right",
-                        "track": "dev_glossary",
+                        "track": "general",
                     },
                 ],
             },
@@ -294,7 +294,6 @@ def episode_manifest_with_overlays() -> dict[str, Any]:
                 "overlays": [],
             },
         ],
-        "audio": {"ambience": "test_ambience", "stingers": []},
         "captions_cues": [],
     }
 
@@ -321,7 +320,6 @@ def episode_manifest_without_overlays() -> dict[str, Any]:
                 "overlays": [],
             },
         ],
-        "audio": {"ambience": "test_ambience", "stingers": []},
         "captions_cues": [],
     }
 
@@ -361,9 +359,9 @@ def ffmpeg_overlay_spec_single() -> dict[str, Any]:
     return {
         "overlays": [
             {
-                "name": "rate_limit_ping",
+                "name": "scene_title",
                 "type": "text",
-                "text": "HTTP 429",
+                "text": "Chapter One",
                 "position": "top_right",
                 "start_sec": 5.0,
                 "duration_sec": 2.0,
@@ -382,9 +380,9 @@ def ffmpeg_overlay_spec_multiple() -> dict[str, Any]:
     return {
         "overlays": [
             {
-                "name": "rate_limit_ping",
+                "name": "scene_title",
                 "type": "text",
-                "text": "HTTP 429",
+                "text": "The Beginning",
                 "position": "top_right",
                 "start_sec": 2.0,
                 "duration_sec": 2.0,
@@ -394,9 +392,9 @@ def ffmpeg_overlay_spec_multiple() -> dict[str, Any]:
                 "padding": 12,
             },
             {
-                "name": "cron_job",
+                "name": "location",
                 "type": "text",
-                "text": "cron(0 3 * * FRI)",
+                "text": "Pinecrest Village",
                 "position": "bottom_left",
                 "start_sec": 6.0,
                 "duration_sec": 3.0,

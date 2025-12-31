@@ -5,7 +5,7 @@ Episode manifests define the content structure for each episode. They live at `e
 ## Relationship to RCFC
 
 - **RCFC recipes** define *how* to compile (provider, overlays, audience)
-- **Episode manifests** define *what* to compile (scenes, prompts, audio)
+- **Episode manifests** define *what* to compile (scenes, prompts, overlays)
 
 This separation allows the same episode content to be compiled differently based on recipe configuration.
 
@@ -22,7 +22,6 @@ scenes: array          # Ordered list of scene objects
 ### Optional Fields
 
 ```yaml
-audio: object          # Ambient sounds and stingers
 captions_cues: array   # Caption timing hints (usually empty)
 ```
 
@@ -151,33 +150,6 @@ Overlays are only rendered when the RCFC recipe enables overlays and matches the
       track: "dev_glossary"
 ```
 
-## Audio Configuration
-
-Audio defines ambient sounds and stinger effects for the episode:
-
-```yaml
-audio:
-  ambience: string       # Ambient sound identifier
-  stingers: array        # List of stinger sound identifiers
-```
-
-### Common Ambience Values
-
-- `inn_fire_crackle` — Cozy fireplace ambience
-- `town_carolers` — Distant holiday carolers
-- `bedroom_night` — Quiet nighttime room tone
-- `inn_lobby_night` — Night lobby atmosphere
-
-### Stingers
-
-Stingers are short sound effects triggered at specific moments:
-
-```yaml
-stingers: ["scheduler_ping", "clock_chime"]
-```
-
-Audio assets are resolved from `assets/audio/` during compilation.
-
 ## Captions Cues
 
 The `captions_cues` field provides timing hints for caption generation. Usually left empty as captions are derived from dialogue timing in prompts:
@@ -214,7 +186,6 @@ scenes:
         2.0–5.0   pacing left-right 3 steps; gesticulation with left hand
         5.0–6.5   phone lowered; sharp exhale; eyes close; shoulder drop 3 inches
         6.5–8.0   innkeeper rises behind desk; warm smile forms
-      AUDIO — fire crackle ambience + wind gust at door; muffled phone voice
       CONTINUITY — charcoal coat/auburn hair consistent; avoid signage/legible text
       Dialogue:
       - Woman (frustrated, 2.0–5.0s): "Yes, I'll have the deck reviewed by Monday!"
@@ -234,9 +205,6 @@ scenes:
       Dialogue:
       - (No dialogue - visual storytelling only)
     overlays: []
-audio:
-  ambience: "inn_fire_crackle"
-  stingers: []
 captions_cues: []
 ```
 

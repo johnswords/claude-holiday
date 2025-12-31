@@ -1,9 +1,0 @@
-# Valid overlay configuration - single overlay
-# Used for testing basic overlay parsing and application
-
-spec: "rate_limit_error"
-text: "HTTP 429: Rate limit exceeded"
-start_sec: 2.0
-duration_sec: 2.5
-position: "bottom_left"
-track: "dev_glossary"

@@ -13,7 +13,7 @@ project:
   repo_url: "https://github.com/johnswords/claude_holiday"
 source:
   commit_sha: "HEAD"
-# MISSING: audience_profile (should be "general", "dev", or "custom")
+# MISSING: audience_profile (should be "general")
 scope:
   include_episodes:
     - "ep00_checking_in"
