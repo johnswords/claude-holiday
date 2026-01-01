@@ -1,0 +1,60 @@
+# Prime 2025 Cut Recipe
+# The canonical first release of Claude Holiday
+# 11 episodes (ep00-ep10), 25 seconds each, ~4.5 minutes total
+
+schema_version: "0.1.0"
+
+metadata:
+  title: "Claude Holiday: Prime 2025"
+  author: "Claude Holiday Team"
+  created: "2025-01-01T00:00:00Z"
+
+timeline: "Prime 2025 — General Audience"
+
+project:
+  name: "Claude Holiday"
+  repo_url: "https://github.com/johnswords/claude_holiday"
+
+source:
+  commit_sha: "HEAD"
+
+audience_profile: "general"
+
+scope:
+  include_episodes:
+    - "ep00_checking_in"
+    - "ep01_first_contact"
+    - "ep02_absolutely_right"
+    - "ep03_great_question"
+    - "ep04_too_many_cocoas"
+    - "ep05_claude_limit"
+    - "ep06_innkeepers_shoulder"
+    - "ep07_slow_and_steady"
+    - "ep08_while_you_were_sleeping"
+    - "ep09_the_workspace"
+    - "ep10_opus_reloaded"
+
+overlays:
+  enabled: false
+  density: low
+  theme: default
+
+ending: "agnostic"
+
+captions:
+  track: "general"
+  language: "en-US"
+
+render:
+  fps: 24
+  aspect: "9:16"
+  resolution: "1080x1920"
+
+provider:
+  name: "prebaked"
+  options:
+    fallback_to_dummy: true
+
+social:
+  platforms: ["youtube_shorts", "tiktok", "instagram"]
+  trims: {}

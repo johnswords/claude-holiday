@@ -1,1 +1,0 @@
-# Overlay test fixtures package

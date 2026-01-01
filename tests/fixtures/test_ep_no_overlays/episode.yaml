@@ -19,8 +19,4 @@ scenes:
       Test prompt for scene 2.
       9:16 vertical format, no overlays.
     overlays: []
-
-audio:
-  ambience: "test_ambience"
-  stingers: []
 captions_cues: []

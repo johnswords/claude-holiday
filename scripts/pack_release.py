@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -16,14 +17,20 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def collect_assets(cut_manifest: dict[str, Any], include: list[str]) -> list[Path]:
     assets: list[Path] = []
-    # Always include manifest
-    manifest_path = Path("output") / "cuts" / cut_manifest["cut_id"] / "manifest" / "cut.manifest.json"
+    # Always include manifest (required)
+    manifest_path = PROJECT_ROOT / "output" / "cuts" / cut_manifest["cut_id"] / "manifest" / "cut.manifest.json"
+    if not manifest_path.exists():
+        raise FileNotFoundError(f"Required manifest not found: {manifest_path}")
     assets.append(manifest_path)
 
     episodes = cut_manifest.get("episodes", [])
     if "episodes" in include:
         for ep in episodes:
-            assets.append(Path(ep["video_path"]))
+            video_path = PROJECT_ROOT / ep["video_path"]
+            if video_path.exists():
+                assets.append(video_path)
+            else:
+                print(f"[WARN] Episode video not found, skipping: {video_path}", file=sys.stderr)
 
     # Include captions if requested
     if "captions" in include:
@@ -33,25 +40,41 @@ def collect_assets(cut_manifest: dict[str, Any], include: list[str]) -> list[Pat
             if "episode_captions" in captions:
                 ep_caps = captions["episode_captions"]
                 if "srt_path" in ep_caps:
-                    assets.append(Path(ep_caps["srt_path"]))
+                    srt_path = PROJECT_ROOT / ep_caps["srt_path"]
+                    if srt_path.exists():
+                        assets.append(srt_path)
+                    else:
+                        print(f"[WARN] Caption not found, skipping: {srt_path}", file=sys.stderr)
                 if "ass_path" in ep_caps:
-                    assets.append(Path(ep_caps["ass_path"]))
+                    ass_path = PROJECT_ROOT / ep_caps["ass_path"]
+                    if ass_path.exists():
+                        assets.append(ass_path)
+                    else:
+                        print(f"[WARN] Caption not found, skipping: {ass_path}", file=sys.stderr)
             # Per-scene captions
             if "scene_captions" in captions:
                 for scene_cap in captions["scene_captions"]:
                     if "srt_path" in scene_cap:
-                        assets.append(Path(scene_cap["srt_path"]))
+                        srt_path = PROJECT_ROOT / scene_cap["srt_path"]
+                        if srt_path.exists():
+                            assets.append(srt_path)
+                        else:
+                            print(f"[WARN] Caption not found, skipping: {srt_path}", file=sys.stderr)
                     if "ass_path" in scene_cap:
-                        assets.append(Path(scene_cap["ass_path"]))
+                        ass_path = PROJECT_ROOT / scene_cap["ass_path"]
+                        if ass_path.exists():
+                            assets.append(ass_path)
+                        else:
+                            print(f"[WARN] Caption not found, skipping: {ass_path}", file=sys.stderr)
 
     # Placeholder: series/full compilation can be added later
 
     # YouTube metadata (if created by yt/metadata.py)
-    ytm = Path("output") / "cuts" / cut_manifest["cut_id"] / "manifest" / "youtube.metadata.json"
+    ytm = PROJECT_ROOT / "output" / "cuts" / cut_manifest["cut_id"] / "manifest" / "youtube.metadata.json"
     if ytm.exists():
         assets.append(ytm)
 
-    return [PROJECT_ROOT / a for a in assets]
+    return assets
 
 
 def build_release_bundle(cut_manifest_path: Path, include: list[str], out_dir: Path) -> Path:

@@ -86,7 +86,7 @@ The system uses OpenAI's image generation model:
 
 Generating a full set (4 images): ~$0.06
 
-For a 12-episode series with unique thumbnails: ~$0.24
+For an 11-episode series with unique thumbnails: ~$0.22
 
 ## Best Practices
 

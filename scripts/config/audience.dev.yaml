@@ -1,7 +1,0 @@
-overlays:
-  enabled: true
-  density: medium
-  theme: "default"
-captions:
-  track: "dev_glossary"
-  language: "en-US"

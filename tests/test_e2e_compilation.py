@@ -295,9 +295,9 @@ class TestE2ECompilation:
 
         hash1 = compute_rcfc_hash(minimal_recipe)
 
-        # Change the audience profile
+        # Change the overlay settings
         modified_recipe = minimal_recipe.copy()
-        modified_recipe["audience_profile"] = "dev"
+        modified_recipe["overlays"] = {"enabled": True, "density": "high", "theme": "default"}
 
         hash2 = compute_rcfc_hash(modified_recipe)
 
@@ -599,19 +599,6 @@ class TestProviderIntegration:
 
 class TestRecipeValidationE2E:
     """End-to-end tests for recipe validation."""
-
-    def test_real_dev_recipe_validates(self):
-        """Test that the actual dev-default recipe passes validation."""
-        from scripts.compile_cut import load_yaml, validate_recipe
-
-        recipe_path = PROJECT_ROOT / "recipes" / "examples" / "dev-default.yaml"
-        if not recipe_path.exists():
-            pytest.skip("Dev default recipe not found")
-
-        recipe = load_yaml(recipe_path)
-
-        # Should not raise
-        validate_recipe(recipe)
 
     def test_fixture_recipe_validates(self):
         """Test that the test fixture recipe passes validation."""

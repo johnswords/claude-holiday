@@ -13,7 +13,7 @@ import jsonschema
 import yaml
 from jsonschema import ValidationError
 
-from scripts.apply_overlays import apply_overlays
+from scripts.apply_overlays import _has_audio_stream, apply_overlays
 from scripts.generate_captions import generate_captions, generate_per_scene_captions
 from scripts.providers.base import Provider, RenderConfig
 from scripts.providers.dummy import DummyProvider
@@ -87,14 +87,6 @@ def provider_from_recipe(recipe: dict[str, Any]) -> Provider:
     raise ValueError(f"Unsupported provider '{name}' (supported: prebaked, dummy, sora)")
 
 
-def select_audience_config(audience: str) -> dict[str, Any]:
-    cfg_dir = PROJECT_ROOT / "scripts" / "config"
-    path = cfg_dir / f"audience.{audience}.yaml"
-    if not path.exists():
-        raise FileNotFoundError(f"Audience config not found: {path}")
-    return load_yaml(path)
-
-
 def load_series_config() -> dict[str, Any]:
     cfg_path = PROJECT_ROOT / "scripts" / "config" / "series.yaml"
     return load_yaml(cfg_path)
@@ -113,8 +105,6 @@ def ffmpeg_concat(
     fps: int,
     width: int,
     height: int,
-    ambience_path: Path | None = None,
-    _ambience_lufs: float = -18.0,
 ) -> None:
     preflight_check()
 
@@ -137,18 +127,14 @@ def ffmpeg_concat(
         str(concat_file),
     ]
 
-    # Add ambience input if provided
-    audio_filter = None
-    if ambience_path and ambience_path.exists():
-        cmd.extend(["-stream_loop", "-1", "-i", str(ambience_path)])
-        # Mix ambience (input 1) with video audio (input 0) at specified LUFS
-        # amix: mix two audio streams
-        # shortest=1: end when shortest input ends (video)
-        # weights: adjust ambience volume to target LUFS (~-18 LUFS is roughly 0.1 to 0.15 weight)
-        audio_filter = "[0:a][1:a]amix=inputs=2:duration=shortest:weights=1 0.125[aout]"
-        cmd.extend(["-filter_complex", audio_filter, "-map", "0:v", "-map", "[aout]"])
-    else:
+    # Check if clips have audio (Sora clips have audio via prompts; dummy clips are silent)
+    has_audio = clips and _has_audio_stream(clips[0])
+
+    if has_audio:
         cmd.extend(["-map", "0:v", "-map", "0:a"])
+    else:
+        # No audio stream in clips - output video only
+        cmd.extend(["-map", "0:v", "-an"])
 
     # Video and audio encoding settings
     cmd.extend(
@@ -185,7 +171,6 @@ def compile_episode(
     episode_id: str,
     recipe: dict[str, Any],
     render_cfg: RenderConfig,
-    _audience_cfg: dict[str, Any],
     cut_id: str,
     font_path: str | None = None,
     series_cfg: dict[str, Any] | None = None,
@@ -324,31 +309,12 @@ def compile_episode(
         )
         return ready_flag, {}
 
-    # Resolve ambience audio path from episode manifest
-    ambience_path = None
-    audio_cfg = manifest.get("audio", {})
-    ambience_name = audio_cfg.get("ambience")
-    if ambience_name:
-        audio_series_cfg = series_cfg.get("audio", {})
-        ambience_dir = audio_series_cfg.get("ambience_dir", "assets/audio/ambience")
-        ambience_lufs = float(audio_series_cfg.get("target_lufs", -18.0))
-        # Support common audio formats
-        for ext in [".mp3", ".wav", ".m4a", ".aac", ".ogg"]:
-            candidate = PROJECT_ROOT / ambience_dir / f"{ambience_name}{ext}"
-            if candidate.exists():
-                ambience_path = candidate
-                break
-    else:
-        ambience_lufs = -18.0
-
     ffmpeg_concat(
         scene_outputs,
         out_path,
         fps=render_cfg.fps,
         width=render_cfg.width,
         height=render_cfg.height,
-        ambience_path=ambience_path,
-        _ambience_lufs=ambience_lufs,
     )
 
     # Generate captions from episode-level or per-scene cues
@@ -394,7 +360,6 @@ def compile_cut(recipe_path: Path) -> Path:
 
     series_cfg = load_series_config()
     audience = recipe.get("audience_profile", "general")
-    audience_cfg = select_audience_config(audience)
 
     fps = int((recipe.get("render") or {}).get("fps", series_cfg.get("fps", 24)))
     resolution = (recipe.get("render") or {}).get("resolution", series_cfg.get("resolution", "1080x1920"))
@@ -419,7 +384,6 @@ def compile_cut(recipe_path: Path) -> Path:
             episode_id=ep,
             recipe=recipe,
             render_cfg=render_cfg,
-            _audience_cfg=audience_cfg,
             cut_id=cut_id,
             font_path=font_path,
             series_cfg=series_cfg,
@@ -493,8 +457,8 @@ def main() -> None:
         print(f"[VALIDATION ERROR] {e.message}", file=sys.stderr)
         sys.exit(1)
     except subprocess.CalledProcessError as e:
-        # Surface ffmpeg errors nicely
-        sys.stderr.write(e.stderr.decode("utf-8", errors="ignore") if e.stderr else str(e) + "\n")
+        # Surface ffmpeg errors nicely (stderr is already a string due to text=True)
+        sys.stderr.write(e.stderr if e.stderr else str(e) + "\n")
         sys.exit(2)
 
 

@@ -19,7 +19,4 @@ scenes:
     sora_prompt: >
       9:16 vertical. Close-up of professional woman's face trying not to laugh, then pull back to show both standing awkwardly on snowy street. She asks for napkin, he processes the request with visible latency. Snow falls heavily between them creating romantic visual while interaction is uncomfortably robotic. 24fps, Hallmark cinematography with absurdist undertone.
     overlays: []
-audio:
-  ambience: "sleigh_bells"
-  stingers: []
 captions_cues: []

@@ -19,7 +19,4 @@ scenes:
     sora_prompt: >
       9:16 vertical. Handsome man takes charge, directing young man to supervised workspace. Professional woman finally relaxes. Through window, ominous corporate figure in dark suit crosses snowy town square with briefcase. Subtle tension as threat approaches. Morning light beginning outside. 24fps, romantic safety meets corporate menace.
     overlays: []
-audio:
-  ambience: "inn_lobby_night"
-  stingers: ["clock_chime"]
 captions_cues: []

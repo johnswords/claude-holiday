@@ -199,7 +199,7 @@ ffmpeg -f lavfi -i "color=size=640x480:rate=1:color=black" \
 Check the error message for the specific path and requirement:
 
 ```
-[VALIDATION ERROR] Recipe validation failed at 'audience_profile': 'tech' is not one of ['general', 'dev']
+[VALIDATION ERROR] Recipe validation failed at 'audience_profile': 'tech' is not one of ['general']
 Schema requirement: properties.audience_profile.enum
 Provided value: tech
 ```
@@ -208,7 +208,7 @@ Compare your recipe against the example:
 
 ```bash
 # View a working example
-cat recipes/examples/dev-default.yaml
+cat recipes/prime-2025.yaml
 ```
 
 Required top-level fields:
@@ -216,7 +216,7 @@ Required top-level fields:
 - `metadata` (with `title` and `created`)
 - `project` (with `name` and `repo_url`)
 - `source` (with `commit_sha`)
-- `audience_profile` (`"general"` or `"dev"`)
+- `audience_profile` (`"general"`)
 - `scope` (with `include_episodes` array)
 - `overlays` (with `enabled`, `density`, `theme`)
 - `ending` (`"agnostic"` or `"meta"`)
@@ -226,19 +226,17 @@ Required top-level fields:
 
 ---
 
-### Issue: `Invalid audience_profile` - must be "general" or "dev"
+### Issue: `Invalid audience_profile` - must be "general"
 
-**Cause:** The `audience_profile` field only accepts two values.
+**Cause:** The `audience_profile` field currently only accepts `"general"`.
 
 **Solution:**
 
 ```yaml
-# Valid options
-audience_profile: "general"  # For general audience
-audience_profile: "dev"      # For developer audience with technical overlays
+audience_profile: "general"  # General audience (the default)
 ```
 
-Each profile loads different caption tracks and overlay configurations from `scripts/config/audience.{profile}.yaml`.
+The profile loads caption tracks and overlay configurations from `scripts/config/audience.general.yaml`.
 
 ---
 

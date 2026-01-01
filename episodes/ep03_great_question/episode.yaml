@@ -19,7 +19,4 @@ scenes:
     sora_prompt: >
       9:16 vertical. Local man suddenly stiffens, holds his stomach in discomfort, mutters technical jargon. Professional woman stares bewildered as he jogs awkwardly toward restrooms. Christmas market background. She's frozen mid-sip of cocoa, completely confused. Snow falling. 24fps, comedic Hallmark timing with absurd undertone.
     overlays: []
-audio:
-  ambience: "christmas_market"
-  stingers: []
 captions_cues: []

@@ -1,7 +1,7 @@
 [project]
 name = "holiday-media"
 version = "0.1.0"
-description = "Community-composable media — a 12-episode vertical micro-series parodying Hallmark holiday rom-coms through AI companionship"
+description = "Community-composable media — an 11-episode vertical micro-series parodying Hallmark holiday rom-coms through AI companionship"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [

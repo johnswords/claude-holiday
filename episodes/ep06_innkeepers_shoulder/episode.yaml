@@ -19,7 +19,4 @@ scenes:
     sora_prompt: >
       9:16 vertical. Close intimate two-shot of innkeeper and professional woman in booth. He leans forward with understanding, she's surprised by the depth of connection. Firelight flickers on their faces. Emotional moment of recognition. She realizes he truly understands her journey. 24fps, Hallmark romantic tension building.
     overlays: []
-audio:
-  ambience: "inn_bar_fire"
-  stingers: []
 captions_cues: []

@@ -21,25 +21,21 @@ RCFC describes how to compile a specific "cut" of Claude Holiday from episode ma
   - `repo_url` (string)
 - `source` (object):
   - `commit_sha` (string) — git commit used
-- `audience_profile` (string): "general" | "dev"
+- `audience_profile` (string): "general"
 - `scope` (object):
   - `include_episodes` (array of strings) — e.g., ["ep00_checking_in"]
-  - `include_bonus` (array of strings, optional)
 - `overlays` (object):
   - `enabled` (boolean)
   - `density` (string): "low" | "medium" | "high"
   - `theme` (string)
 - `ending` (string): "agnostic" | "meta"
 - `captions` (object):
-  - `track` (string): "general" | "dev_glossary"
+  - `track` (string): "general"
   - `language` (string): "en-US"
 - `render` (object):
   - `fps` (integer): e.g., 24
   - `aspect` (string): "9:16"
   - `resolution` (string): "1080x1920"
-- `audio` (object, optional):
-  - `ambiences` (array of strings)
-  - `stingers` (array of strings)
 - `provider` (object):
   - `name` (string): "prebaked" | "dummy" | "sora"
   - `options` (object): provider-specific options
@@ -63,16 +59,16 @@ project:
   repo_url: "https://github.com/YOURNAME/claude_holiday"
 source:
   commit_sha: "<git sha here>"
-audience_profile: "dev"
+audience_profile: "general"
 scope:
   include_episodes: ["ep00_checking_in"]
 overlays:
-  enabled: true
-  density: medium
-  theme: brass
+  enabled: false
+  density: low
+  theme: default
 ending: "agnostic"
 captions:
-  track: "dev_glossary"
+  track: "general"
   language: "en-US"
 render:
   fps: 24

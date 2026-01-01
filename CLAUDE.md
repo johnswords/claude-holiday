@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Claude Holiday** is a community-composable media project — a 12-episode vertical micro-series parodying Hallmark holiday rom-coms through the lens of AI companionship. The unique innovation is that there's no single canonical version: each "cut" (compiled interpretation) is equally valid and gets a deterministic Cut URI for reference.
+**Claude Holiday** is a community-composable media project — an 11-episode vertical micro-series parodying Hallmark holiday rom-coms through the lens of AI companionship. Each episode runs 25 seconds all-in (includes 1s title card). The unique innovation is that there's no single canonical version: each "cut" (compiled interpretation) is equally valid and gets a deterministic Cut URI for reference.
 
 **Core Philosophy:**
 - Config-driven compilation via RCFC (Recipe-Cut Format Configuration) YAML recipes
@@ -39,7 +39,7 @@ uv run pre-commit install
 ### Running Commands
 ```bash
 # Option 1: Use the unified CLI
-./ch compile --recipe recipes/examples/dev-default.yaml
+./ch compile --recipe recipes/prime-2025.yaml
 ./ch candidates --recipe <recipe>
 ./ch select --cut-manifest <manifest>
 ./ch bundle --cut-manifest <manifest>
@@ -159,7 +159,7 @@ claude_holiday/
 ### Create a New Cut
 ```bash
 # Copy example recipe
-cp recipes/examples/dev-default.yaml recipes/my-cut.yaml
+cp recipes/examples/general-default.yaml recipes/my-cut.yaml
 
 # Edit YAML (episodes, overlays, audience, provider)
 # ... edit recipes/my-cut.yaml ...

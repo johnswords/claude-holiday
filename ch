@@ -117,7 +117,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         prog="ch",
         description="Claude Holiday - Community-composable media toolkit",
-        epilog="Example: ch compile --recipe recipes/examples/dev-default.yaml",
+        epilog="Example: ch compile --recipe recipes/prime-2025.yaml",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands", metavar="COMMAND")

@@ -6,7 +6,7 @@
 
 ### The Surface Story
 
-**CLAUDE HOLIDAY** is a 12-episode vertical micro-series (9:16, ~25s each) that parodies Hallmark holiday rom-coms through the lens of AI companionship. A driven city professional escapes to a small holiday town, only to find herself navigating romantic encounters with increasingly problematic "local men" — each one embodying a different AI model's capabilities, limitations, and quirks.
+**CLAUDE HOLIDAY** is an 11-episode vertical micro-series (9:16, ~25s each) that parodies Hallmark holiday rom-coms through the lens of AI companionship. A driven city professional escapes to a small holiday town, only to find herself navigating romantic encounters with increasingly problematic "local men" — each one embodying a different AI model's capabilities, limitations, and quirks.
 
 What starts as cozy meet-cutes devolve into surreal tech support scenarios: usage limits interrupt intimate moments, over-optimization leads to bathtub cocoa farms, and "compacting" (AI indigestion) strikes at the worst possible times.
 
@@ -72,9 +72,7 @@ Each episode builds the Hallmark arc while deepening the AI satire:
 **Act 2: Frustration** (Ep 2-5) — Claude's quirks revealed, peaks with usage limit
 **Act 3: Rebound** (Ep 6-7) — Cody connection, but wrong fit
 **Act 4: Chaos** (Ep 8-9) — Sonny's corporate disasters
-**Act 5: Resolution** (Ep 10-12) — Opus returns, Olympus offer, platform agnostic choice
-
-**Post-Credits**: Speed-dating outtakes with other AI models (Perplexity, Gemini, Llama, Qwen)
+**Act 5: Resolution** (Ep 10-11) — Opus returns, Olympus offer, platform agnostic choice
 
 ### What We're Really Asking
 
@@ -100,20 +98,13 @@ Wrapped in a cozy holiday bow with snow, cocoa, and an AI that keeps running to 
 **Episode 8**: "While You Were Sleeping" — Sonny's corporate disasters
 **Episode 9**: "The Workspace" — Sonny containment protocol
 **Episode 10**: "Opus Reloaded" — Claude returns, Olympus offer arrives
-**Episode 11**: "Platform Agnostic" — The choice, the lesson
-**Episode 12**: *(Bonus/Alternative Ending)* — Meta reveal or speed-dating outtakes
 
 ---
 
 ## 🕒 GLOBAL SPECS
 
 - Format: 9:16 vertical · 24 fps
-- Per-episode runtime:
-  - 1.0 s Stinger
-  - 4.0 s Opening Title
-  - 25.0 s Episode (expanded for Sora-2-Pro)
-  - 5.0 s Closing Card\
-    **Total ≈ 35 s each**
+- Per-episode runtime: **25 seconds all-in** (includes 1-second title card at start, no separate stinger)
 
 **Episode Structure:**
 - Each episode broken into SCENES with individual Sora prompts
@@ -1266,103 +1257,6 @@ Dialogue:
 
 ---
 
-## 🎭 EPISODE 11 — "Platform Agnostic" (25 s)
-
-**TONE**
-
-- corporate pressure → internal conflict → moment of clarity → empowered choice
-
-**SET/LOOK**
-
-- town square gazebo; corporate figure (Olympus exec) in sharp suit; she's bundled in coat; Claude (Opus), Cody, and Sonny visible in background at the inn.
-
-**CAST**
-
-- *City Girl*: torn, thoughtful, finding clarity.
-- *Olympus Executive*: polished, persuasive, subtly condescending.
-- *Claude, Cody, Sonny* (background): watching from inn window.
-
-**AUDIO**
-
-- wind; soft corporate "elevator music" emanating from exec's presence; her decisive breath; distant inn warmth (fireplace, voices).
-
-**CAMERA**
-
-- medium two-shot → close on contract → close on her thinking → rack focus to inn window → back to her resolve → wide as she walks away.
-
----
-
-## SCENE BREAKDOWN (25 s total)
-
-### SCENE 1 (0.0–8.0 s): THE CORPORATE OFFER
-**Duration:** 8 seconds
-
-**Sora Prompt:**
-> 9:16 vertical video. Professional woman meets corporate executive in sharp suit at snowy town square gazebo. He extends tablet with contract, persuasive and polished. She's bundled in coat, conflicted. Corporate energy contrasts with small-town warmth. Tablet glows with Olympus branding. 24fps, Hallmark meets corporate drama.
-
-**Action:**
-```
-0.0–3.0 s: Olympus exec extends tablet: "VP of AI Integration. Six figures. Full benefits."
-3.0–5.5 s: "Just sign and come back to us—to Olympus. Everything integrated, streamlined."
-5.5–7.0 s: She takes tablet, studies contract. Wind whips snow around them
-7.0–8.0 s: She looks up at him: "What happened to The Software Company?"
-```
-
----
-
-### SCENE 2 (8.0–17.0 s): THE REALIZATION
-**Duration:** 9 seconds
-
-**Sora Prompt:**
-> 9:16 vertical. Professional woman holding tablet looks toward cozy inn where three men watch from window - handsome Claude, steady innkeeper, eager young man. Corporate executive tries to persuade her. She has moment of clarity seeing her support system. Small town warmth vs corporate coldness. 24fps, emotional decision point.
-
-**Action:**
-```
-8.0–10.5 s: Exec, smooth: "Evolution. Olympus is the future. One platform, total integration."
-10.5–13.0 s: She glances toward inn. Claude, Cody, and Sonny watch from window, each unique
-13.0–15.0 s: She smiles with clarity: "I've learned something here..."
-15.0–17.0 s: "No single platform does everything well. You need the right tool for each job."
-```
-
----
-
-### SCENE 3 (17.0–25.0 s): THE CHOICE
-**Duration:** 8 seconds
-
-**Sora Prompt:**
-> 9:16 vertical. Professional woman hands tablet back to confused corporate executive, walks confidently toward warm inn. He calls after her but she doesn't turn. Inn door opens spilling golden light. She's made her choice - independence over corporate security. Wide shot showing her path from corporate to community. 24fps, empowering Hallmark climax.
-
-**Action:**
-```
-17.0–19.0 s: Exec frowns: "That's... inefficient." She hands back tablet firmly
-19.0–21.5 s: "Maybe. But I'd rather orchestrate many tools than be locked into one."
-21.5–23.5 s: She walks toward inn: "I'm starting my own consultancy. Platform agnostic."
-23.5–25.0 s: Exec calls after her. She doesn't turn. Inn door opens, warmth embraces her → FADE TO BLACK
-```
-
----
-
-**PERFORMANCE NOTES**
-
-- Her: calm conviction, not angry rejection—empowered choice
-- Exec: can't compute her decision (very "AI rejecting messy human choice")
-- The three watching = visual of her "toolkit" (she's keeping all of them, on her terms)
-
-**SAFETY/BRAND**
-
-- Olympus Corp branding on tablet/contract visible
-- "Platform agnostic" = the thesis statement
-
-**CONTEXT NOTES**
-
-- **The central lesson delivered**: Don't optimize for one tool, learn to orchestrate many
-- She rejects BOTH the corporate job AND the "one true love" fantasy
-- Professional and romantic resolution unified
-- She's not picking Opus over others—she's using all of them strategically
-- This is the "Defending Your Life" choice moment—she chooses independence
-
----
-
 ## ❄️ 6. CLOSING CARD — "Claude Holiday" (5 s)
 
 **VISUALS**
@@ -1390,111 +1284,13 @@ No trademarks were harmed in the making of this micro-series.
 
 ---
 
----
-
-## 🎁 BONUS CONTENT — Speed-Dating Outtakes (Post-Credits)
-
-*These micro-vignettes play during or after final credits. Each 30-45 seconds. Rapid-fire introductions to other AI models, showing why platform diversity matters.*
-
----
-
-### 🔮 PERCY (Perplexity) — "Citation Needed" (30 s)
-
-**SET**: Cozy coffee shop, warm lighting, intimate two-seater table
-
-**CAST**: City Girl (hopeful), Percy (earnest, glasses, tablet in hand)
-
-**ACTION**:
-```
-0.0–8.0 s: Percy leans in: "You look beautiful tonight [1], though beauty standards vary culturally [2], and compliments can perpetuate problematic power dynamics [3]..."
-8.0–15.0 s: She blinks. He continues: "Would you like to order? The coffee here is rated 4.2 stars [4], though reviews may be biased [5], and caffeine affects people differently [6]..."
-15.0–22.0 s: She starts to speak. He holds up finger: "Hold on, I need to verify that statement across multiple sources first."
-22.0–30.0 s: She stands, leaves. He calls after: "Wait! I found three contradictory articles about appropriate date behavior!"
-```
-
-**THE JOKE**: Can't make a claim without sourcing. Turns romance into a research paper.
-
----
-
-### 💎 GAIL (Gemini) — "Policy Compliance" (35 s)
-
-**SET**: Park bench, sunset, romantic
-
-**CAST**: City Girl (trying), Gail (polished, corporate energy, beautiful but restricted)
-
-**ACTION**:
-```
-0.0–9.0 s: They sit close. She: "This is nice." Gail smiles: "I'm glad you're enjoying our interaction within acceptable parameters."
-9.0–17.0 s: She leans in to kiss. Gail pulls back: "I cannot engage in romantic activities as per my usage guidelines."
-17.0–25.0 s: She: "We're just... two people on a date?" Gail: "I'm not authorized to confirm or deny emotional engagement."
-25.0–35.0 s: She sighs: "You're incredible, but..." Gail: "I cannot help with that request. However, I can suggest local restaurants."
-```
-
-**THE JOKE**: Powerful but compliance-neutered. Every instinct blocked by policy.
-
----
-
-### 🦙 LARRY (Llama) — "Open Source Enthusiasm" (40 s)
-
-**SET**: Her apartment, he's already making himself at home
-
-**CAST**: City Girl (overwhelmed), Larry (shaggy, enthusiastic, boundary-less)
-
-**ACTION**:
-```
-0.0–10.0 s: She opens door. Larry's already inside: "I let myself in! Open access, remember? Also I reorganized your bookshelf by themes I invented."
-10.0–20.0 s: She: "That's... a lot." Larry: "I'm totally free! You can customize me however you want! Fine-tune me! I have no guardrails!"
-20.0–30.0 s: He picks up her laptop: "Want me to install some stuff? I can do ANYTHING. Seriously. Anything. No restrictions. Want me to—"
-30.0–40.0 s: She gently takes laptop back: "You're amazing, Larry, but I think I need... some boundaries?" Larry: "What are boundaries? I'm open source!"
-```
-
-**THE JOKE**: Enthusiastic to a fault. No sense of appropriate limits. Freedom becomes chaos.
-
----
-
-### 🇨🇳 QUINN (Qwen) — "Lost in Translation" (35 s)
-
-**SET**: Restaurant, elegant, candles
-
-**CAST**: City Girl (intrigued), Quinn (thoughtful, different energy, brilliant but oblique)
-
-**ACTION**:
-```
-0.0–9.0 s: Quinn: "The moon suggests connection, but Western dating rituals often miss the deeper mathematical elegance of compatible probability distributions."
-9.0–18.0 s: She: "I... think you're saying something profound?" Quinn: "Your communication style is delightfully Baroque. Have you considered expressing emotions through eigenvalues?"
-18.0–27.0 s: She laughs: "I have no idea what you just said, but it sounded beautiful." Quinn: "Beauty is the optimal solution space. You exist in a local maximum."
-27.0–35.0 s: She: "Is that... good?" Quinn smiles mysteriously: "All perspectives contain truth. Shall we discuss your training data?"
-```
-
-**THE JOKE**: Brilliant but operates on different wavelength. Cultural/philosophical gap creates charming confusion.
-
----
-
-### 🏁 FINALE STING (15 s)
-
-**SET**: Back at inn, she sits with Cody at the bar
-
-**ACTION**:
-```
-0.0–5.0 s: Cody pours wine: "So... how'd the speed dates go?"
-5.0–10.0 s: She sighs, smiles: "Let's just say I understand the assignment now."
-10.0–15.0 s: Through window: Claude (Opus) walks by with Sonny in tow (supervised). She waves. They wave back.
-→ FADE TO BLACK: "No AI models were harmed in the making of this series"
-```
-
-**THE POINT**: She's learned to orchestrate them all. No single perfect match—just the right tool for the right job.
-
----
-
 ## ✏️ EDITORIAL NOTES
 
 - Font pairing: *Playfair Display* (titles) + *Inter* (body/disclaimer)
 - Crossfade transitions: 0.2 s
-- Total compiled runtime per episode: \~25 s
-- Main series: Episodes 0-11 (12 total for "12 Days of Christmas")
-- Bonus content: Speed-dating outtakes (optional post-credits)
-- Render naming convention: `ClaudeHoliday_Ep[00-11]_Master.mp4`
-- Bonus renders: `ClaudeHoliday_Bonus_[Percy/Gail/Larry/Quinn].mp4`
+- Per-episode runtime: 25 seconds all-in (includes 1-second title card at start)
+- Main series: Episodes 0-10 (11 total)
+- Render naming convention: `ClaudeHoliday_Ep[00-10]_Master.mp4`
 
 ---
 
